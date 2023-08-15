@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowCliente"  position="center" width="80%" height="90%" closable="true"  sizable="true"
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto" maximizable="true" 
+         viewModel="@id('vm') @init('imp.controladoresview.CalculadoraViewModel1')">
+    
+    <caption label="Lista de materiales General, Compaginado, Digital" style="font-weight:bold"
+    /> 
+    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic">
+                <iframe id="ifrreportp" width="100%" height="15px" style="border: 1px solid gray"/>
+            </auxheader>    
+        </auxhead>
+        
+        <auxhead>
+            <auxheader colspan="5" class="topic">
+                
+                                            
+                <datebox compact="true" buttonVisible="true" lenient="true" format="dd/MM/yyyy" id="dtRecep111" width="100px" value="@bind(vm.fechaInicio)" constraint="no empty: Ingrese su fecha de nacimiento."/>
+               
+                <datebox compact="true" buttonVisible="true" lenient="true" format="dd/MM/yyyy" id="dtRecep222" width="100px" value="@bind(vm.fechaFin)" constraint="no empty: Ingrese su fecha de nacimiento."/>
+           
+                <button  image="/imagenes/buscar1.png" onClick="@command('obternerMateriales')"  tooltiptext="Busqueda de materiales"/>
+                <separator bar="true"/>
+                <button  image="/imagenes/file_xls.png" onClick="@command('exportarExcel')"  tooltiptext="Informe excel de materiales"/>
+            </auxheader>    
+        </auxhead>
+        <columns>                               
+            <column label="" width="40%" align="left"/>
+            <column label="" width="60%"/>
+                   
+        </columns>
+                     
+        <rows >
+
+            <row>
+                <cell colspan="2">
+                    <listbox id="ExcelExp" model="@load(vm.listaDetalleCotizacionFechas)"
+                             nonselectableTags="*"  width="100%">
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>                      
+                        <listhead>
+                            <listheader width="10%"  label="# COTIZACION" align="left"  /> 
+                            <listheader width="10%"  label="CANTIDAD" align="left"  /> 
+                            <listheader width="40%"  label="MATERIAL" align="left"  /> 
+                            <listheader width="20%"  label="TIPO MATERIAL" align="left" />
+                            <listheader width="20%"  label="COSTO" align="left" />
+                                                                                              
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>
+                                    <textbox value="@bind(each.codCotizacion.cotNumero)" width="80%" />
+                                </listcell>
+                                <listcell>
+                                    <textbox value="@bind(each.detPliegos)" width="80%" />
+                                </listcell>
+                                <listcell>
+                                    <textbox value="@bind(each.recorteMaterial.materiales.matNombre)" width="80%" />
+                                </listcell>
+                                <listcell>
+                                    <textbox value="@bind(each.recorteMaterial.materiales.matTipo)" width="80%" />
+                                </listcell>
+                                <listcell>
+                                    <textbox value="@bind(each.recorteMaterial.materiales.matCosto)" width="80%" />
+                                </listcell>
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                                                       
+                </cell>                 
+            </row>
+            
+        </rows>
+                  
+    </grid> 
+                    
+                  
+</window>

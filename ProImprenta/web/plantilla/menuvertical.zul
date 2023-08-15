@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:n="native" >
+ <hbox spacing="0">
+    <menubar  id="menubar" orient="vertical" autodrop="true">
+<!--        <menu label="Hardware">
+            <menupopup>
+                <menu label="Mainboard CPU &amp; RAM">
+                    <menupopup>
+                        <menuitem label="AMD" onClick="alert(self.label)" />
+                        <menuitem label="Intel" onClick="alert(self.label)" />
+                        <menuitem label="Others" onClick="alert(self.label)" />
+                    </menupopup>
+                </menu>
+               
+                </menupopup>
+            </menu>-->
+             
+            <menuitem label="Prueba" onClick="alert(self.label)" src="/imagenes/ico_buscar.png" style="font-size:px" >
+                
+             
+            </menuitem>
+            <menuitem label="Prueba" onClick="alert(self.label)"></menuitem>
+            <menuitem label="Prueba" onClick="alert(self.label)"></menuitem>
+            <menuitem label="Prueba" onClick="alert(self.label)"></menuitem>
+            <menuitem label="Prueba" onClick="alert(self.label)"></menuitem>
+            <menuitem label="Prueba" onClick="alert(self.label)"></menuitem>
+             
+        
+             
+    
+      
+        </menubar>
+    </hbox>
+</zk>

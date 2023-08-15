@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowContacto"  position="center" width="800px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.ContactoViewModel')">
+    
+    <caption label="Contacto del cliente" style="font-weight:bold"
+    /> 
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.ContactoViewModel')" width="100%">
+        <tabbox id="tboxPrincipal"  width="100%">
+            <tabs >
+                <tab label="Información de contacto" sclass="menutabs" image="/imagenes/page.png"/>       
+                <tab label="Nuevo Contacto" sclass="menutabs" image="/imagenes/page.png"/>       
+            </tabs>
+            <tabpanels >
+                
+                <tabpanel id="tabDocumentos" height="98%" width="100%"  >
+                    <listbox id="documentos"  model="@load(vm.listaPersonaContactos)" 
+                             nonselectableTags="*"  mold="paging" pageSize="5"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead>
+                            <auxheader colspan="9" >  
+                                <label value="Lista de contatos: " style="font-weight:bold"/>
+                            </auxheader>
+                        </auxhead>
+                    
+                        <listhead> 
+                            <listheader width="20%"  label="Nombre" /> 
+                            <listheader width="15%"  label="Convencional" />  
+                            <listheader width="15%"  label="Celular" />  
+                            <listheader width="35%"  label="Correo "  /> 
+                            <listheader width="15%"  label="Opciones"  /> 
+                            
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>
+                                    <textbox value="@bind(each.perConNombre)" onChange="self.setValue(self.getValue().toUpperCase().trim());" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <textbox value="@bind(each.perConTelefono)"  width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <textbox value="@bind(each.perConCelular)" width="96%"/>
+                                </listcell>  
+                                <listcell>
+                                    <textbox value="@bind(each.perConCorreo)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <button  image="/imagenes/eliminar.png"  onClick="@command('eliminarContacto',contacto=each)" tooltiptext="Eliminar contacto"/>
+                                    <button image="/imagenes/save_1.png"  onClick="@command('modificar',contacto=each)"  tooltiptext="Guardar contacto"/> 
+                                     
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                </tabpanel>
+                <tabpanel id="tabNuevo" height="98%" width="99%"  >
+                      
+                    <grid width="100%" >
+                        <auxhead>
+                            <auxheader colspan="5" class="topic">Registrar Contacto</auxheader>
+                        </auxhead>
+                        <columns>                               
+                            <column label="Etiquetas" width="40%" align="left"/>
+                            <column label="Descripcion" width="60%"/>                 
+                        </columns>
+                     
+                        <rows >
+                            <row>
+                                <cell colspan="1">
+                                    <label value="(*) " style="color:red;font-weight:bold"/>Nombre: 
+                                   
+                                </cell>
+                                <cell colspan="1">
+                                    <textbox width="70%" id="txtRuc" onChange="self.setValue(self.getValue().toUpperCase().trim());" value="@bind(vm.personaContacto.perConNombre)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                                </cell>
+                            </row>
+                            <row>     
+                                <cell colspan="1">
+                                    <label value="(*) " style="color:red;font-weight:bold"/>Telefono:
+                                </cell>
+                                <cell colspan="1">
+                                   <textbox width="40%" id="txtConvencional" value="@bind(vm.personaContacto.perConTelefono)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                                </cell>
+                            </row>
+                            <row>
+                                <cell colspan="1">
+                                     <label value="(*) " style="color:red;font-weight:bold"/>Celular: 
+                                </cell>
+                                <cell colspan="1">
+                                    <textbox width="40%" id="txtNombreComercial" value="@bind(vm.personaContacto.perConCelular)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                                </cell>
+                            </row>
+                            <row>
+                                <cell colspan="1">
+                                    <label value="(*) " style="color:red;font-weight:bold"/>Correo:
+                                </cell>
+                                <cell colspan="1">
+                                    <textbox width="70%" id="txtCelular" value="@bind(vm.personaContacto.perConCorreo)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                                </cell>
+                            </row>
+            
+                            <row>
+                                <cell align="center" colspan="4">
+                                    <hbox>
+                                        <button label="Guardar"  onClick="@command('guardar')"  tooltiptext="Guardar documento"/> 
+                                        <!--     <button label="Subir archivo" onClick="@command('subirArchivo1')"/>  
+                                        <button label="Abrir archivo"  onClick="@command('visorPDF')"  tooltiptext="Abrir documento"/>-->
+                                    </hbox>
+                
+                                </cell>  
+                            </row>
+                        </rows>
+                  
+                    </grid> 
+                </tabpanel>
+  
+            </tabpanels>
+            
+        </tabbox>
+        
+    </hbox>
+
+
+    
+  
+                    
+                  
+</window>

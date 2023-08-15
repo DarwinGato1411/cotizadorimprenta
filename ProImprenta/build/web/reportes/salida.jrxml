@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="salida" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="403"/>
+	<parameter name="cod_operacion" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT o.*, t.tip_operacion,p.*,u.*,c.*,us.usu_nombre_usuario
+FROM operacion o, tipo_operacion t, producto p, ubicacion u, categoria c,usuario_sistema  us
+WHERE o.cod_tipo_operacion=t.cod_tipo_operacion AND o.cod_producto=p.cod_producto AND o.cod_categoria=c.cod_categoria
+AND o.cod_ubicacion=u.cod_ubicacion AND o.id_usuario=us.cod_usuario_sistema
+AND t.cod_tipo_operacion=2 and  o.cod_operacion=$P{cod_operacion}]]>
+	</queryString>
+	<field name="cod_operacion" class="java.lang.Integer"/>
+	<field name="tip_cod_tipo_operacion" class="java.lang.Integer"/>
+	<field name="usu_id_usuario" class="java.lang.Integer"/>
+	<field name="pro_cod_producto" class="java.lang.Integer"/>
+	<field name="cod_categoria" class="java.lang.Integer"/>
+	<field name="id_solicita" class="java.lang.Integer"/>
+	<field name="cod_tipo_operacion" class="java.lang.Integer"/>
+	<field name="id_usuario" class="java.lang.Integer"/>
+	<field name="cod_producto" class="java.lang.Integer"/>
+	<field name="ope_catidad" class="java.math.BigDecimal"/>
+	<field name="ope_fecha" class="java.sql.Date"/>
+	<field name="ope_estado_producto" class="java.lang.String"/>
+	<field name="ope_nombre_despacho" class="java.lang.String"/>
+	<field name="ope_area_despacho" class="java.lang.String"/>
+	<field name="ope_concepo" class="java.lang.String"/>
+	<field name="ope_referencia" class="java.lang.String"/>
+	<field name="ope_factura" class="java.lang.String"/>
+	<field name="cod_ubicacion" class="java.lang.Integer"/>
+	<field name="ope_costo_ultima_compra" class="java.math.BigDecimal"/>
+	<field name="tip_operacion" class="java.lang.String"/>
+	<field name="prod_serie" class="java.lang.String"/>
+	<field name="prod_nombre" class="java.lang.String"/>
+	<field name="prod_costo_compra" class="java.math.BigDecimal"/>
+	<field name="prod_costo_venta" class="java.math.BigDecimal"/>
+	<field name="prod_valor_incial" class="java.math.BigDecimal"/>
+	<field name="prod_unidad_medida" class="java.lang.String"/>
+	<field name="prod_fecha_registro" class="java.sql.Date"/>
+	<field name="prod_cantidad_minima" class="java.math.BigDecimal"/>
+	<field name="prod_marca" class="java.lang.String"/>
+	<field name="ubi_nombre" class="java.lang.String"/>
+	<field name="cat_descripcion" class="java.lang.String"/>
+	<field name="usu_nombre_usuario" class="java.lang.String"/>
+	<background>
+		<band height="802" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="13" width="555" height="53"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#0099FF"/>
+					<topPen lineWidth="0.5" lineColor="#0099FF"/>
+					<leftPen lineWidth="0.0" lineColor="#0099FF"/>
+					<bottomPen lineWidth="0.0" lineColor="#0099FF"/>
+					<rightPen lineWidth="0.0" lineColor="#0099FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ORDEN DE DESPACHO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="298" y="0" width="257" height="20"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#0099FF"/>
+					<topPen lineWidth="0.0" lineColor="#0099FF"/>
+					<leftPen lineWidth="0.0" lineColor="#0099FF"/>
+					<bottomPen lineWidth="0.5" lineColor="#0099FF"/>
+					<rightPen lineWidth="0.0" lineColor="#0099FF"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Numero: "+ $F{cod_operacion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy" isBlankWhenNull="true">
+				<reportElement x="100" y="0" width="198" height="20"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#0099FF"/>
+					<topPen lineWidth="0.0" lineColor="#0099FF"/>
+					<leftPen lineWidth="0.0" lineColor="#0099FF"/>
+					<bottomPen lineWidth="0.5" lineColor="#0099FF"/>
+					<rightPen lineWidth="0.0" lineColor="#0099FF"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$F{ope_fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#0099FF"/>
+					<topPen lineWidth="0.0" lineColor="#0099FF"/>
+					<leftPen lineWidth="0.0" lineColor="#0099FF"/>
+					<bottomPen lineWidth="0.5" lineColor="#0099FF"/>
+					<rightPen lineWidth="0.0" lineColor="#0099FF"/>
+				</box>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha despacho:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="432" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="100" y="20" width="455" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{ope_catidad}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="100" y="40" width="455" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{prod_nombre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="100" y="80" width="161" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{prod_unidad_medida}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="20" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="40" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Producto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="80" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Unidad medida:]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="361" y="60" width="194" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{prod_marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="100" y="60" width="161" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{prod_serie}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="60" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código/Serie]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="261" y="60" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marca:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="261" y="80" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria:]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="361" y="80" width="194" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{cat_descripcion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="100" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado producto:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="261" y="100" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ubicacicón:]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="100" y="100" width="161" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ope_estado_producto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="361" y="100" width="194" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0" lineColor="#0099FF"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0" lineColor="#0099FF"/>
+				</box>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ubi_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="314" y="387" width="178" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ope_nombre_despacho}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="314" y="383" width="178" height="1"/>
+			</line>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="120" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Destino:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Solicitante:]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="100" y="0" width="455" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ope_nombre_despacho}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="100" y="120" width="455" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ope_area_despacho}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="140" width="100" height="35"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Observacion:]]></text>
+			</staticText>
+			<textField>
+				<reportElement stretchType="RelativeToBandHeight" x="100" y="140" width="455" height="35" isPrintWhenDetailOverflows="true"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ope_concepo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="175" width="261" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Informacion adicional:]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="195" width="555" height="99"/>
+			</rectangle>
+			<line>
+				<reportElement x="44" y="382" width="178" height="1"/>
+			</line>
+			<textField>
+				<reportElement x="44" y="387" width="178" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{usu_nombre_usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="44" y="407" width="178" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Responsable]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="314" y="407" width="178" height="14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Solicitante]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

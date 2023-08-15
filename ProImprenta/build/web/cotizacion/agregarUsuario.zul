@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowUsuario"  position="center" width="600px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.AgregarUsuarioViewModel')">
+    
+    <caption label="Registrar usuario" style="font-weight:bold"
+    /> 
+    
+    <div  class="container" >
+        <div  class="row" >
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group "  >
+                <label   style="color:red;font-weight:bold" value="(*) "  />Nombre del responsable
+                <textbox    value="@bind(vm.usuarioSistema.usuNombreUsuario)"
+                            class="form-control" />
+            </div>   
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group "  >
+                <label value="(*) "  style="color:red;font-weight:bold"/>Tipo de usuario
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                    
+                    <combobox class="badge badge-default   btn-secondary  textoFechaDateBox" 
+                              selectedItem="@bind(vm.tipoUSuario)">
+                        <comboitem label="Administrador" value="1" />
+                        <comboitem label="Cotizador" value="2" />
+                        <comboitem label="Operador" value="3" />
+                        <comboitem label="Facturacion" value="4" />
+                        <comboitem label="Produccion" value="5" />
+                    </combobox>
+         
+                </div>    
+            </div>         
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group "  >
+                <label value="(*) " style="color:red;font-weight:bold"/>:Usuario
+                
+                <textbox  value="@bind(vm.usuarioSistema.usuUsuario)"
+                          constraint="no empty: Campo requerido"
+                          class="form-control" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group "  >
+                <label value="(*)" style="color:transparent;font-weight:bold"/>Contraseña:
+              
+                <textbox  value="@bind(vm.usuarioSistema.usuContrasena)"
+                          class="form-control" />
+            </div> 
+            
+           
+                       
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                    
+                <image src="/iconos/save48.png"  
+                       onClick="@command('guardar')"
+                       tooltiptext="Guardar Registro"/>
+ 
+
+            </div> 
+        </div>
+   
+    </div>
+    
+    
+    
+    
+    
+    
+                    
+                  
+</window>

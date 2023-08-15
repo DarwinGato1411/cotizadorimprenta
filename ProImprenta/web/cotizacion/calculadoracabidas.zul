@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowCalculadora"  position="center" width="500px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" maximizable="true" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.CalculadoraViewModel1')">
+    
+    <caption label="Calculadora" style="font-weight:bold"
+    /> 
+    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic">Detalle</auxheader>
+        </auxhead>
+        <columns>                               
+            <column label="Etiquetas" width="40%" align="left"/>
+            <column label="Valor" width="60%"/>
+            <column label="Etiquetas" width="40%" align="left"/>
+            <column label="Valor" width="60%"/>
+                   
+        </columns>
+                     
+        <rows >
+           <row>
+                  
+                <cell colspan="1">
+                    <label value="Cantidad solicitada " style="font-weight:bold;"/>
+                                   
+                </cell>
+           
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.calcularCabida.cantidadSolicitada)"  style="font-weight:bold;"     width="98%"      sclass="textBoxMedio" />
+                </cell>
+                
+                <cell colspan="1">
+                    <!--<label value="(*) " style="font-weight:bold;"/>Largo total:--> 
+                                   
+                </cell>
+                
+                <cell colspan="1">
+                    <!--<decimalbox format="#########.####" value="@bind(vm.calcularCabida.largoTotal)"  style="font-weight:bold;"     width="98%"      sclass="textBoxMedio" />-->
+                </cell>
+            </row>
+            
+            
+            <row>
+                  
+                <cell colspan="1">
+                    <label value="Ancho total: (cm) " style="font-weight:bold;"/>
+                                   
+                </cell>
+           
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.calcularCabida.anchoTotal)"  style="font-weight:bold;"     width="98%"      sclass="textBoxMedio" />
+                </cell>
+                
+                <cell colspan="1">
+                    <label value="Largo total: (cm) " style="font-weight:bold;"/>
+                                   
+                </cell>
+                
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.calcularCabida.largoTotal)"  style="font-weight:bold;"     width="98%"      sclass="textBoxMedio" />
+                </cell>
+            </row>
+            
+            <row>
+                  
+                <cell colspan="1">
+                    <label value="Ancho descuento: (cm) " style="font-weight:bold;"/>
+                                   
+                </cell>
+           
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.calcularCabida.anchoDescuento)"  style="font-weight:bold;"     width="98%"      sclass="textBoxMedio" />
+                </cell>
+                
+                <cell colspan="1">
+                    <label value="Largo descuento: (cm)" style="font-weight:bold;"/>
+                                   
+                </cell>
+                
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.calcularCabida.largoDescuento)"  style="font-weight:bold;"     width="98%"      sclass="textBoxMedio" />
+                </cell>
+            </row>
+            
+            <row>
+                  
+                <cell colspan="1">
+                    <label value="Ancho requerido: (cm)" style="font-weight:bold;"/>
+                                   
+                </cell>
+           
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.calcularCabida.anchorequerido)"  style="font-weight:bold;"     width="98%"      sclass="textBoxMedio" />
+                </cell>
+                
+                <cell colspan="1">
+                    <label value="Largo requerido: (cm)" style="font-weight:bold;"/> 
+                                   
+                </cell>
+                
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.calcularCabida.largoRequerido)"  style="font-weight:bold;"     width="98%"      sclass="textBoxMedio" />
+                </cell>
+            </row>
+             
+            <row>
+                  
+                <cell colspan="1">
+                    <label value="Cantidad de cabidas: (u)" style="font-weight:bold;"/> 
+                                   
+                </cell>
+           
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.calcularCabida.numeroCabidas)"  style="font-weight:bold;"     width="98%"     sclass="textBoxMedio" />
+                </cell>
+                
+                <cell colspan="1">
+                    <label value="Cantidad de impresiones: (u)" style="font-weight:bold;"/> 
+                                   
+                </cell>
+                
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.calcularCabida.numeroPlacas)"  style="font-weight:bold;"     width="98%"      sclass="textBoxMedio" />
+                </cell>
+            </row>
+            
+            <row>
+                <cell align="center" colspan="4">
+                    <hbox>
+                        <button label="Calcular" image="/imagenes/calculator.png"  onClick="@command('calcularInformacion')"  tooltiptext="Calcular valores"/> 
+                        <button label="Nuevo" image="/imagenes/new.png"  onClick="@command('nuevo')"  tooltiptext="Calcular valores"/> 
+                    </hbox>
+                
+                </cell>  
+            </row>
+           
+        </rows>
+                  
+    </grid> 
+                    
+                  
+</window>

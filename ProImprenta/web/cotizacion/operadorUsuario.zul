@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowOperador"  position="center" width="600px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.ListaCotizacionesPub')">
+    
+    <caption label="Registrar usuario" style="font-weight:bold"
+    /> 
+    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic">Ingreso de la información del Usuario</auxheader>
+        </auxhead>
+        <columns>                               
+            <column label="Etiquetas" width="20%" align="left"/>
+            <column label="Descripcion" width="30%"/>
+            <column label="Etiquetas" width="20%" align="left"/>
+            <column label="Descripcion" width="30%"/>                   
+        </columns>
+                     
+        <rows >
+            
+<!--            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Nombre del Responsable:
+                </cell>
+                <cell colspan="1">
+                    <textbox  id="txtResponsable" value="@bind(vm.usuarioSistema.usuNombreUsuario)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                </cell>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Tipo de usuario:
+                </cell>
+                <cell colspan="1">
+                    <combobox id="cmbTipoUsuario" width="150px"
+                              selectedItem="@bind(vm.tipoUSuario)">
+                        <comboitem label="Administrador" value="1" />
+                        <comboitem label="Cotizador" value="2" />
+                        <comboitem label="Operador" value="3" />
+                    </combobox>
+                </cell>
+                               
+               
+            </row>-->
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Nombre del Usuario:
+                </cell>
+                <cell colspan="1">
+                    <textbox id="txtUsuario" value="@bind(vm.usuario)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                </cell>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Contraseña del usuario:
+                </cell>
+                <cell colspan="1">
+                    <textbox id="txtContras" value="@bind(vm.contrasena)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                </cell>
+                               
+               
+            </row>
+            
+            <row>
+                <cell align="center" colspan="4">
+                    <hbox>
+                        <button image="/imagenes/save_1.png"  onClick="@command('verificar')"  tooltiptext="Verificar usuario"/> 
+                    </hbox>
+                
+                </cell>  
+            </row>
+        </rows>
+                  
+    </grid> 
+                    
+                  
+</window>

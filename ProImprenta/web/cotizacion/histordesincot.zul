@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowClienteBuscar"  position="center" width="900px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.HistordSinCot')">
+    
+    <caption label="Historial" style="font-weight:bold"
+    /> 
+   
+    <listbox id="lstlienteASD"  model="@load(vm.listaSeguimientoAll)" 
+             nonselectableTags="*"  mold="paging" pageSize="4"  >
+        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+        
+        <listhead>     
+            <listheader width="15%"  label="Fecha" /> 
+            <listheader width="85%"  label="Detalle" /> 
+                            
+        </listhead>  
+                    
+        <template name="model">                                                            
+            <listitem>
+                <listcell>
+                    <datebox compact="true" readonly="true"  value="@bind(each.segFechaModifica)"
+                             buttonVisible="false" lenient="true" format="yyyy/MM/dd HH:mm:ss" width="98%"  />
+                                               
+                </listcell>
+                <listcell >
+                    <label value="@bind(each.segSinDescripcion)" width="96%" />
+                </listcell>
+               
+            </listitem>
+        </template>
+    </listbox>
+                     
+                  
+</window>

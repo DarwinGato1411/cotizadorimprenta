@@ -1,0 +1,1177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk  contentStyle="overflow:auto" with="100%" >
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.AdministrarRegistrosViewModel')" width="99%">
+        <tabbox id="tboxPrincipaltAB"  width="100%">
+             <tabs  >
+                 <tab label="INVENTARIO" sclass="menutabs" />
+                 <tab label="COTIZADOR" sclass="menutabs" />
+             </tabs >                
+         <tabpanels >
+           <tabpanel  height="98%" width="100%"  >  
+             <tabbox id="tboxPrincipal" orient="vertical"   width="100%">
+            <tabs width="100px" >
+                <tab label="ORGANIZAR" sclass="menutabs" /> 
+                <tab label="PRODUCTOS INVENTARIO" sclass="menutabs" /> 
+            </tabs>
+            <tabpanels >
+                <tabpanel  height="98%" width="100%"  >      
+                    <div class="row "  align="lefth">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-control  ">
+                            <div class="row " align="lefth">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12  ">
+                                    <image  src="/iconos/nuevo_pro-24.png"
+                                                  class="btn btn btn-secondary btn-sm "
+                                                  onClick="@command('nuevaCategoria')"
+                                                  tooltiptext="Nueva categoria"/>
+                                     
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12" align="start">
+                                    
+                                    <listbox   model="@load(vm.listaCategorias)" 
+                                                  nonselectableTags="*"  mold="paging" pageSize="10"  >
+                                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        
+                    
+                                        <listhead>     
+                                            <listheader width="90%"  label="CATEGORIA" />  
+                                            <listheader width="10%"  label="" />  
+                   
+
+                                        </listhead>  
+                    
+                                        <template name="model">                                                            
+                                            <listitem>
+                                                <listcell>    
+                                                    <textbox value="@bind(each.catDescripcion)" 
+                                                                onChange="self.setValue(self.getValue().toUpperCase());" 
+                                                                class="form-control form-control-sm" /> 
+                                    
+                                                     
+                                                </listcell>
+                                                <listcell>    
+                                                    <image   src="/iconos/editpar24x24.png"
+                                                                onClick="@command('modificarCategoria',valor=each)" 
+                                                                tooltiptext="Modificar categoria"/>
+                                                </listcell>
+                                
+
+                                            </listitem>
+                                        </template>
+                                    </listbox>
+                                </div>
+                            </div>
+                           
+                        </div>
+                        
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-control ">
+                           
+                            <div class="row " align="lefth">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12  ">
+                                    <image  src="/iconos/nuevo_pro-24.png"
+                                                   class="btn btn btn-secondary btn-sm "
+                                                   onClick="@command('nuevaUbicacion')"
+                                                   tooltiptext="Nueva ubicacion"/>
+                                     
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12" align="start">
+                                    
+                                    <listbox  model="@load(vm.listaUbicacions)" 
+                                                     nonselectableTags="*"  mold="paging" pageSize="10"  >
+                                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                                        <listhead>     
+                                            <listheader width="90%"  label="UBICACIONES" />  
+                                            <listheader width="10%"  label="" />  
+                    
+
+                                        </listhead>  
+                    
+                                        <template name="model">                                                            
+                                            <listitem>
+                                                <listcell>    
+                                                    <textbox value="@bind(each.ubiNombre)"
+                                                                    onChange="self.setValue(self.getValue().toUpperCase());" 
+                                                                    class="form-control form-control-sm" /> 
+                                                       
+                                                </listcell>
+                                                <listcell>  
+                                                    <image   src="/iconos/editpar24x24.png"
+                                                                   onClick="@command('modificarUbicacion',valor=each)" 
+                                                                   tooltiptext="Modificar ubicacion"/>
+                                                </listcell>
+
+                                            </listitem>
+                                        </template>
+                                    </listbox>
+                                </div>
+                            </div>
+                           
+                               
+                        </div> 
+                    </div>
+                                       
+                    
+                    
+                </tabpanel>
+
+                
+              <tabpanel  height="98%"   >    
+                    <div class="row "  align="lefth">
+                           <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  ">
+                               <div class="row " align="lefth">
+                                   <div class="col-12 col-sm-12 col-md-12 col-lg-12  ">
+                                          <image  src="/iconos/nuevo_pro-24.png"
+                                              class="btn btn btn-secondary btn-sm "
+                                              onClick="@command('nuevoProducto')"
+                                              tooltiptext="Nuevo producto"/>
+                                          <image  src="/iconos/excel1.png"
+                                              class="btn btn btn-secondary btn-sm "
+                                              onClick="@command('cargarInventarioInicial')"
+                                              tooltiptext="Cargar productos desde un archivo excel"/>
+                                     
+                                   </div>
+                                   <div class="col-12 col-sm-12 col-md-12 col-lg-12" align="start">
+                                       <listbox   model="@load(vm.listaProducto)" 
+                               nonselectableTags="*"  mold="paging" pageSize="10"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                    
+                        <listhead>     
+                            <listheader width="10%"  label="CODIGO" /> 
+                            <listheader width="25%"  label="NOMBRE " ></listheader> 
+                            <listheader width="10%"  label="COST COMPRA" />  
+                            <listheader width="10%"  label="COST VENTA" />  
+                            <!--<listheader width="10%"  label="CANT INICIAL" />-->  
+                            <listheader width="10%"  label="MEDIDA" />  
+                            <listheader width="10%"  label="FECHA" /> 
+                            <listheader width="10%"  label="CATEGORIA" /> 
+                            <listheader width="10%"  label="UBICACION" />  
+                            <listheader width="5%"  label="" />  
+                            
+                            
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>    
+                                    <label value="@bind(each.prodSerie)" width="96%" /> 
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.prodNombre)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <decimalbox format="###.##" readonly="true" 
+                                                value="@bind(each.prodCostoCompra)" width="96%" />
+                                </listcell>
+                        <listcell>
+                                    <decimalbox format="###.##" readonly="true" 
+                                                value="@bind(each.prodCostoVenta)" width="96%" />
+                                </listcell>
+
+                                <listcell>
+                                    <label value="@bind(each.prodUnidadMedida)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <datebox  readonly="true"  
+                                             value="@bind(each.prodFechaRegistro)"
+                                             buttonVisible="false" lenient="true"  format="medium" width="98%"  />
+                                               
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codCategoria.catDescripcion)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codUbicacion.ubiNombre)" width="96%" />
+                                </listcell>
+                                <listcell>    
+                                    <image   src="/iconos/editpar24x24.png"
+                                              onClick="@command('modificarProducto',valor=each)" 
+                                              tooltiptext="Modificar  producto"/>
+                                   
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                                   </div>
+                               </div>
+                           </div> 
+                    </div>               
+                    
+                    
+                </tabpanel>
+               
+               
+            </tabpanels>
+            
+              </tabbox>
+           </tabpanel>
+         <tabpanel  height="98%" width="100%"  >  
+            <tabbox orient="vertical" width="100%">
+             <tabs width="100px" >
+               
+                <tab label="CLIENTES" sclass="menutabs" /> 
+                <tab label="CABIDAS" sclass="menutabs" /> 
+                <tab label="CORTEZ" sclass="menutabs" /> 
+                <tab label="MATERIALES" sclass="menutabs" />
+                <tab label="ASIGNAR CORTE" sclass="menutabs" />
+                <tab label="TERCERIZADOS" sclass="menutabs" />
+                <tab label="TIPO DE TRABAJO" sclass="menutabs" />
+                <tab label="MANO DE OBRA" sclass="menutabs" />  
+                <tab label="PORCENTAJE UTILIDAD" sclass="menutabs" />  
+                <!--<tab label="Mailing publicidad" sclass="menutabs"/>-->  
+                <tab label="USUARIOS" sclass="menutabs" />
+            </tabs>
+            <tabpanels >
+                   
+                <tabpanel id="tabClientesAA" width="98%"  >
+                    <div class="row "  align="lefth">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  ">
+                            <div class="row " align="lefth">
+                                <div class="col-6 col-sm-6 col-md-3 col-lg-3  ">
+                                    <textbox value="@bind(vm.buscarCliente)" 
+                                                    class="form-control form-control-sm"
+                                                    tooltiptext="Razon Social"
+                                                    placeholder="Razon Social"
+                                                    onOK="@command('buscarClienteRazon')"
+                                                    onChange="self.setValue(self.getValue().toUpperCase());" />
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-3 col-lg-3  ">
+                                    <image  src="/iconos/nuevo_pro-24.png"
+                                                  class="btn btn btn-secondary btn-sm "
+                                                  onClick="@command('nuevoCliente')"
+                                                  tooltiptext="Cargar productos desde un archivo excel"/>
+                                     
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12" align="start">
+                                    <listbox id="lstlienteASD"  model="@load(vm.listaClientesAll)" 
+                                             nonselectableTags="*"  mold="paging" pageSize="25"  >
+                                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                    
+                                        <listhead> 
+                              
+                                            <listheader width="10%"   sort="auto(ruc)" >
+                                                <textbox value="@bind(vm.buscarCliente)" 
+                                                         class="form-control form-control-sm"
+                                                         tooltiptext="RUC"
+                                                         placeholder="RUC"
+                                                         onOK="@command('buscarCliente')"
+                                                         onChange="self.setValue(self.getValue().toUpperCase());" />
+                                
+                                            </listheader> 
+                                            <listheader width="25%"  sort="auto(nombreComercial)" >
+                                                <textbox value="@bind(vm.buscarNombreComercial)" 
+                                                         class="form-control form-control-sm"
+                                                         tooltiptext="Nombre Comercial"
+                                                         placeholder="Nombre Comercial"
+                                                         onOK="@command('buscarNombreComercial')"
+                                                         onChange="self.setValue(self.getValue().toUpperCase());" />
+                                            </listheader> 
+                            
+                                            <listheader width="10%"  label="Convencional"  />  
+                                            <listheader width="20%"  label="Dirección " sort="auto(direccion)"   /> 
+                                            <listheader width="20%"  label="Correo "  />        
+                                            <listheader width="5%"  label="" align="center"/>
+                                            <listheader width="5%"  label="" align="center"/>
+                                            <listheader width="5%"  label="" align="center"/>
+                            
+                                        </listhead>  
+                    
+                                        <template name="model">                                                            
+                                            <listitem>
+                               
+                                                <listcell>
+                                                    <label value="@bind(each.ruc)" width="96%" />
+                                                </listcell>
+                                                <listcell>
+                                                    <label value="@bind(each.nombreComercial)" width="96%" />
+                                                </listcell>
+                              
+                                                <listcell>
+                                                    <label value="@bind(each.telefono)" width="96%" />
+                                                </listcell>
+                                                <listcell>
+                                                    <label value="@bind(each.direccion)" width="96%"/>
+                                                </listcell>
+                                                <listcell>
+                                                    <label value="@bind(each.correo)" width="96%"/>
+                                                </listcell>
+                                                <listcell>    
+                                                    <image  src="/iconos/editar.png" 
+                                                           onClick="@command('modificarCliente',cliente=each)" 
+                                                           tooltiptext="Modificar cliente"/>
+                                                </listcell>
+                                                <listcell>    
+                                                    <image  src="/iconos/eliminar.png" 
+                                                           onClick="@command('eiminarClientes',eliminar=each)"  
+                                                           tooltiptext="Eliminar cliente"/>
+                                                </listcell>
+                                                <listcell>    
+                                                    <image  src="/iconos/inf.png" 
+                                                           onClick="@command('agregarContacto',cliente=each)"  
+                                                           tooltiptext="Agregar contactos"/>
+                                                </listcell>
+                                            </listitem>
+                                        </template>
+                                    </listbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </tabpanel>
+                
+                   
+                <tabpanel id="tabCabida1" height="98%" width="99%"  >
+                 
+                    <tabbox id="tboCabida22"  width="99%">
+                        <tabs >
+                            <tab label="Lista de Cabida" sclass="menutabs" />       
+                            <tab label="Nuevo Cabida" sclass="menutabs" />       
+                        </tabs>
+                        <tabpanels >
+                
+                            <tabpanel id="tabLstCabida" height="98%" width="100%"  >
+                   
+                                <listbox id="dCabida"  model="@load(vm.listaCabida)" 
+                                         nonselectableTags="*"  mold="paging" pageSize="5"  >
+                                    <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                                    <auxhead>
+                                        <auxheader align="center" colspan="4">  
+                                            <label value="Imagen: " style="font-weight:bold"/>
+                                        </auxheader>  
+                                    </auxhead>
+                                    <auxhead>
+                                        <auxheader  colspan="4">  
+                                            <label value="Buscar " style="font-weight:bold"/>
+                                            <textbox width="20%" value="@bind(vm.buscarCabidaLike)" onChanging="@command('buscarCabidaPosiblesLike',valor=event.value.toUpperCase())" />
+                                        </auxheader>  
+                                    </auxhead>
+                                    <auxhead>
+                                        <auxheader align="center" colspan="4">                             
+                                            <image content="@bind(vm.fotoCabida)" align="center" width="300px"  height="200px"/>
+                                        </auxheader>  
+                                    </auxhead>
+                    
+                                    <listhead> 
+                                        <listheader width="70%"  label="Descripción" />
+                                     
+                                        <listheader width="10%"  label="UxF" /> 
+                                        <listheader width="10%"  label="" /> 
+                                        <listheader width="10%"  label="" /> 
+                                    </listhead>  
+                    
+                                    <template name="model">                                                            
+                                        <listitem>
+                                            <listcell>
+                                                <label value="@bind(each.cabDescripcion)" width="96%" />
+                                            </listcell>
+                                      
+                                            <listcell>
+                                                <label value="@bind(each.cabUxf)" width="96%" />
+                                            </listcell>
+                              
+                                            <listcell>
+                                                <image src="/iconos/camara24x24.png"  class="grow"
+                                                       onClick="@command('verFotoCabida',cabida=each)" 
+                                                       tooltiptext="Ver imagen adjunto"/>     
+                                            </listcell>
+                                            <listcell>
+                                                <image src="/iconos/editar.png"  class="grow"
+                                                       onClick="@command('modificarArchivoCabida',cabida=each)" 
+                                                       tooltiptext="Modificar fotografia"/>     
+                                            </listcell>
+                                        </listitem>
+                                    </template>
+                                </listbox>
+                               
+                            </tabpanel>
+                            <tabpanel id="tabNuevoCabida" height="98%" width="99%"  >
+                      
+                                <grid width="100%" >
+                                    <auxhead>
+                                        <auxheader colspan="5" class="topic">Registrar Cabida </auxheader>
+                                    </auxhead>
+                                    <columns>                               
+                                        <column label="Etiquetas" width="40%" align="left"/>
+                                        <column label="Descripcion" width="60%"/>                 
+                                    </columns>
+                     
+                                    <rows >
+                                        <row>
+                                            <cell colspan="1">
+                                                <label value="(*) " style="color:red;font-weight:bold"/>Descripción: 
+                                   
+                                            </cell>
+                                            <cell colspan="1">
+                                                <textbox width="60%" id="txtCabDescri" onChange="self.setValue(self.getValue().toUpperCase());" value="@bind(vm.cabida.cabDescripcion)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                                            </cell>
+                                        </row>
+                                        <row>
+                                            <cell colspan="1">
+                                                <label value="(*) " style="color:red;font-weight:bold"/>UxF: 
+                                   
+                                            </cell>
+                                            <cell colspan="1">
+                                                <decimalbox id="txtUxfCabida" width="20%"  format="###.#####" value="@bind(vm.cabida.cabUxf)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> unidad
+                                            </cell>
+                                        </row>
+                                        <row>     
+                                            <cell colspan="1">
+                                                <label value="(*) " style="color:red;font-weight:bold"/>Fotografía:
+                                            </cell>
+                                            <cell colspan="1">
+                                                <image content="@bind(vm.fotoCabidaNueva)" align="center" width="150px"  height="100px"/>
+                                                <button label="Subir archivo" onClick="@command('subirArchivoCabida')"/>  
+                                            </cell>
+                                        </row>
+                            
+                                        <row>
+                                            <cell align="center" colspan="4">
+                                                <hbox>
+                                                    <button label="Guardar"  onClick="@command('guardarCabida')"  tooltiptext="Guardar cabida"/> 
+                                                </hbox>
+                
+                                            </cell>  
+                                        </row>
+                                    </rows>
+                  
+                                </grid>
+                            </tabpanel>
+  
+                        </tabpanels>
+            
+                    </tabbox>
+        
+                </tabpanel>
+                
+
+                
+                
+                
+                <tabpanel id="tabCortes2" height="98%" width="99%"  >
+                 
+                    <tabbox id="tboxCortes"  width="99%">
+                        <tabs >
+                            <tab label="Lista de Cortes" sclass="menutabs" />       
+                            <tab label="Nuevo Corte" sclass="menutabs" />       
+                        </tabs>
+                        <tabpanels >
+                
+                            <tabpanel id="tabLsitaCortes122" height="98%" width="100%"  >
+                   
+                                <listbox id="documentos12"  model="@load(vm.listaCortesPorMaterial)" 
+                                         nonselectableTags="*"  mold="paging" pageSize="5"  >
+                                    <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                                    <auxhead>
+                                        <auxheader align="center" colspan="3">  
+                                            <label value="Imagen: " style="font-weight:bold"/>
+                                        </auxheader>  
+                                    </auxhead>
+                                    <auxhead>
+                                        <auxheader  colspan="3">  
+                                            <label value="Buscar " style="font-weight:bold"/>
+                                            <textbox width="20%" value="@bind(vm.buscarCorteLike)" onChanging="@command('buscarCortesPosiblesLike',valor=event.value.toUpperCase())" />
+                                        </auxheader>  
+                                    </auxhead>
+                                    <auxhead>
+                                        <auxheader align="center" colspan="3">                             
+                                            <image content="@bind(vm.foto)" align="center" width="300px"  height="200px"/>
+                                        </auxheader>  
+                                    </auxhead>
+                    
+                                    <listhead> 
+                                        <listheader width="55%"  label="Descripción" />
+                                        <listheader width="10%"  label="Alto" /> 
+                                        <listheader width="10%"  label="Ancho" /> 
+                                        <listheader width="10%"  label="FXP" /> 
+                                        <listheader width="5%"  label="Ver adjunto" /> 
+                                        <listheader width="5%"  label="Opciones" /> 
+                                        <listheader width="5%"  label="Opciones" /> 
+                                        
+                                    </listhead>  
+                    
+                                    <template name="model">                                                            
+                                        <listitem>
+                                            <listcell>
+                                                <label value="@bind(each.cortDescripcion)" width="96%" />
+                                            </listcell>
+                                            <listcell>
+                                                <decimalbox   value="@bind(each.cortAlto)" width="96%" />
+                                            </listcell>
+                                            <listcell>
+                                                <decimalbox   value="@bind(each.cortAncho)" width="96%" />
+                                            </listcell>
+                                            <listcell>
+                                                <decimalbox   value="@bind(each.codFxp)" width="96%" />
+                                            </listcell>
+                                            
+                              
+                                            <listcell>
+                                                 <image src="/iconos/camara24x24.png"  class="grow"
+                                                       onClick="@command('verFoto',material=each)" 
+                                                       tooltiptext="Ver imagen adjunto"/>
+                                            </listcell>
+                                             <listcell>
+                                                <image  src="/iconos/editpar24x24.png" 
+                                                         onClick="@command('modificarCorte',corte=each)"  
+                                                         tooltiptext="Modificar corte"/>
+                                      </listcell>
+                                             <listcell>
+                                                <image src="/iconos/editar.png"
+                                                         onClick="@command('modificarArchivoCorte',corte=each)"  
+                                                         tooltiptext="Modificar imagen"/>
+                                            </listcell>
+                                        </listitem>
+                                    </template>
+                                </listbox>
+                               
+                            </tabpanel>
+                            <tabpanel id="tabNuevo" height="98%" width="99%"  >
+                      
+                                <grid width="100%" >
+                                    <auxhead>
+                                        <auxheader colspan="5" class="topic">Registrar corte </auxheader>
+                                    </auxhead>
+                                    <columns>                               
+                                        <column label="Etiquetas" width="40%" align="left"/>
+                                        <column label="Descripcion" width="60%"/>                 
+                                    </columns>
+                     
+                                    <rows >
+                                        <row>
+                                            <cell colspan="1">
+                                                <label value="(*) " style="color:red;font-weight:bold"/>Descripción: 
+                                   
+                                            </cell>
+                                            <cell colspan="1">
+                                                <textbox width="70%" id="txtDescripcionRecorte" onChange="self.setValue(self.getValue().toUpperCase());" value="@bind(vm.cortezPosibles.cortDescripcion)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                                            </cell>
+                                        </row>
+                                        <row>
+                                            <cell colspan="1">
+                                                <label value="(*) " style="color:red;font-weight:bold"/>Alto: 
+                                   
+                                            </cell>
+                                            <cell colspan="1">
+                                                <decimalbox  width="15%"  format="#####" value="@bind(vm.cortezPosibles.cortAlto)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> cm
+                                            </cell>
+                                        </row>
+                                        <row>
+                                            <cell colspan="1">
+                                                <label value="(*) " style="color:red;font-weight:bold"/>Ancho: 
+                                   
+                                            </cell>
+                                            <cell colspan="1">
+                                                <decimalbox  width="15%"  format="#####" value="@bind(vm.cortezPosibles.cortAncho)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> cm
+                                            </cell>
+                                        </row>
+                                        <row>
+                                            <cell colspan="1">
+                                                <label value="(*) " style="color:red;font-weight:bold"/>Formato por pliego: 
+                                   
+                                            </cell>
+                                            <cell colspan="1">
+                                                <decimalbox  width="15%"  format="#####" value="@bind(vm.cortezPosibles.codFxp)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> unidades
+                                            </cell>
+                                        </row>
+                                        <row>     
+                                            <cell colspan="1">
+                                                <label value="(*) " style="color:red;font-weight:bold"/>Fotografía:
+                                            </cell>
+                                            <cell colspan="1">
+                                                <image content="@bind(vm.foto1)" align="center" width="150px"  
+                                                       height="100px"/>
+                                                <button label="Subir archivo" 
+                                                        onClick="@command('subirArchivo')"/>  
+                                            </cell>
+                                        </row>
+                            
+                                        <row>
+                                            <cell align="center" colspan="4">
+                                                <hbox>
+                                                    <button label="Guardar"  onClick="@command('guardar')"  
+                                                            tooltiptext="Guardar documento"/> 
+                                                </hbox>
+                
+                                            </cell>  
+                                        </row>
+                                    </rows>
+                  
+                                </grid>
+                            </tabpanel>
+  
+                        </tabpanels>
+            
+                    </tabbox>
+        
+                </tabpanel>
+
+                <tabpanel id="tabMateriales1" height="98%" width="99%"  >
+                    <listbox id="materiales"  model="@load(vm.listaMaterialAll)" 
+                             nonselectableTags="*"  mold="paging" pageSize="25"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead>
+                            <auxheader colspan="9" >  
+                                <label value="Buscar material: "/>
+                                <space bar="false" /> 
+                                <textbox width="20%" value="@bind(vm.buscarMaterial)" onChanging="@command('buscarMaterial',valor=event.value.toUpperCase())" />
+                                <space bar="false" />                                 
+                                <label value="Nuevo material " style="font-weight:bold"/>
+                                <space bar="false" /> 
+                                <button label="Nuevo" image="/iconos/add.png"  onClick="@command('nuevoMaterial')"  tooltiptext="Nuevo material"/>
+                            </auxheader>
+                        </auxhead>
+                    
+                        <listhead>     
+                            <listheader width="40%"  label="Nombre del material" /> 
+                            <listheader width="15%"  label="Tipo de material" />  
+                            <listheader width="10%"  label="Alto" />  
+                            <listheader width="10%"  label="Ancho"  />
+                            <listheader width="10%"  label="Costo "  />  
+                            <listheader width="15%"  label="Opciones"  />       
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                              
+                                <listcell>
+                                    <label value="@bind(each.matNombre)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.matTipo)" width="96%"/>
+                                </listcell>  
+                                <listcell>
+                                    <label value="@bind(each.matAlto)" width="96%" /> cm
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.matAncho)" width="96%"/> cm
+                                </listcell>
+                                <listcell>
+                                    $ <decimalbox format="###.#######" readonly="true" value="@bind(each.matCosto)" width="96%"/>
+                                </listcell>
+                                <listcell>
+                                    <zk if="${each.matTipo=='IMPRESION'}">  
+                                        <button  image="/iconos/actualizar.png" onClick="@command('modificarMaterial',material=each)"  tooltiptext="Modificar material"/>
+                                    </zk>
+                                    <zk if="${each.matTipo=='OTROS'}">  
+                                        <button  image="/iconos/actualizar.png" onClick="@command('modificarMaterial',material=each)"  tooltiptext="Modificar material"/>
+                                    </zk>
+                                    <zk if="${each.matTipo=='GIGANTOGRAFIA'}">  
+                                        <button  image="/iconos/actualizar.png" onClick="@command('modificarMaterial',material=each)"  tooltiptext="Modificar material"/>
+                                    </zk>
+                                    <zk if="${each.matTipo=='DIGITAL'}">  
+                                        <button  image="/iconos/actualizar.png" onClick="@command('modificarMaterial',material=each)"  tooltiptext="Modificar material"/>
+                                    </zk>
+                                    <button  image="/iconos/picture_save.png" onClick="@command('cortesPosibles',material=each)"  tooltiptext="Agregar cortes posibles"/>
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                </tabpanel>
+           
+                
+                <tabpanel id="tabAsignarCorte" height="98%" width="99%"  > 
+                    <listbox id="AsignarCorte"  model="@load(vm.listadoCortesModelCombo)" 
+                             nonselectableTags="*"  
+                             checkmark="true"  multiple="true" onSelect="@command('seleccionarAsignarCortes')"  >
+                          <!--<custom-attributes org.zkoss.zul.listbox.rod="true"/>-->
+                    
+                    
+                        <auxhead>
+                            <auxheader colspan="9" >    
+                                <button label="Guardar" onClick="@command('grabarMaterialCorte')"></button>
+                                <label value="Buscar Materiales: "/>
+                                <space bar="false" /> 
+                                <textbox width="10%" value="@bind(vm.buscarMaterialParaAsignar)" onChanging="@command('buscarMaterialParaAsignarCortes',valor=event.value.toUpperCase())" />
+                                <space bar="false" />      
+                                <label value="Materiales buscados: "/>
+                                <combobox width="25%" model="@load(vm.listaMaterialParaAsignarCorte)"
+                                          selectedItem="@bind(vm.materialSeleccionadoParaAsignar)" readonly="true" >
+                                          
+                                    <template name="model">
+                                        <comboitem  label="@bind(each.matNombre)"/>
+                                    </template>                                      
+                                </combobox>                             
+                                <label value="MATERIAL SELECCIONADO: " style="font-weight:bold"/>
+                                <space bar="false" /> 
+                                <label value="@bind(vm.materialSeleccionadoParaAsignar.matNombre)"/>
+                            </auxheader>
+                           
+                        </auxhead>
+                        <auxhead>
+                            <auxheader align="center" colspan="9">                             
+                                <image content="@bind(vm.foto2)" align="center" width="300px"  height="200px"/>
+                            </auxheader>  
+                        </auxhead>
+                        <listhead>     
+                            <listheader width="5%"  label="" />  
+                            <listheader width="75%"  label="Descripcion" />  
+                            <listheader width="10%"  label="FXP" /> 
+                            <listheader width="10%"  label="Opciones"  />       
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>
+
+                                                    
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.cortDescripcion)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codFxp)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <image  src="/iconos/camara24x24.png" 
+                                             onClick="@command('verFotoAsignar',material=each)" 
+                                            tooltiptext="Ver Fotografia"/>
+                                     
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                    <grid>
+                        <rows>
+                            <row>
+                                <cell align="center">
+                                    <hbox>   
+                                        
+                                        <separator bar="true"/>             
+                                    </hbox>
+                
+                                </cell>              
+                            </row>
+                        </rows>
+                    </grid>    
+                </tabpanel>
+                <tabpanel id="tabCatalogoTercerizadoA" height="98%" width="100%"  >
+                   
+                    
+                    <div class="row "  align="lefth">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  ">
+                            <div class="row " align="lefth">
+                                <div class="col-6 col-sm-6 col-md-3 col-lg-3  ">
+                                    <textbox  value="@bind(vm.buscarTercearizado)" 
+                                                    class="form-control form-control-sm"
+                                                    tooltiptext="Tercerizado"
+                                                    placeholder="Nombre tercerizado"
+                                                    onOK="@command('buscarTercearizadoLike')"
+                                                    onChange="self.setValue(self.getValue().toUpperCase());" />
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-3 col-lg-3  ">
+                                    <image  src="/iconos/nuevo_pro-24.png"
+                                                  class="btn btn btn-secondary btn-sm "
+                                                  onClick="@command('nuevoTercearizado')"
+                                                  tooltiptext="Cargar productos desde un archivo excel"/>
+                                     
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12" align="start">
+                                    <listbox id="CatTipoercererizadoA"  model="@load(vm.listaTercearizadoNombre)" 
+                                         nonselectableTags="*"  mold="paging" pageSize="25"  >
+                                    <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                                    <listhead> 
+                                        <listheader width="95%"  label="Descripción" /> 
+                                        <listheader width="5%"  label="" /> 
+                                    </listhead>  
+                    
+                                    <template name="model">                                                            
+                                        <listitem>
+                                            <listcell>
+                                                <label value="@bind(each.terProveedor)" width="96%" />
+                                            </listcell>
+                              
+                                            <listcell>
+                                                 <image  src="/iconos/editar.png" 
+                                                           onClick="@command('modificarTercearizado',tercearizado=each)" 
+                                                           tooltiptext="Modificar tercerizado"/>
+
+                                            </listcell>
+                                        </listitem>
+                                    </template>
+                                </listbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                
+                               
+                            </tabpanel>
+                            <tabpanel id="tabTipoTrabajo" height="98%" width="99%"  >
+                                
+                                <div class="row "  align="lefth">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  ">
+                                        <div class="row " align="lefth">
+                                            <div class="col-6 col-sm-6 col-md-3 col-lg-3  ">
+                                                <textbox  value="@bind(vm.buscarTipoTrabajo)" 
+                                                         class="form-control form-control-sm"
+                                                         tooltiptext="Tipo de trabajo"
+                                                         placeholder="Tipo de trabajo"
+                                                         onOK="@command('buscarTipoTrabajoLike')"
+                                                         onChange="self.setValue(self.getValue().toUpperCase());" />
+                                            </div>
+                                            <div class="col-6 col-sm-6 col-md-3 col-lg-3  ">
+                                                <image  src="/iconos/nuevo_pro-24.png"
+                                                       class="btn btn btn-secondary btn-sm "
+                                                       onClick="@command('nuevoTipoTrabajo')"
+                                                       tooltiptext="Cargar productos desde un archivo excel"/>
+                                     
+                                            </div>
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12" align="start">
+                                                <listbox id="CatTipoTrabajo"  model="@load(vm.listatTipoTrabajos)" 
+                                                         nonselectableTags="*"  mold="paging" pageSize="25"  >
+                                                    <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                                    
+                    
+                                                    <listhead> 
+                                                        <listheader width="95%"  label="Descripción" /> 
+                                                        <listheader width="5%"  label="" /> 
+                                                    </listhead>  
+                    
+                                                    <template name="model">                                                            
+                                                        <listitem>
+                                                            <listcell>
+                                                                <label value="@bind(each.tipoDescripcion)" width="96%" />
+                                                            </listcell>
+                              
+                                                            <listcell>
+                                                               
+                                                                <image  src="/iconos/editar.png" 
+                                                                       onClick="@command('modificarTipoTrabajo',tipo=each)" 
+                                                                       tooltiptext="Tipo de trabajo"/>
+                                                            </listcell>
+                                                        </listitem>
+                                                    </template>
+                                                </listbox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                               
+                            </tabpanel>
+
+                
+                <tabpanel  height="98%" width="99%"  >
+                    <tabbox  width="99%">
+                        <tabs >
+                            <tab label="GENERAL COMPAGINADO" sclass="menutabs" />       
+                            <tab label="GIGANTOGRAFIA" sclass="menutabs" />       
+                        </tabs>
+                        <tabpanels >
+                
+                            <tabpanel id="tabCatalogoManoObraGeneral" height="98%" width="100%"  >
+                   
+                                <listbox id="manoObra"  model="@load(vm.listaManoObraNombre)" 
+                                         nonselectableTags="*"  mold="paging" pageSize="25"  >
+                                    <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                                    <auxhead>
+                                        <auxheader colspan="9" >  
+                                            <label value="Buscar Mano de Obra: "/>
+                                            <space bar="false" /> 
+                                            <textbox width="20%" value="@bind(vm.buscarManoObra)"  onChanging="@command('buscarManoObraLike',valor=event.value.toUpperCase())" />
+                                            <space bar="false" />                                 
+                                            <label value="Nueva Mano de Obra " style="font-weight:bold"/>
+                                            <space bar="false" /> 
+                                            <button label="Nuevo" image="/iconos/add.png"  onClick="@command('nuevaManoObra')"  tooltiptext="Nueva mano de obra"/>
+                                        </auxheader>
+                                    </auxhead>
+                    
+                                    <listhead>     
+                                        <listheader width="20%"  label="Descripción" /> 
+                                        <listheader width="7%"  label="Costo-millar" />
+                                        <listheader width="8%"  label="Costo-min-millar" />   
+                                        <listheader width="7%"  label="Costo-hora" />
+                                        <listheader width="8%"  label="Costo-min-hora" /> 
+                                        <listheader width="7%"  label="Impresión-hora" /> 
+                                        <listheader width="8%"  label="Costo-plancha"  />
+                                        <listheader width="7%"  label="#-torres"  />
+                                        <listheader width="8%"  label="Volteo"  />
+                                        <listheader width="10%"  label="Tipo-mano-obra"  />
+                                        <listheader width="10%"  label="Opciones" />
+                                    </listhead>  
+                    
+                                    <template name="model">                                                            
+                                        <listitem>
+                              
+                                            <listcell>
+                                                <label value="@bind(each.manNombreProducto)" width="96%" />
+                                            </listcell>
+                                            <listcell>
+                                                $ <label value="@bind(each.manCostoMillar)" width="96%"/>
+                                            </listcell> 
+                                            <listcell>
+                                                $ <label value="@bind(each.manCostoMinMillar)" width="96%"/>
+                                            </listcell>  
+                                            <listcell>
+                                                $ <label  value="@bind(each.manCostoTiempo)" width="96%" />
+                                            </listcell>
+                                            <listcell>
+                                                $ <label  value="@bind(each.manCostoMinHora)" width="96%" />
+                                            </listcell>
+                                            <listcell>
+                                                <label value="@bind(each.manImpresionHora)" width="96%"/> Unid
+                                            </listcell>
+                                            <listcell>
+                                                $ <label value="@bind(each.manCostoPlancha)" width="96%"/> 
+                                            </listcell>
+                                            <listcell>
+                                                <label value="@bind(each.manNumeroTorresImpresion)" width="96%"/> Unid
+                                            </listcell>
+                                            <listcell>
+                                                <label value="@bind(each.manPermiteVolteo)" width="96%"/>
+                                            </listcell>
+                                            <listcell>
+                                                <label value="@bind(each.manTipoProducto)" width="96%"/>
+                                            </listcell>
+                                            <listcell>
+                                                <button  image="/iconos/editar.png" onClick="@command('modificarManoObra',manoObra=each)"  tooltiptext="Modificar mano de obra"/>
+                                            </listcell>
+                                        </listitem>
+                                    </template>
+                                </listbox>
+                               
+                            </tabpanel>
+                        
+                            <tabpanel id="tabManoGiganto" height="98%" width="99%"  >
+                               
+                                <listbox id="manoObraGiganto"  model="@load(vm.listaManoObraNombreGiganto)" 
+                                         nonselectableTags="*"  mold="paging" pageSize="12"  >
+                                    <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                                    <auxhead>
+                                        <auxheader colspan="9" >  
+                                            <label value="Buscar Mano de Obra: "/>
+                                            <space bar="false" /> 
+                                            <textbox width="20%" value="@bind(vm.buscarManoObraGiganto)"  onChanging="@command('buscarManoObraLikeGiganto',valor=event.value.toUpperCase())" />
+                                            <space bar="false" />                                 
+                                            <label value="Nueva Mano de Obra " style="font-weight:bold"/>
+                                            <space bar="false" /> 
+                                            <button label="Nuevo" image="/iconos/add.png"  onClick="@command('nuevaManoObraGiganto')"  tooltiptext="Nueva mano de obra"/>
+                                        </auxheader>
+                                    </auxhead>
+                    
+                                    <listhead>     
+                                        <listheader width="20%"  label="Descripción" /> 
+                                        <listheader width="10%"  label="Costo-hora" />
+                                        <listheader width="10%"  label="Costo tinta"  />
+                                        <listheader width="20%"  label="Cant. hora"  />
+                                        <listheader width="20%"  label="Tipo-mano-obra"  />
+                                        <listheader width="20%"  label="Opciones" />
+                                    </listhead>  
+                    
+                                    <template name="model">                                                            
+                                        <listitem>
+                              
+                                            <listcell>
+                                                <label value="@bind(each.manNombreProducto)" width="96%" />
+                                            </listcell>
+                                           
+                                            <listcell>
+                                                $ <label  value="@bind(each.manCostoTiempo)" width="96%" />
+                                            </listcell>
+                                            <listcell>
+                                                $ <label  value="@bind(each.manCostoOpcional)" width="96%" />
+                                            </listcell>
+                                            <listcell>
+                                                <label  value="@bind(each.manImpresionHora)" width="96%" />
+                                            </listcell>
+                                            <listcell>
+                                                <label value="@bind(each.manTipoProducto)" width="96%"/>
+                                            </listcell>
+                                            <listcell>
+                                                <button  image="/iconos/editar.png" onClick="@command('modificarManoObraGiganto',manoObra=each)"  tooltiptext="Modificar mano de obra"/>
+                                            </listcell>
+                                        </listitem>
+                                    </template>
+                                </listbox>
+                               
+                            </tabpanel>
+  
+                        </tabpanels>
+            
+                    </tabbox>
+        
+                </tabpanel>
+
+
+                <tabpanel id="tabParametrizacion" height="98%" width="99%"  >
+                    <listbox id="parametrizacion"  model="@load(vm.listaParametrizacion)" 
+                             nonselectableTags="*"  mold="paging" pageSize="10"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead>
+                            <auxheader colspan="9" >  
+                                <label value="Porcentaje de parametrización: "/>
+                            </auxheader>
+                        </auxhead>
+                    
+                        <listhead>     
+                            <listheader width="50%"  label="Descripción" /> 
+                            <listheader width="15%"  label="Porcentaje de Ganacia" />  
+                            <listheader width="15%"  label="Porcentaje de perdida" />  
+                            <listheader width="15%"  label="Porcentaje opcional"  />
+                            <listheader width="5%"  label="Opciones"  />
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                              
+                                <listcell>
+                                    <textbox value="@bind(each.porDescripcion)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <decimalbox  format="###.####" value="@bind(each.porGanancia)" width="80%"/> %
+                                </listcell>  
+                                <listcell>
+                                    <label  value="@bind(each.porPerdida)" width="80%" /> %
+                                </listcell>
+                                <listcell>
+                                    <label   value="@bind(each.porExtra)" width="80%"/> %
+                                </listcell>
+                                <listcell>
+                                    <image  src="/iconos/editar.png" 
+                                                           onClick="@command('modificarParametrizacion',parametro=each)" 
+                                                           tooltiptext="Modificar utilidad"/>
+                             
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                </tabpanel>
+
+
+<!--
+                <tabpanel id="tabMailing" height="98%" width="99%"  >
+                    <listbox  model="@load(vm.listaContactoMail)" 
+                              nonselectableTags="*"  mold="paging" pageSize="10"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead>
+                            <auxheader colspan="9" >  
+                                <label value="Lista de mails para publicidad"/>
+                                <space bar="false" /> 
+                                <button label="Nuevo" image="/iconos/add.png"  onClick="@command('agregarMailing')"  tooltiptext="Nuevo mailing"/>
+                                <space bar="false" /> 
+                                Buscar por mail: <textbox width="20%" value="@bind(vm.buscarEmail)"  onChanging="@command('buscarMailing',valor=event.value)" />
+                                <space bar="false" width="20px" /> 
+                                <button label="Cargar Excel" image="/iconos/doc_excel.png"  onClick="@command('cargarMailExcel')"  tooltiptext="Nuevo mailing"/>
+                            </auxheader>
+                        </auxhead>
+                    
+                        <listhead>     
+                            <listheader width="30%"  label="Descripción" /> 
+                            <listheader width="60%"  label="E-mail" />  
+                            <listheader width="60%"  label="Categoria" />  
+                            <listheader width="10%"  label="Opciones"  />
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                              
+                                            <listcell>
+                                                <label value="@bind(each.clienet)" width="96%" />
+                                            </listcell>
+                                            <listcell>
+                                                <label  value="@bind(each.email)" width="80%" />
+                                            </listcell>
+                                            <listcell>
+                                                <label  value="@bind(each.categoria)" width="80%" />
+                                            </listcell>
+                                            <listcell>
+                                                <button  image="/iconos/actualizar.png" onClick="@command('modificarMailing',valor=each)"  tooltiptext="Modificar mailing"/>
+                                                <button  image="/iconos/eliminar.png" onClick="@command('eliminarMailCont',valor=each)"  tooltiptext="Eliminar mailing"/>
+                                            </listcell>
+                                        </listitem>
+                                    </template>
+                                </listbox>
+                            </tabpanel>-->
+                            <tabpanel id="tabUsuarios" >
+                    
+                                <div class="row "  align="lefth">
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  ">
+                                        <div class="row " align="lefth">
+                               
+                                            <div class="col-6 col-sm-6 col-md-3 col-lg-3  ">
+                                                <image  src="/iconos/nuevo_pro-24.png"
+                                                        class="btn btn btn-secondary btn-sm "
+                                                        onClick="@command('agregarUsario')"
+                                                        tooltiptext="Usuario"/>
+                                     
+                                            </div>
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-12" align="start">
+                                                <listbox width="100%" model="@load(vm.listaUsuarios)" nonselectableTags="*"  mold="paging" pageSize="9">
+
+                                                    <listhead sizable="true">
+                                                        <listheader label="Nombre de usuario"  align="left" width="35%"></listheader>
+                                                        <listheader label="Usuario"  align="left" width="20%"></listheader>
+                                                        <listheader label="Contraseña"  align="left" width="20%"></listheader>
+                                                        <listheader label="Tipo Usuario"  align="left" width="15%"></listheader>
+                                                        <listheader label="Modificar"  align="left" width="5%"></listheader>
+                                                        <listheader label="Eliminar"  align="left" width="5%"></listheader>
+                                                    </listhead>
+                   
+                
+                                                    <template name="model">
+                                                        <listitem width="100%" > 
+                                                            <listcell>
+                                                                <label value="@bind(each.usuNombreUsuario)" style="font-weight:bold" width="100%"/>
+                                                            </listcell>  
+                                                            <listcell>
+                                                                <label value="@bind(each.usuUsuario)" style="font-weight:bold" width="100%"/>
+                                                            </listcell>   
+                                                            <listcell>      
+                                                                <textbox value="@bind(each.usuContrasena)" readonly="true" type="password" />
+                                                            </listcell>  
+                                                            <listcell>                          
+                                                                <label value="@bind(each.tipoUsuario)" />
+                                                            </listcell>                  
+                                                            <listcell>
+                                                                <image  src="/iconos/editar.png" 
+                                                                        onClick="@command('modificarUsario',usuario=each)" 
+                                                                        tooltiptext="Modificar usuario"/>
+                                    
+                                                            </listcell>     
+                                                            <listcell>
+                                                                <image  src="/iconos/eliminar.png" 
+                                                                        onClick="@command('desactivarUsario',usuario=each)" 
+                                                                        tooltiptext="Eliminar usuario"/>
+                                    
+                                                            </listcell>     
+                               
+                                                        </listitem>
+                                                    </template>   
+                       
+                                                </listbox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                    
+               
+               
+                            </tabpanel>
+               
+               
+                        </tabpanels>
+            
+                    </tabbox>
+                      
+                </tabpanel>
+            </tabpanels>
+                   
+            
+        </tabbox>
+        
+    </hbox>
+
+
+</zk>

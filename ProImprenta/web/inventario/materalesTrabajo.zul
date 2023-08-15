@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk  contentStyle="overflow:auto" with="100%" >
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.materialesTrabajo')" width="100%">
+        <tabbox id="tboxPrincipal"  width="100%">
+            <tabs >
+                <tab label="AJUSTAR MATERIALES DE TRABAJO" sclass="menutabs" /> 
+                
+            </tabs>
+            <tabpanels >
+                <tabpanel  height="98%" width="99%"  >
+                    <div class="row " align="lefth">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-control">
+                            <div class="input-group mb-3 col-12 col-sm-12 col-md-12 col-lg-12 ">
+                                                
+                                <label style="font-weight:bold"
+                                       class="form-control form-control-sm" 
+                                       value="Presenta la información de materiales utilizados para un determinado trabajo pero si no se utilizo todo podemos 
+                                              ajustar el valor. "/>
+                        <label class="form-control form-control-sm" 
+                                       value="Ejm: Se envio 3 litros de pintura y se utilizo el 2.5 litros 
+                                              entonces ingresamos 2.5 litros que se utilizo en el kardex para ajustar le valor"  />
+
+                            </div>
+                            
+                        </div>         
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-control">              
+                            <listbox   model="@load(vm.listaOperaciones)" 
+                                       nonselectableTags="*"  mold="paging" pageSize="10"  >
+                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                      
+<!--                                <auxhead>
+                                    <auxheader colspan="11" >  
+                                        <label value="Ejm: Se envio 3 botes de pintura y se utilizo el 2 botes y medio entonces ingresamos 2.5 para ajustar le valor"/>   
+                                
+                                    </auxheader>
+                                </auxhead>
+                                <auxhead>
+                                    <auxheader colspan="11" >  
+                               
+                                        <label style="font-weight: bold;" value=" Ejm: Se envio 3 botes de pintura y se utilizo el 2 botes y medio entonces ingresamos 2.5 para ajustar le valor"/>
+                                    </auxheader>
+                                </auxhead>-->
+                    
+                                <listhead>     
+                                    <listheader width="10%"  label="FECHA" /> 
+                                    <listheader width="5%"  label="CANT" /> 
+                                    <listheader width="10%"  label="COST REF" />  
+                                    <listheader width="20%"  label="NOMBRE" />  
+                                    <listheader width="10%"  label="TOTAL" /> 
+                                    <listheader width="10%"  label="OPERACION" />  
+                                    <listheader width="30%"  label="DESCRIPCION" />  
+                                    <listheader width="5%"  label="" />
+                                </listhead>  
+                    
+                                <template name="model">                                                            
+                                    <listitem>
+                                        <listcell>    
+                                            <datebox compact="true" readonly="true"  value="@bind(each.opeFecha)"  buttonVisible="false" lenient="true"  format="medium" width="98%"  /> 
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##"  value="@bind(each.opeCatidad)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.codProducto.prodCostoCompra)" width="96%" />
+                                        </listcell>
+                              
+                                        <listcell>
+                                            <label value="@bind(each.codProducto.prodNombre)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.valorTotal)" width="96%" />
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.codTipoOperacion.tipOperacion)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.opeConcepo)" width="96%" /> 
+                                        </listcell>
+
+                                        <listcell>    
+                                            <image   
+                                                src="/iconos/editpar24x24.png"  
+                                                class="grow"
+                                                onClick="@command('actualizarOperacion',valor=each)" 
+                                                tooltiptext="Reajustar kardex  "/>
+                                        </listcell>
+                                    </listitem>
+                                </template>
+                            </listbox>
+                        </div>
+                    </div>
+                </tabpanel>
+
+                
+             
+            </tabpanels>
+            
+        </tabbox>
+    </hbox>
+
+
+</zk>

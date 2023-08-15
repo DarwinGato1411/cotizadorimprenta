@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+
+<hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+      viewModel="@id('vm') @init('imp.controladoresview.ListaCotizacionesCerradas')" width="100%">
+    <tabbox id="tboxPrincipal"  width="100%" tabscroll="true">
+        <tabs >
+            <tab label="LISTA DE COTIZACIONES CERRADAS" sclass="menutabs" image="/imagenes/clientes.png"/> 
+                
+        </tabs>
+        <tabpanels >
+                
+            <tabpanel id="tabListaCotizacion"  width="99%"  >
+                
+                <div class="row">
+                    
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group mb-3">
+                            Desde: <datebox compact="true" value="@bind(vm.fechaInicio)"  readonly="true"  
+                                            style="font-weight:bold" buttonVisible="true" lenient="true" 
+                                            format="dd/MM/yyyy"   constraint="no empty: Fecha de inicio"/>
+                            Hasta: <datebox compact="true" value="@bind(vm.fechaFin)"  readonly="true"   
+                                            style="font-weight:bold" buttonVisible="true" lenient="true" 
+                                            format="dd/MM/yyyy"   constraint="no empty: Fecha de fin"/>                       
+                            <button   image="/imagenes/buscar1.png" 
+                                      class="btn btn-primary btn-sm "
+                                      onClick="@command('consultarPorRangoFechas')"
+                                      tooltiptext="Buscar cliente"/>
+                               
+                               
+                        </div>
+                    
+                    </div>
+                    
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+                        <button   class="btn btn-primary btn-sm "
+                                     label="FACTURAR COTIZACIONES"
+                                     style="font-weight:bold" onClick="@command('unificarCotizacion')" 
+                                     tooltiptext="Facturar cotizaciones"/>
+                    </div>
+                </div>
+                <listbox id="lstCotizaciones"  model="@load(vm.listaCotizaciones)" 
+                         onSelect="@command('registrosSeleccionados')"
+                         nonselectableTags="*" checkmark="true"  
+                         multiple="true"  mold="paging" pageSize="25"  >
+                    <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+
+                    
+                    <listhead> 
+                        <listheader width="7%"   sort="auto(cotNumero)" > 
+    
+                            <textbox   placeholder="Numero de cotizacion"
+                                       class="form-control form-control-sm"
+                                       value="@bind(vm.busNumero)"  
+                                       onOK="@command('buscarListaPorNumero')" />
+                        </listheader>   
+                        <listheader width="25%"   sort="auto(nombreComercial)" >
+                            <textbox  placeholder="Nombre comercial"
+                                      class="form-control form-control-sm" 
+                                      value="@bind(vm.busCliente)" 
+                                      onChange="self.setValue(self.getValue().toUpperCase());"
+                                      onOK="@command('buscarListaPorCliente')" />
+                        </listheader> 
+                        <listheader width="10%"  label="Fecha Cot" sort="auto(cotFechaEmision)" /> 
+                        <!--<listheader width="10%"  label="Subtotal" />-->  
+                        <listheader width="10%"  label="Total " sort="auto(cotTotal)"   /> 
+                        <listheader width="15%"  label="Tipo Cot"  sort="auto(tipoCotizacion)"  />   
+                        <listheader width="10%"  label="Estado Cot" sort="auto(estCotNombre)"  />       
+                        <listheader width="15%"  label="Vendedor "  sort="auto(vendedorAsignado)" />
+                        <!--                        <listheader width="7%"  label="Unificadas"  />-->
+                        <listheader width="12%"  label="Numero factura" sort="auto(cotNumeroFacturado)"  />
+                        <listheader width="4%"  label=""/>
+                        <listheader width="4%"  label=""/>
+                        <listheader width="4%"  label=""/>
+                        <listheader width="5%"  label=""/>
+                            
+                    </listhead>  
+                    
+                    <template name="model">                                                            
+                        <listitem>
+                            <listcell>    
+                                <label value="@bind(each.cotNumero)" width="96%" />
+                            </listcell>
+                            <!--                                 <listcell>    
+                                <label value="@bind(each.numOrden)" width="96%" />
+                            </listcell>-->
+                            <listcell>
+                                <label value="@bind(each.codCliente.nombreComercial)" width="96%" />
+                            </listcell>
+                            <listcell>
+                                <datebox compact="true" value="@bind(each.cotFechaEmision)" buttonVisible="false" lenient="true" format="medium" width="98%"  constraint="no empty: Ingrese su fecha de nacimiento."/>
+                            </listcell>
+                            <listcell>
+                                <decimalbox format="###.##" readonly="true" value="@bind(each.cotTotal)" width="96%"/>
+                            </listcell>
+                            <listcell>
+                                <label value="@bind(each.tipoCotizacion)" width="96%"/>
+                            </listcell>
+                            <listcell>
+                                <label value="@bind(each.codEstCotizacion.estCotNombre)" width="96%"/>
+                            </listcell>
+                            <listcell>
+                                <label value="@bind(each.codCliente.vendedorAsignado)" width="96%"/>
+                            </listcell>
+                            <!--                            <listcell>
+                                <label value="@bind(each.cotUnificar)" width="96%"/>
+                            </listcell>-->
+                            <listcell>
+                                <textbox value="@bind(each.cotNumeroFacturado)" width="96%" />       
+                            </listcell>
+                            <listcell>  
+                                <image src="/iconos/pdfrep2.png"   
+                                       class=" grow"
+                                       onClick="@command('reporteGeneral',valor=each)"
+                                       tooltiptext="Generar PDF de  orden de produccion"/>
+                            </listcell>
+                            <listcell>  
+
+                                <image  src="/iconos/pdf.png" 
+                                        onClick="@command('reporteGeneralCotizacion',valor=each)" 
+                                        tooltiptext="Generar PDF de cotizacion"/>
+                            </listcell> 
+                            <listcell>  
+                                <image src="/iconos/xml.png" 
+                                       onClick="@command('generateXml',valor=each)" 
+                                       tooltiptext="Descargar archivo xml"/>
+                                  
+                            </listcell>
+                            <listcell>  
+                                  
+                                <image  src="/iconos/camara24x24.png" 
+                                        onClick="@command('VerImagen',valor=each)" 
+                                        tooltiptext="Ver imagen adjunto"/>
+                            </listcell>
+                                
+                        </listitem>
+                    </template>
+                </listbox>
+            </tabpanel>
+                
+
+
+        </tabpanels>
+            
+    </tabbox>
+</hbox>

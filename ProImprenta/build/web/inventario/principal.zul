@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk> 
+    
+
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.Administrar')" width="100%">
+        <tabbox id="tboxPrincipal"  tabscroll="true">
+            <tabs >
+                <tab label="INICIO DEL SISTEMA" sclass="menutabs"/> 
+                
+            </tabs>
+            <tabpanels >
+                
+                <tabpanel id="tabListaCotizacion"   >
+                    <grid width="100%"   >
+       
+                        <columns>                               
+                            <column label="" width="100%"  />                 
+                        </columns>
+                     
+                        <rows >
+            
+                            <row>
+                                <cell colspan="1" align="center">
+                                    <image style=" position: relative; width: 100%  ; height: 750" src="/imagenes/Logistikzentren_Almacen.JPG" id="btnPrincipal" />
+                                </cell>
+                            </row>
+            
+            
+         
+                        </rows>
+                  
+                    </grid> 
+                   
+                </tabpanel>
+                
+
+
+            </tabpanels>
+            
+        </tabbox>
+    </hbox>
+</zk>

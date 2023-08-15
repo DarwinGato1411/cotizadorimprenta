@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="idOrdenProduccionSinCot"  position="center" width="70%"  height="auto" closable="true"  
+         apply="org.zkoss.bind.BindComposer" 
+         viewModel="@id('vm') @init('imp.controladoresview.ActulizarOrdenSinCotizarViewModel')">
+    <caption label="Orden de Produccion sin cotizar" style="font-weight:bold"
+    /> 
+    <tabbox  width="100%">
+        <tabs >
+            <tab label="SUBIR ARCHOVOS DE LA COTIZACION" 
+                 sclass="menutabs"/>  
+        </tabs>
+        <tabpanels >
+            <tabpanel >
+                <div class="row " align="lefth">
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" align="center">
+                        <button label="Subir imagen" 
+                                class="btn  btn-primary"
+                                onClick="@command('subirFotografia')"  
+                                tooltiptext="Subir archivo IMAGEN"/> 
+                        
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 " align="center">
+                      
+                        <button label="Subir pdf" 
+                                class="btn  btn-primary"
+                                onClick="@command('subirArchivo')"  
+                                tooltiptext="Subir archivo PDF"/> 
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 form-control" height="350px">
+                        <iframe content="@bind(vm.ordenSinCotizacion.fotoGeneral)" 
+                                height="350px" width="98%" align="center"  />
+                       
+                        
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 form-control" height="350px">
+                        <iframe height="350px" width="98%" id="reportframe" 
+                                content="@bind(vm.ordenSinCotizacion.fileContent)"/>
+                        
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                        <separator height="5px"/>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                        <image src="/iconos/ok24x24.png"  
+                               onClick="@command('cerrar')"
+                                 class="btn btn btn-success btn-sm "
+                               tooltiptext="Aceptar"/>
+                        
+                
+ 
+
+                    </div> 
+                </div>  
+                
+            </tabpanel>
+      
+        </tabpanels>
+    </tabbox>
+      
+</window>

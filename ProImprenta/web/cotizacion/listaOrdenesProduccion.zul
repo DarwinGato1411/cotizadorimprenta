@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk  contentStyle="overflow:auto" with="100%" >
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.ListaOrdenesCerradas')" width="100%">
+        <timer id="timer" delay="60000" repeats="true" onTimer="@command('buscarListaOrdenesAll')" ></timer>
+        <tabbox id="tboxPrincipal"  width="99%">
+                       
+            <tabs >
+                <tab label="ORDENES DE PRODUCCION CERRADAS" sclass="menutabs" image="/imagenes/time.png"/> 
+                
+            </tabs>
+            <tabpanels >
+                 
+                <tabpanel id="tabListaCotizacion" height="98%" width="99%"  >
+                                
+                    <listbox id="lstCotizaciones"  model="@load(vm.listaOrdenProduccion)" 
+                             nonselectableTags="*"  mold="paging" pageSize="20"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead>
+                            <auxheader colspan="9" >  
+                                <label value="Nombre comercial: " width="96%" /> 
+                                <textbox id="txtClienteBuscar"   value="@bind(vm.busCliente)"  />
+                                <button image="/imagenes/buscar1.png"  onClick="@command('buscarListaPorCliente')"  tooltiptext="Buscar cotizaciones"/>
+                                <space bar="false"  width="100px" />                                 
+                                <label value="Numero de orden: " width="96%" /> 
+                                <textbox id="txtNumeroBuscar"   value="@bind(vm.busNumero)"  />
+                                <button image="/imagenes/buscar1.png"  onClick="@command('buscarListaPorNumero')"  tooltiptext="Buscar cotizaciones"/>
+                                <space bar="false"  width="100px" />                                 
+                                <label value="Listar todo: " width="96%" /> 
+                                <button image="/imagenes/buscar1.png"  onClick="@command('buscarListaOrdenesAll')"  tooltiptext="Buscar cotizaciones"/>
+                                            
+                                            
+                            </auxheader>
+                        </auxhead>
+                    
+                        <listhead> 
+                            <listheader width="7%"  label="No. Cot "   sort="auto(ordSecuencial)" > 
+                               
+                            </listheader>   
+                            <listheader width="28%"  label="Nombre Comercial"  sort="auto(codCotizacion.codCliente.nombreComercial)" >
+                               
+                            </listheader>
+                            <listheader width="11%"  label="Inicio"  sort="auto(fechaCreacion)" /> 
+                            <listheader width="11%"  label="Despacho"  sort="auto(fechaDespacho)" />   
+                            <listheader width="10%"  label="Estado Orden"  /> 
+                            <!--<listheader width="10%"  label="Descripcion" />-->  
+                            <listheader width="8%"  label="Fecha"  sort="auto(ordFechaCierre)"  />
+                            <listheader width="5%"  label="Hora"  sort="auto(ordHoraCerre)"  />    
+                            <listheader width="13%"  label="Responsable" /> 
+                            <listheader width="5%"  label="Tipo" />     
+                            <listheader width="9%"  label="ESTADO CIERRE" />    
+                            <listheader width="10%"  label="Opciones"/>
+                            
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>    
+                                    <label value="@bind(each.ordSecuencial)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codCotizacion.codCliente.nombreComercial)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <datebox compact="true" readonly="true"  value="@bind(each.fechaCreacion)" buttonVisible="false" lenient="true" format="medium" width="98%"  />
+                                               
+                                </listcell>
+                                <listcell>
+                                    <datebox compact="true" readonly="true" value="@bind(each.fechaDespacho)"  buttonVisible="false" lenient="true" format="medium" width="98%" />
+                                </listcell>
+
+                                <listcell>
+                                    <label value="@bind(each.codEstadoOrden.estOrdNombre)" width="96%"/>
+                                </listcell>
+                                           
+                                <!--                                <listcell>
+                                    <label  value="@bind(each.ordDescripcion)" width="96%"/>
+                                </listcell>-->
+                                <listcell>
+                                    <!--<label  value="@bind(each.ordFechaCierre)" width="96%"/>-->
+                                    <datebox compact="true" value="@bind(each.ordFechaCierre)" readonly="true"   style="font-weight:bold" buttonVisible="false" lenient="true" format="dd/MM/yyyy  "  width="96%" constraint="no empty: Fecha de ingreso"/>
+                                </listcell> 
+                                <listcell>
+                                    <!--<label  value="@bind(each.ordHoraCerre)" width="96%"/>-->
+                                    <timebox  format="short" value="@bind(each.ordHoraCerre)" style="font-weight:bold" readonly="true" buttonVisible="false"  />
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.ordResponsable)" width="96%"/>
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codCotizacion.cotTipoCotizacion)" width="96%"/>
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.ordEstadoCierre)" width="96%"/>
+                                </listcell>
+                                <listcell>  
+                                    <button  image="/imagenes/cabida.png" onClick="@command('VerImagen',valor=each)" tooltiptext="Ver adjunto"/>          
+                                    <button  image="/imagenes/pdfRep.png" onClick="@command('verAdjunto',valor=each)" tooltiptext="Ver adjunto"/>
+                                    <button  image="/imagenes/orden.png" onClick="@command('reporteGeneral',valor=each)" tooltiptext="Generar PDF Orden de produccion"/>
+                                </listcell>
+                                
+                            </listitem>
+                        </template>
+                    </listbox>
+                </tabpanel>
+                
+
+
+            </tabpanels>
+            
+        </tabbox>
+    </hbox>
+</zk>

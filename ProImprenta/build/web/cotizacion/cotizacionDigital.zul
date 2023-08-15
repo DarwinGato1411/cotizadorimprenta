@@ -1,0 +1,622 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+
+<hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+      viewModel="@id('vm') @init('imp.controladoresview.CotizacionDigitalViewModel')">
+    <tabbox id="tboxPrincipal" width="100%"  tabscroll="true" >
+       
+        <tabs >
+            <tab label="COTIZACION DIGITAL" sclass="menutabs"/>
+
+        </tabs>
+        <tabpanels >
+            <tabpanel id="tabpanelHojaVidas" height="100%" width="98%"  >
+                <div class="row " align="lefth">
+                    <div class="col-1 col-sm-1 col-md-1 col-lg-1">
+                        <image src="/iconos/imprimir48x48.png"   
+                               class="btn btn btn-secondary btn-sm "
+                               onClick="@command('RegistrarCotizacion')"
+                               tooltiptext="Guardar orden de trabajo"/>
+
+                    </div>
+                    <div class="col-9 col-sm-9 col-md-9 col-lg-9" align="end">
+                        <image  src="/iconos/cliente48x48.png"
+                                class="btn btn btn-secondary btn-sm "
+                                onClick="@command('nuevoCliente')"  
+                                tooltiptext="Nuevo Cliente"/>
+
+                    </div>
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2" align="end" >
+                        <datebox compact="true" value="@bind(vm.fechaEmision)"  height="40px"
+                                 readonly="true" style="font-weight:bold;" 
+                                 class="form-control form-control-sm textoFechaDateBox"  
+                                 buttonVisible="true" 
+                                 lenient="true" format="dd/MM/yyyy" 
+                                 constraint="no empty: Ingrese su fecha de la orden"/>
+
+                    </div>
+                </div>
+                <div class="row" align="lefth" >
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+                        <div class="input-group mb-3">
+                            <textbox style="font-weight:bold" 
+                                     placeholder="Cedula"
+                                     class="form-control form-control-sm" 
+                                     maxlength="13" value="@bind(vm.clienteBuscado.ruc)"  />
+                        
+                            <div class="input-group-append">
+                                <button   image="/imagenes/buscar1.png" 
+                                          onClick="@command('buscarClienteEnLista')"  
+                                          tooltiptext="Buscar cliente"
+                                          class="btn btn-primary btn-sm "/>
+                               
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                        <div class="input-group mb-3">
+                            <textbox  readonly="true" 
+                                      style="font-weight:bold" 
+                                      placeholder="Nombre comercial"
+                                      class="form-control form-control-sm" 
+                                      value="@bind(vm.clienteBuscado.nombreComercial)"  />
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                        <div class="input-group mb-3">
+                            <textbox  readonly="true" style="font-weight:bold"
+                                      placeholder="Razon Social"
+                                      class="form-control form-control-sm" 
+                                      value="@bind(vm.clienteBuscado.razonSocial)"  />
+                        </div>
+                    </div>
+                   
+                    <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+                        <div class="input-group mb-3">
+                            <textbox  readonly="true" 
+                                      placeholder="Telefono"
+                                      class="form-control form-control-sm" 
+                                      style="font-weight:bold" 
+                                      value="@bind(vm.clienteBuscado.telefono)"  />
+                                     
+                        </div>
+                    </div>
+                    
+                    <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+                        <div class="input-group mb-3">
+                            <textbox   readonly="true" 
+                                       style="font-weight:bold" 
+                                       placeholder="Vendedor asignado"
+                                       class="form-control form-control-sm" 
+                                       value="@bind(vm.clienteBuscado.vendedorAsignado)"  />
+                                     
+                        </div>
+                    </div>
+                    <div class="col-6    col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group mb-3">
+                            <textbox  readonly="true"  style="font-weight:bold" 
+                                      placeholder="Direccion "
+                                      class="form-control form-control-sm" 
+                                      value="@bind(vm.clienteBuscado.direccion)" />
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row" align="lefth" >
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                        <tabbox id="tb" width="100%" tabscroll="true" >
+                            <tabs id="tabs">
+                                <tab  label="Cotizar" sclass="menutabs"/>
+                                <tab label="Materiales Adicionales" sclass="menutabs"/>
+                                <tab  label="Pre y Post Impresión" sclass="menutabs"/>
+                                <tab  label="Tercerizados" sclass="menutabs"/>
+                            </tabs>
+                            <tabpanels>
+                                <tabpanel>
+                                    <div class="row " align="lefth">                                     
+                                        <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                                            <radiogroup selectedItem="@bind(vm.tipoCotizacion)" 
+                                                        onCheck="@command('tipoCotizacion')"  >
+                                                <space bar="true"  /> 
+                                                <radio  label="Cotización general" value="CIDIG"/>
+                                                <space bar="true"  /> 
+                                                <radio  label="Cotizacion compaginado" value="CIDIC"/>  
+                                                <space bar="true"  />      
+                                            </radiogroup>
+                        
+                                        </div>
+                                        <div class="col-4 col-sm-4 col-md-4 col-lg-4 form-control form-control-sm">
+                                            <div class="input-group">
+                                 
+                                                <combobox model="@load(vm.listaMaterialAll)" readonly="true"
+                                                          selectedItem="@bind(vm.materialSeleccionadoCombo)" 
+                                                          onSelect="@command('buscarCortesPosiblesGeneral')" 
+                                                          class="badge badge-default btn-secondary  textoFechaDateBox" >
+                                          
+                                                    <template name="model">
+                                                        <comboitem  label="@bind(each.matNombre)"/>
+                                                    </template>                                      
+                                                </combobox>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group mb-3">
+                                                <textbox   style="font-weight:bold" 
+                                                           placeholder="Descripcion del trabajo "
+                                                           class="form-control form-control-sm" 
+                                                           onChange="self.setValue(self.getValue().toUpperCase());"
+                                                           value="@bind(vm.descripcionTrabajo)" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6    col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group mb-3">
+                                                <textbox   style="font-weight:bold" 
+                                                           placeholder="Observación"
+                                                           class="form-control form-control-sm" 
+                                                           onChange="self.setValue(self.getValue().toUpperCase());"
+                                                           value="@bind(vm.cotObservacion)" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6    col-sm-6 col-md-6 col-lg-6">
+                                            <div class="input-group mb-3">
+                                                <textbox   id="idDescripcionTrabajo"
+                                                           style="font-weight:bold" 
+                                                           placeholder="Detalle del trabajo"
+                                                           class="form-control form-control-sm" 
+                                                           onChange="self.setValue(self.getValue().toUpperCase());"
+                                                           value="@bind(vm.detalleTrabajo)"  />
+                                            </div>
+                                        </div>
+                                                    
+                                        <div    onClick="@command('nuevaDescripcionGeneral')" 
+                                                class="btn btn btn-primary btn-sm col-1 col-sm-1 col-md-1 col-lg-1 "
+                                                tooltiptext="Agregar registro">
+                                            <image src="/iconos/eliminar.png"   
+                                                   onClick="@command('nuevaDescripcionGeneral')"  
+                                                   tooltiptext="Nuevo registro"
+                                                   style="font-size:20px;font-weight:bold"/>
+                                            <label value="Agregar" ></label>
+                                      
+                                        </div>
+                                        <div  onClick="@command('eliminarRegistros')" 
+                                              class="btn btn btn-danger btn-sm col-1 col-sm-1 col-md-1 col-lg-1"
+                                              tooltiptext="Eliminar registro">
+                                            <image src="/iconos/eliminar.png"   
+                                                   onClick="@command('eliminarRegistros')"
+                                                   tooltiptext="Eliminar registro"
+                                                   style="font-size:20px;font-weight:bold"/>
+                                            <label value="Eliminar" ></label>
+                                      
+                                        </div>
+                      
+                                    </div>
+                                    <div class="row" align="lefth" >
+                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                            <listbox id="DescripcionPedido" model="@load(vm.listaDescripcionPedido)"
+                                                     nonselectableTags="*" checkmark="true"  multiple="true" 
+                                                     onSelect="@command('seleccionarRegistros')"  width="100%">
+                                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                                                <listhead>
+                                                    <listheader width="10%"  label="Op " align="left" />
+                                                    <listheader width="20%"  label="CANTIDAD" align="left"  /> 
+                                                    <listheader width="30%"  label="DESCRIPCION" align="left" />
+                                                    <listheader width="20%"  label="VALOR UNITARIO" align="right" />
+                                                    <listheader width="20%"  label="VALOR TOTAL" align="right" /> 
+                                                </listhead>  
+                    
+                                                <template name="model">                                                            
+                                                    <listitem>
+                                                        <listcell>
+                                                            <button  image="/imagenes/procesar.gif"  onClick="@command('calcularCabida',valor=each)"  tooltiptext="Nuevo registro"/>                                                          
+                                                    
+                                                        </listcell>
+                                                        <listcell>
+                                                            <decimalbox format="###.#########" value="@bind(each.cantidad)" width="50%" />
+                                                        </listcell>
+                                                        <listcell>
+                                                            <textbox readonly="true" value="@bind(each.materiales.matNombre)" width="99%" />
+                                                        </listcell>
+                                                        <listcell>
+                                                            <decimalbox format="###.#########" value="@bind(each.materiales.matCosto)" width="50%" />
+                                                        </listcell>
+
+                                                        <listcell>
+                                                            <decimalbox format="###.#########" value="@bind(each.valorTotalMaterial)" width="50%" />
+                                                        </listcell>
+
+                                                    </listitem>
+                                                </template>
+
+                                            </listbox> 
+                                        </div>
+                                    </div>
+                                                  
+                                                
+                                </tabpanel>
+
+                                <tabpanel>
+                                                
+                                                
+                                    <div class="row " align="lefth">
+                                        <div   class="col-2 col-sm-2 col-md-3 col-lg-3 " >
+                                        
+                                            <combobox width="100%" model="@load(vm.listaMaterialOtrosGeneral)" 
+                                                      readonly="true"  class="badge badge-default btn-secondary  textoFechaDateBox"  
+                                                      selectedItem="@bind(vm.materialOtrosCombo)"  >
+                                          
+                                                <template name="model">
+                                                    <comboitem  label="@bind(each.matNombre)"/>
+                                                </template>                                      
+                                            </combobox> 
+                                        
+                                        </div>
+                                        <div    onClick="@command('nuevaDescripcionGeneralVarios')" 
+                                                class="btn btn btn-primary btn-sm col-1 col-sm-1 col-md-1 col-lg-1 "
+                                                tooltiptext="Agregar registro">
+                                            <image src="/iconos/eliminar.png"   
+                                                   onClick="@command('nuevaDescripcionGeneralVarios')"  
+                                                   tooltiptext="Nuevo registro"
+                                                   style="font-size:20px;font-weight:bold"/>
+                                            <label value="Agregar" ></label>
+                                      
+                                        </div>
+                                        <div  onClick="@command('eliminarRegistrosVarios')" 
+                                              class="btn btn btn-danger btn-sm col-1 col-sm-1 col-md-1 col-lg-1"
+                                              tooltiptext="Eliminar registro">
+                                            <image src="/iconos/eliminar.png"   
+                                                   onClick="@command('eliminarRegistrosVarios')"
+                                                   tooltiptext="Eliminar registro"
+                                                   style="font-size:20px;font-weight:bold"/>
+                                            <label value="Eliminar" ></label>
+                                      
+                                        </div>
+                                   
+                                    </div>
+                                    <div class="row " align="lefth" >
+                                        <div   class="col-12 col-sm-12 col-md-12 col-lg-12 " >
+                                            <listbox id="DescripcionPedidoVarios" model="@load(vm.listaDescripcionPedidoVarios)"
+                                                     nonselectableTags="*" checkmark="true"  multiple="true" 
+                                                     onSelect="@command('seleccionarRegistrosVarios')"  width="100%">
+                                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                                               
+                                               
+                                        
+                                                <listhead>
+                                                    <listheader width="10%"  label="OP " align="left" />
+                                                    <listheader width="10%"  label="CANTIDAD" align="left"  /> 
+                                                    <listheader width="60%"  label="DESCRIPCIÓN" align="left" />
+                                                    <listheader width="10%"  label="V.UNIT" align="left" /> 
+                                                    <listheader width="10%"  label="V. TOTAL" align="left" />
+                                                                                                                            
+                                                </listhead>
+                    
+                                                <template name="model">                                                            
+                                                    <listitem>
+                                                        <listcell>
+                                                            <button  image="/imagenes/procesar.gif"  onClick="@command('procesarVarios',valor=each)"  tooltiptext="Nuevo registro"/>
+                                                    
+                                                        </listcell>
+                                                        <listcell>
+                                                            <decimalbox format="###.#########" value="@bind(each.catidadVarios)" width="99%" />
+                                                        </listcell>
+                                                        <listcell>
+
+                                                            <textbox  value="@bind(each.materialesVarios.matNombre)" width="99%" />
+                                                        </listcell>
+                                                        <listcell>
+                                                            <decimalbox format="###.#########" value="@bind(each.materialesVarios.matCosto)"  width="99%" />
+                                                        </listcell>
+                                                        <listcell>
+                                                            <decimalbox format="###.#########" value="@bind(each.valorVariosTotal)"  width="99%" />
+                                                        </listcell>
+                                                    </listitem>
+                                                </template>
+
+                                            </listbox>  
+                                               
+                                        </div>
+                                    </div>
+                                                         
+                                            
+                                </tabpanel>
+                                <tabpanel>
+                                    <div class="row " align="lefth">
+                                        <div   class="col-2 col-sm-2 col-md-3 col-lg-3 " >
+                                        
+                             
+                                            <combobox width="100%" model="@load(vm.listaManoObraPrePost)" readonly="true"
+                                                      selectedItem="@bind(vm.manoDeObraComboPrePost)" 
+                                                      class="badge badge-default btn-secondary  textoFechaDateBox" >
+                                          
+                                                <template name="model">
+                                                    <comboitem  label="@bind(each.manNombreProducto)"/>
+                                                </template>                                      
+                                            </combobox> 
+                                        
+                                        </div>
+                                        
+                                        
+                                        <div    onClick="@command('nuevaDescripcionGeneralPrePost')" 
+                                                class="btn btn btn-primary btn-sm col-1 col-sm-1 col-md-1 col-lg-1 "
+                                                tooltiptext="Agregar registro">
+                                            <image src="/iconos/eliminar.png"   
+                                                   onClick="@command('nuevaDescripcionGeneralPrePost')"  
+                                                   tooltiptext="Nuevo registro"
+                                                   style="font-size:20px;font-weight:bold"/>
+                                            <label value="Agregar" ></label>
+                                      
+                                        </div>
+                                        <div  onClick="@command('eliminarRegistrosPrePost')" 
+                                              class="btn btn btn-danger btn-sm col-1 col-sm-1 col-md-1 col-lg-1"
+                                              tooltiptext="Eliminar registro">
+                                            <image src="/iconos/eliminar.png"   
+                                                   onClick="@command('eliminarRegistrosPrePost')" 
+                                                   tooltiptext="Eliminar registro"
+                                                   style="font-size:20px;font-weight:bold"/>
+                                            <label value="Eliminar" ></label>
+                                      
+                                        </div>
+                                   
+                                    </div>
+                                    <div class="row " align="lefth" >
+                                        <div   class="col-12 col-sm-12 col-md-12 col-lg-12 " >
+                                            <listbox id="DescripcionPedidoPrePost" model="@load(vm.listaDescripcionPedidoPrePost)"
+                                                     nonselectableTags="*" checkmark="true"  multiple="true" 
+                                                     onSelect="@command('seleccionarRegistrosPrePost')"  width="100%">
+                                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                                               
+                                        
+                                                <listhead>
+                                                    <listheader width="10%"  label="OP " align="left" />
+                                                    <listheader width="10%"  label="CANTIDAD" align="left"  /> 
+                                                    <listheader width="60%"  label="DESCRIPCIÓN" align="left" />
+                                                    <listheader width="10%"  label="V.UNIT" align="left" /> 
+                                                    <listheader width="10%"  label="V. TOTAL" align="left" />
+                                                                                                                            
+                                                </listhead>
+                    
+                                                <template name="model">                                                            
+                                                    <listitem>
+                                                        <listcell>
+                                                            <button  image="/imagenes/procesar.gif"  onClick="@command('procesarPrePost',valor=each)"  tooltiptext="Nuevo registro"/>
+                                                    
+                                                        </listcell>
+                                                        <listcell>
+                                                            <decimalbox format="###.#########"  value="@bind(each.catidadPrePost)" width="99%" />
+                                                        </listcell>
+                                                        <listcell>
+
+                                                            <textbox  value="@bind(each.manoObraPrePost.manNombreProducto)" width="99%" />
+                                                        </listcell>
+                                                        <zk if="${each.tipoCobroManoObraPrePost=='M'}">
+                                                            <listcell>
+                                                                <decimalbox format="###.#########" value="@bind(each.manoObraPrePost.manCostoMillar)" tooltiptext="Millar" width="99%" />
+                                                            </listcell>
+                                                        </zk>
+                                                        <zk if="${each.tipoCobroManoObraPrePost!='M'}">
+                                                            <listcell>
+                                                                <decimalbox format="###.#########" value="@bind(each.manoObraPrePost.manCostoTiempo)" tooltiptext="Hora"  width="99%" />
+                                                            </listcell>
+                                                        </zk>
+                                                        <listcell>
+                                                            <decimalbox format="###.#########" value="@bind(each.valorTotalPrePost)"  width="99%" />
+                                                        </listcell>
+                                                    </listitem>
+                                                </template>
+
+                                            </listbox>
+                                            
+                                        </div>
+                                    </div>
+                                                          
+                                             
+
+                                </tabpanel>
+                                            
+                                <tabpanel>
+                                    
+                                    <div class="row " align="lefth">
+
+                                        <div    onClick="@command('nuevaDescripcionTercerizado')" 
+                                                class="btn btn btn-primary btn-sm col-1 col-sm-1 col-md-1 col-lg-1 "
+                                                tooltiptext="Agregar registro">
+                                            <image src="/iconos/eliminar.png"   
+                                                   onClick="@command('nuevaDescripcionTercerizado')"  
+                                                   tooltiptext="Nuevo registro"
+                                                   style="font-size:20px;font-weight:bold"/>
+                                            <label value="Agregar" ></label>
+                                      
+                                        </div>
+                                        <div  onClick="@command('eliminarRegistrosTercerizados')" 
+                                              class="btn btn btn-danger btn-sm col-1 col-sm-1 col-md-1 col-lg-1"
+                                              tooltiptext="Eliminar registro">
+                                            <image src="/iconos/eliminar.png"   
+                                                   onClick="@command('eliminarRegistrosTercerizados')" 
+                                                   tooltiptext="Eliminar registro"
+                                                   style="font-size:20px;font-weight:bold"/>
+                                            <label value="Eliminar" ></label>
+                                      
+                                        </div>
+                                   
+                                    </div>
+                                    <div class="row " align="lefth" >
+                                        <div   class="col-12 col-sm-12 col-md-12 col-lg-12 " >
+                                            <listbox id="DescripcionPedidoTercerizado" model="@load(vm.listaDescripcionPedidoTercerizado)"
+                                                     nonselectableTags="*" checkmark="true"  multiple="true" 
+                                                     onSelect="@command('seleccionarRegistrosTercerizado')"  width="100%">
+                                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                                                                
+                                        
+                                                <listhead>
+                                                    <listheader width="10%"  label="OP " align="left" />
+                                                    <listheader width="10%"  label="CANTIDAD" align="left"  /> 
+                                                    <listheader width="30%"  label="PROVEEDOR" align="left" />
+                                                    <listheader width="30%"  label="DESCRIPCIÓN" align="left" />
+                                                    <listheader width="10%"  label="V.UNIT" align="left" /> 
+                                                    <listheader width="10%"  label="V. TOTAL" align="left" />
+                                                                                                                            
+                                                </listhead>
+                    
+                                                <template name="model">                                                            
+                                                    <listitem>
+                                                        <listcell>
+                                                            <button  image="/imagenes/procesar.gif"  onClick="@command('procesarTercerizados',valor=each)"  tooltiptext="Nuevo registro"/>
+                                                    
+                                                        </listcell>
+                                                        <listcell>
+                                                            <decimalbox format="###.#########" value="@bind(each.cantidadTercerizado)" width="99%" />
+                                                        </listcell>
+                                                        <listcell>
+                                                            <combobox width="100%" model="@bind(each.listaTercerizados)"
+                                                                                      selectedItem="@bind(each.terciarizado)" readonly="true" tooltiptext="Tercerizado" >
+                                                                <template name="model">
+                                                                    <comboitem  label="@bind(each.terProveedor)"   />
+                                                                </template>                                      
+                                                            </combobox>  
+                                                            <!--<textbox  value="@bind(each.manoObraPrePost.manNombreProducto)" width="99%" />-->
+                                                        </listcell>
+                                                        <listcell>
+                                                            <textbox  value="@bind(each.detalleTercerizado)" width="99%" />
+                                                        </listcell>
+                                                        <listcell>
+                                                            <decimalbox format="###.#########" value="@bind(each.valorUnitarioTercerizado)"  width="99%" />
+                                                        </listcell>
+                                                                                    
+                                                        <listcell>
+                                                            <decimalbox format="###.#########" value="@bind(each.totalTercerizado)"  width="99%" />
+                                                        </listcell>
+                                                    </listitem>
+                                                </template>
+
+                                            </listbox>
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                                
+                                </tabpanel>
+                
+                            </tabpanels>
+                        </tabbox>
+                    </div>
+                </div>
+                  
+                <div class="row " align="lefth">
+                    
+                    <div class="col-2 col-sm-2 col-md-3 col-lg-3" >
+                      
+                        <label value="IMPRESIÓN:" style="font-weight:bold" />    
+                        <decimalbox format="###.#########" value="@bind(vm.valorTotalMaterialGeneral)"
+                                    class="form-control form-control-sm" 
+                                    readonly="true" style="font-weight:bold" width="99%"  />  
+                     
+
+                       
+                        <label value="PRE Y POST IMPRESION:" style="font-weight:bold" />    
+                        <decimalbox format="###.#########" 
+                                    value="@bind(vm.valorTotalManoObraGeneralPrePost)"
+                                    class="form-control form-control-sm" 
+                                    readonly="true" style="font-weight:bold" width="99%"  /> 
+                   
+
+                             
+                        <label value="MANO DE OBRA:" style="font-weight:bold" />    
+                        <decimalbox format="###.#########" value="@bind(vm.totalManoObra)"
+                                    class="form-control form-control-sm" 
+                                    readonly="true" style="font-weight:bold" width="99%"  />
+                     
+                    </div>
+                
+                      
+              
+        
+                    <div class="col-4 col-sm-4 col-md-3 col-lg-3" align="start">
+                        
+                      
+
+                       
+                        <label value="MATERIAL ADICIONAL: " style="font-weight:bold" />    
+                        <decimalbox format="###.#########" value="@bind(vm.valorTotalMaterialGeneralVarios)"
+                                    class="form-control form-control-sm" 
+                                    readonly="true" style="font-weight:bold" width="99%"  />
+                    
+
+                       
+                        <label value="TERCERIZADOS:" style="font-weight:bold" />    
+                        <decimalbox format="###.#########" value="@bind(vm.valorTotalMaterialGeneralTercerizado)"
+                                    class="form-control form-control-sm" 
+                                    readonly="true" style="font-weight:bold" width="99%"  />   
+                        
+
+                      
+                        <label value="TOTAL COSTOS" style="font-weight:bold" />    
+                        <decimalbox format="###.#########" value="@bind(vm.totalCostos)"
+                                    class="form-control form-control-sm" 
+                                    readonly="true" style="font-weight:bold" width="99%"  />   
+                                        
+
+                    
+                    
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-2" align="start">
+                        
+                                          
+                              
+                        <label value="% DE CONTRIBUCIÓN:" style="font-weight:bold;color:orange;" />    
+                        <decimalbox format="###.#########" value="@bind(vm.porcentajeContrib)"
+                                    class="form-control form-control-sm" 
+                                    readonly="true" style="font-weight:bold;color:orange;font-size:14px;" width="99%"  />
+                                            
+                                
+                        <label value="% DE COSTO" style="font-weight:bold;color:red;" />    
+                        <decimalbox format="###.#########" value="@bind(vm.porcentajeCosto)"
+                                    class="form-control form-control-sm" 
+                                    readonly="true" style="font-weight:bold;color:red;;font-size:14px;" width="99%"  />
+                           
+                          
+                        <label value="% UTILIDAD:" style="font-weight:bold" />    
+                                                
+                        <div  class="input-group form-control">  
+                            <decimalbox format="###.#########" value="@bind(vm.porcentajeUtilidadGeneral)"
+                                        class="form-control form-control-sm" 
+                                        style="font-weight:bold" width="50%"  />
+                            <button  src="/imagenes/procesar.gif"    style="font-weight:bold"   
+                                     onClick="@command('aplicarUtilidad')"  tooltiptext="APLICAR UTILIDAD"/>
+                              
+                        </div>
+                    </div>
+                    
+                    <div class="col-4 col-sm-4 col-md-2 col-lg-2" align="start">
+                   
+                                                            
+                        <label value="SUB-TOTAL DE LA COTIZACIÓN:" style="font-weight:bold" />    
+                        <decimalbox format="###.#########" value="@bind(vm.valorSubtotalTotalCotziacionGeneral)"
+                                    class="form-control form-control-sm"
+                                    readonly="true" style="font-weight:bold" width="99%"  />
+                                            
+                                     
+                        <label value="UTILIDAD COTIZACIÓN:" style="font-weight:bold" />    
+                        <decimalbox format="###.#########" value="@bind(vm.valorGananciaGeneral)"
+                                    class="form-control form-control-sm"
+                                    readonly="true" style="font-weight:bold" width="99%"  />
+                                      
+                        <label value="VENTA TOTAL:" style="font-weight:bold;color:green;" />    
+                        <decimalbox format="###.#########" value="@bind(vm.valorTotalCotizaciónGeneralConUtilidad)"
+                                    class="form-control form-control-sm"
+                                    readonly="true" style="font-weight:bold;color:green;font-size:20px" width="99%"  />
+                                   
+                    </div>
+                </div>
+
+            </tabpanel>
+        </tabpanels>
+    </tabbox>  
+                                                                  
+</hbox>

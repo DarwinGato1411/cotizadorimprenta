@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk  contentStyle="overflow:auto" with="100%" >
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.NuevoIngreso')" width="100%">
+        <tabbox id="tboxPrincipal"  width="100%">
+            <tabs >
+                <tab label="INGRESO DE MATERIAL" sclass="menutabs" /> 
+       
+            </tabs>
+            <tabpanels >
+
+                <tabpanel  height="100%" width="99%"  >                    
+              
+                       
+                    <div class="row " align="lefth">
+               
+                            
+                            
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6   ">
+                            
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  ">
+                                <div class="input-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6 ">
+                                                
+                                    <textbox  value="@bind(vm.nombreProducto)" 
+                                              onChange="self.setValue(self.getValue().toUpperCase());" 
+                                              class="form-control form-control-sm"
+                                              placeholder="Ingrese el nombre del producto"
+                                              onOK="@command('buscarProductoForNombre')"  />
+                                    <div class="input-group-append">
+                                        <button image="/imagenes/buscar1.png"  
+                                                class="btn  btn-secondary btn-sm"
+                                                onClick="@command('buscarProductoForNombre')" 
+                                                tooltiptext="Listar cotizaciones por Nombre Comercial,
+                                                             si el campo esta vacio lista todo"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <listbox   model="@load(vm.listaProducto)" 
+                                       nonselectableTags="*"  mold="paging" pageSize="7"  >
+                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+
+                                
+                                <listhead>     
+                                    <listheader width="10%"  label="Cod" /> 
+                                    <listheader width="60%"  label="Nombre  " /> 
+                                    <listheader width="10%"  label="Costo Ref" />  
+                                    <listheader width="10%"  label="U Medida" />    
+                                    <listheader width="10%"  label="" />  
+                            
+                            
+                                </listhead>  
+                                        
+                    
+                                <template name="model">                                                            
+                                    <listitem>
+                                        <listcell onClick="@command('seleccionarMaterial',valor=each)">    
+                                            <label onClick="@command('seleccionarMaterial',valor=each)"
+                                                   value="@bind(each.prodSerie)" width="96%" /> 
+                                        </listcell>
+                                        <listcell onClick="@command('seleccionarMaterial',valor=each)">
+                                            <label value="@bind(each.prodNombre)" 
+                                                   onClick="@command('seleccionarMaterial',valor=each)"/>
+                                        </listcell>
+                                        <listcell onClick="@command('seleccionarMaterial',valor=each)">
+                                            <decimalbox format="###.##" 
+                                                        onClick="@command('seleccionarMaterial',valor=each)"
+                                                        style=" color:tomato; font-weight: bold;" readonly="true" value="@bind(each.prodCostoCompra)" width="96%" />
+                                        </listcell>
+                                        <listcell onClick="@command('seleccionarMaterial',valor=each)">
+                                            <label value="@bind(each.prodUnidadMedida)"
+                                                   onClick="@command('seleccionarMaterial',valor=each)" 
+                                                   width="96%" />
+                                        </listcell>
+                               
+                                        <listcell>  
+                                            <image  src="/iconos/ok24x24.png"    
+                                                    class=" grow"
+                                                    onClick="@command('seleccionarMaterial',valor=each)"
+                                                    tooltiptext="Seleccionar material"/>
+                                        </listcell>  
+                                    
+                                    </listitem>
+                                </template>
+                            </listbox>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-control ">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="input-group mb-3" >
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" >
+                                                <image  src="/iconos/ok24x24.png"/>
+                                            </span> 
+                                       
+                                        </div>
+                                        <textbox  readonly="true" 
+                                                  style="font-weight:bold" 
+                                                  placeholder="Producto seleccionado "
+                                                  class="form-control form-control-sm" 
+                                                  value="@bind(vm.selected.prodNombre)"  />
+                                  
+                                    </div>
+                                </div>
+                                <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+                            
+                                    <label value="DISPONIBLE: " class="form-control"   />  
+                                </div>
+                                <div class="col-3 col-sm-3 col-md-3 col-lg-3">
+                            
+                                    <label value="@bind(vm.stock)"   
+                                           class="form-control bg-danger text-white" style="font-weight:bold;" />  
+                                </div>
+                                <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                            
+                                    <radiogroup Id="idTipoOrdenSinCotizacion"   class="form-control form-control-sm " 
+                                                selectedItem="@bind(vm.ingresoEgreso)" >
+                                        <space bar="true"  />                                
+                                        <radio  label="INGRESO" value="ING"/>
+                                        <space bar="true"  /> 
+                                        <radio  label="INGRESO Y SALIDA" value="INGSAL"/>  
+                                        <space bar="true"  />  
+                                    </radiogroup>   
+                                </div>
+                               
+                                                        
+                                
+                            </div>
+                     
+                                
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="row ">
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group form-control"  >
+                                        <label   class="labelNuevoNegro" value="(*) "  >Fecha de compra</label>
+                                        <datebox   value="@bind(vm.operacion.opeFecha)"
+                                                   readonly="true" style="font-weight:bold;" 
+                                                   class="badge badge-default bg-info  btn-secondary  textoFechaDateBox"  
+                                                   buttonVisible="true" 
+                                                   lenient="true"  format="dd/MM/yyyy" 
+                                                   constraint="no empty: Ingrese de inicio del trabajo    "/> 
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group form-control"  >
+                                        <label   class="labelNuevoNegro" value="(*) "  >Estado del producto</label>
+                                        
+                                        <combobox  readonly="true"  class="badge badge-default   btn-secondary  textoFechaDateBox"  
+                                                   selectedItem="@bind(vm.operacion.opeEstadoProducto)">
+                                            <comboitem label="BUENO" value="BUENO" />
+                                            <comboitem label="REGULAR" value="REGULAR" />
+                                            <comboitem label="MALO" value="MALO" />
+                                                        
+                                        </combobox>
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group form-control"  >
+                                        <label   class="labelNuevoNegro" value="(*) "  >Cantidad</label>
+                                        <decimalbox format="###.##" class="form-control "
+                                                    value="@bind(vm.operacion.opeCatidad)" /> 
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group form-control"  >
+                                        <label   class="labelNuevoNegro" value="(*) "  >Costo de compra</label>
+                                        <decimalbox format="###.##" class="form-control "
+                                                    value="@bind(vm.operacion.opeCostoUltimaCompra)" /> 
+                                    </div>
+                                    
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group form-control"  >
+                                        <label   class="labelNuevoNegro" value="(*) "  >Categoria</label>
+                                        <combobox  model="@load(vm.listaCategorias)" class="badge badge-default   btn-secondary  textoFechaDateBox"  
+                                                   selectedItem="@bind(vm.operacion.codCategoria)" readonly="true" >
+                                          
+                                            <template name="model">
+                                                <comboitem  label="@bind(each.catDescripcion)"/>
+                                            </template>                                      
+                                        </combobox>  
+                                        
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group form-control"  >
+                                        <label   class="labelNuevoNegro" value="(*) "  >Ubicacion/ Area</label>
+                                        
+                                        <combobox  model="@load(vm.listaUbicacions)"  class="badge badge-default   btn-secondary  textoFechaDateBox"  
+                                                   selectedItem="@bind(vm.operacion.codUbicacion)" readonly="true" >
+                                          
+                                            <template name="model">
+                                                <comboitem  label="@bind(each.ubiNombre)"/>
+                                            </template>                                      
+                                        </combobox> 
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group form-control"  >
+                                        <label   class="labelNuevoNegro" value="(*) "  >Proveedor</label>
+                                        
+                                        <textbox width="98%"   class="form-control "
+                                                 value="@bind(vm.operacion.opeReferencia)" 
+                                                 onChange="self.setValue(self.getValue().toUpperCase().trim());" />
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group form-control"  >
+                                        <label   class="labelNuevoNegro" value="(*) "  >Numero de factura </label>
+                                        
+                                        <textbox width="98%"   class="form-control "
+                                                 value="@bind(vm.operacion.opeFactura)"
+                                                 onChange="self.setValue(self.getValue().toUpperCase().trim());" />
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group form-control"  >
+                                        <label   class="labelNuevoNegro" value="(*) "  >Descripcion </label>
+                                        
+                                        <textbox width="98%"   class="form-control "
+                                                 value="@bind(vm.operacion.opeConcepo)" 
+                                                 onChange="self.setValue(self.getValue().toUpperCase().trim());" />
+                                    </div>
+                                    <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                                        <image src="/iconos/save48.png"  
+                                               class="grow"    
+                                               onClick="@command('guardar')"
+                                               tooltiptext="Guardar Registro"/>
+ 
+                                    </div> 
+                                </div>
+
+                            </div>
+   
+                        </div>
+                    </div>
+     
+                </tabpanel>
+
+            </tabpanels>
+            
+        </tabbox>
+    </hbox>
+
+
+</zk>

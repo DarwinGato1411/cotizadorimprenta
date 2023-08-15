@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowRecibido1"  position="center" width="600px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.CotizacionViewModel')">
+    
+    <caption label="Seleccionar cabida" style="font-weight:bold"
+    /> 
+    
+                   
+    <listbox id="documentos12"  model="@load(vm.listaCabidasBuscadasGeneral)" 
+                                         nonselectableTags="*"  mold="paging" pageSize="5"  >
+        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+        <auxhead>
+            <auxheader align="center" colspan="2">  
+                <!--<label value="Imagen: " style="font-weight:bold"/>-->
+            </auxheader>  
+        </auxhead>
+        <auxhead>
+            <auxheader align="center" colspan="2">                             
+                <!--<image content="@bind(vm.foto)" align="center" width="300px"  height="200px"/>-->
+            </auxheader>  
+        </auxhead>
+                    
+        <listhead> 
+            <listheader width="60%"  label="Descripción" /> 
+            <listheader width="20%"  label="UXF" /> 
+            <listheader width="20%"  label="Opciones" /> 
+        </listhead>  
+                    
+        <template name="model">                                                            
+            <listitem>
+                <listcell>
+                    <label value="@bind(each.cabDescripcion)" width="96%" />
+                </listcell>
+                <listcell>
+                    <label value="@bind(each.cabUxf)" width="96%" />
+                </listcell>
+                              
+                <listcell>
+                    <button  image="/imagenes/image.png"  onClick="@command('verFoto',material=each)" tooltiptext="Eliminar contacto"/>          
+                </listcell>
+            </listitem>
+        </template>
+    </listbox>
+               
+                
+                  
+</window>

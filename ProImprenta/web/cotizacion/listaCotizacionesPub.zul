@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk  contentStyle="overflow:auto" with="100%" >
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.ListaCotizacionesPub')" width="100%">
+        <tabbox id="tboxPrincipal"  width="99%">
+            <tabs >
+                <tab label="Lista de cotizaciones" sclass="menutabs" image="/imagenes/clientes.png"/> 
+                
+            </tabs>
+            <tabpanels >
+                
+                <tabpanel id="tabListaCotizacion" height="98%" width="99%"  >
+                    <listbox id="lstCotizaciones"  model="@load(vm.listaCotizaciones)" 
+                             nonselectableTags="*"  mold="paging" pageSize="25"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead>
+                            <auxheader colspan="9" >  
+                                <label value="Nombre comercial: " width="96%" /> 
+                                <textbox id="txtClienteBuscar"   value="@bind(vm.busCliente)"  />
+                                <button image="/imagenes/buscar1.png"  onClick="@command('buscarListaPorCliente')"  tooltiptext="Buscar cotizaciones"/>
+                                <space bar="false"  width="100px" />                                 
+                                <label value="Numero de cotizacion: " width="96%" /> 
+                                <textbox id="txtNumeroBuscar"   value="@bind(vm.busNumero)"  />
+                                <button image="/imagenes/buscar1.png"  onClick="@command('buscarListaPorNumero')"  tooltiptext="Buscar cotizaciones"/>
+                            </auxheader>
+                        </auxhead>
+                    
+                        <listhead> 
+                            <listheader width="10%"  label="No. Cot y Ord" />     
+                            <listheader width="25%"  label="Nombre Comercial" /> 
+                            <listheader width="10%"  label="Fecha Cot" /> 
+                            <!--<listheader width="10%"  label="Subtotal" />-->  
+                            <listheader width="10%"  label="Total "  /> 
+                            <listheader width="10%"  label="Tipo Cot"  />   
+                            <listheader width="10%"  label="Estado Cot"  />       
+                            <listheader width="20%"  label="Vendedor "  />
+                            <listheader width="15%"  label="Opciones"/>
+                            
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>    
+                                    <label value="@bind(each.cotNumero)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codCliente.nombreComercial)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <datebox compact="true" value="@bind(each.cotFechaEmision)" buttonVisible="false" lenient="true" format="dd/MM/yyyy H:mm " width="98%"  constraint="no empty: Ingrese su fecha de nacimiento."/>
+                                    <!--<label value="@bind(each.cotFechaEmision)" width="96%" />-->
+                                </listcell>
+                                <!--                                <listcell>
+                                    <decimalbox format="###.##" readonly="true" value="@bind(each.cotSubtotal)" width="96%" />
+                                </listcell>-->
+                                <listcell>
+                                    <decimalbox format="###.##" readonly="true" value="@bind(each.cotTotal)" width="96%"/>
+                                </listcell>
+                                <!--                                <listcell>
+                                    <decimalbox format="###.##" readonly="true" value="@bind(each.cotPorcentajeGanancia)" width="96%"/>
+                                </listcell>-->
+                                <listcell>
+                                    <label value="@bind(each.cotTipoCotizacion)" width="96%"/>
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codEstCotizacion.estCotNombre)" width="96%"/>
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codCliente.vendedorAsignado)" width="96%"/>
+                                </listcell>
+                                <listcell>    
+                                    <button  image="/imagenes/orden.png" onClick="@command('reporteGeneral',valor=each)" tooltiptext="Generar PDF de  orden de produccion"/>
+                                    <button  image="/imagenes/cotizacion.png" onClick="@command('reporteGeneralCotizacion',valor=each)" tooltiptext="Generar PDF de cotizacion"/>
+                                    <button  image="/imagenes/edit.png" onClick="@command('modificarCotizacion',valor=each)" tooltiptext="Modificar cotizacion"/>
+                                    <!--<button  image="/imagenes/email.png" onClick="@command('enviarMail')" tooltiptext="Modificar cotizacion"/>-->
+                                    <button  image="/imagenes/estado.png" onClick="@command('cambiarEstadoCotizacion',valor=each)" tooltiptext="Cambiar estado de la cotizacion"/>
+                                    <button  image="/imagenes/modOrden.png" onClick="@command('modificarOden',valor=each)" tooltiptext="Modificar informacion de la orden de produccion"/>
+                                    <zk if="${each.cotTipoCotizacion!='CIDI'}"> 
+                                        <button 
+                                            image="/imagenes/tercer.png" onClick="@command('reporteGeneralTercerizado',valor=each)" tooltiptext="Modificar orden"/>
+                                    </zk> 
+                                </listcell>
+                                
+                            </listitem>
+                        </template>
+                    </listbox>
+                </tabpanel>
+                
+
+
+            </tabpanels>
+            
+        </tabbox>
+    </hbox>
+
+
+</zk>

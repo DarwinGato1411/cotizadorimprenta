@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="idOrdenProduccionSinCot"  position="center" width="70%"  height="auto" closable="true"  
+         apply="org.zkoss.bind.BindComposer" 
+         viewModel="@id('vm') @init('imp.controladoresview.ActulizarOrdenSinCotizarViewModel')">
+    <caption label="Orden de Produccion sin cotizar" style="font-weight:bold"
+    /> 
+    <tabbox  width="100%">
+        <tabs >
+            <tab label="iNFORMACION DE LA ORDEN SIN COTIZAR " 
+                 sclass="menutabs"/>  
+        </tabs>
+        <tabpanels >
+            <tabpanel >
+                <div class="row " align="lefth">
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                        <div  class="input-group" align="start">
+                            <label value="Número de orden: " class="input-group-addon" />
+                           
+                            <!--                                <textbox  value="@bind(vm.ordenSinCotizacion.sinObservacion)" 
+                            placeholder="Ingrese la observacion"
+                            class="form-control form-control-sm"  />     -->
+                            <textbox  readonly="true" 
+                                      style="font-weight:bold;olor:blue;font-size:2em" 
+                                      placeholder="Nombre comercial"
+                                      class="form-control form-control-sm" 
+                                      value="@bind(vm.ordenSinCotizacion.sinNumero)"  />     
+                        </div>
+                          
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                      
+                        <div  class="input-group form-control">
+                            <label value="Fecha inicio:"   class="input-group-addon" />
+                            <datebox   value="@bind(vm.ordenSinCotizacion.sinFechaInicio)" 
+                                       readonly="true" style="font-weight:bold;" 
+                                       class="badge badge-default  bg-info  btn-secondary  textoFechaDateBox"  
+                                       buttonVisible="true" 
+                                       lenient="true"  format="dd/MM/yyyy" 
+                                       constraint="no empty: Ingrese de inicio del trabajo    "/> 
+                             
+                       
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                      
+                        <div  class="input-group form-control">
+                            <label value="Hora inicio: "  class="input-group-addon" />
+                            
+                            <timebox  format="short" 
+                                      value="@bind(vm.ordenSinCotizacion.sinHoraInicio)" 
+                                      readonly="true" style="font-weight:bold;" 
+                                      class="badge badge-default  bg-info btn-secondary  textoFechaDateBox"  
+                                      constraint="no empty: Hora de inicio" />      
+                                 
+                       
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                        
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                      
+                        <div  class="input-group form-control">
+                            <label value="Fecha fin:  " width="120px" class="input-group-addon" />
+                            <datebox compact="true" value="@bind(vm.ordenSinCotizacion.sinFechaCierre)"  
+                                     readonly="true" style="font-weight:bold;" 
+                                     class="badge badge-default  bg-info btn-secondary  textoFechaDateBox"  
+                                     buttonVisible="true" 
+                                     lenient="true"  format="dd/MM/yyyy" 
+                                     constraint="no empty: Ingrese de inicio del trabajo    "/>
+                       
+                             
+                       
+                        </div>
+                    </div>
+                    <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+                      
+                        <div  class="input-group form-control">
+                            <label value="Hora fin: " class="input-group-addon" />
+                            <timebox  format="short" 
+                                      value="@bind(vm.ordenSinCotizacion.sinHoraCierre)" 
+                                      style="font-weight:bold;heigth:30px" 
+                                      class="badge badge-default  bg-info btn-secondary  textoFechaDateBox"  
+                                      constraint="no empty: Hora de fin" />  
+                           
+                       
+                        </div>
+                    </div>
+                    <div class="col-5 col-sm-5 col-md-5 col-lg-5">
+                        
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                      
+                        <div  class="input-group">
+                            <label value="Ingrese la observacion:" class="input-group-addon" />
+                            <textbox  
+                                placeholder="Ingrese la observacion"
+                                class="form-control form-control-sm" 
+                                value="@bind(vm.ordenSinCotizacion.sinObservacion)"
+                            />          
+                        </div>
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6" align="center">
+                        <button label="Subir imagen" 
+                                class="btn  btn-primary"
+                                onClick="@command('subirFotografia')"  
+                                tooltiptext="Subir archivo IMAGEN"/> 
+                        
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 " align="center">
+                      
+                        <button label="Subir pdf"  
+                                class="btn  btn-primary"
+                                onClick="@command('subirArchivo')"  
+                                tooltiptext="Subir archivo PDF"/> 
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 form-control" height="250px">
+                        <iframe content="@bind(vm.ordenSinCotizacion.fotoGeneral)" 
+                               height="250px" width="98%" align="center"  />
+                       
+                        
+                    </div>
+                    <div class="col-6 col-sm-6 col-md-6 col-lg-6 form-control" height="250px">
+                        <iframe height="250px" width="98%" id="reportframe" 
+                                content="@bind(vm.ordenSinCotizacion.fileContent)"/>
+                        
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                        <separator height="5px"/>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                        <image src="/iconos/save48.png"  
+                               onClick="@command('guardar')"
+                               tooltiptext="Guardar Registro"/>
+                
+ 
+
+                    </div> 
+                </div>  
+                
+            </tabpanel>
+      
+        </tabpanels>
+    </tabbox>
+      
+</window>

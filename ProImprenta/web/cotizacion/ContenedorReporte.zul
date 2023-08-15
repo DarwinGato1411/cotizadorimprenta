@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+
+    <window  id="windowRecibidoContenedor"  position="center" width="70%" height="90%" closable="true"  sizable="true" 
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto" maximizable="true" 
+         viewModel="@id('vm') @init('imp.controladoresview.ContenedorReporteViewModel')" sclass="sysWin">
+        <caption label="Informes" style="font-weight:bold"
+        >
+            <progressmeter id="pm" width="100px" style="align:rigth" value="100" />
+        </caption> 
+        
+        <iframe height="100%" width="100%" id="reportframe1"
+            content="@bind(vm.fileContent)"/>       
+    </window>
+</zk>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk  contentStyle="overflow:auto" with="100%" >
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.ListaMaterialSolicitado')" width="100%">
+        <!--<timer id="timer" delay="60000" repeats="true" onTimer="@command('buscarListaOrdenesAll')" ></timer>-->
+        <tabbox id="tboxPrincipal"  width="99%">
+                       
+            <tabs >
+                <tab label="MATERIALES SOLICITADOS" sclass="menutabs" /> 
+                
+            </tabs>
+            <tabpanels >
+                 
+                <tabpanel id="tabListaMAteriales" height="98%" width="99%"  >
+                                
+                    <listbox id="lstCotizaciones"  model="@load(vm.listaMaterialesSolicitados)" 
+                             nonselectableTags="*"  mold="paging" pageSize="20"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead>
+                            <auxheader colspan="9" >  
+                                Buscar por estado de la solicitud: <combobox id="cmbTipoBusqueda" width="150px" readonly="true"
+                                                                             selectedItem="@bind(vm.estadoMaterialSol)">
+                                    <comboitem label="SOLICITADO" value="SOLICITADO" />
+                                    <comboitem label="DESPACHADO" value="DESPACHADO" />
+                                    <comboitem label="ELIMINADO" value="ELIMINADO" />
+                                </combobox>
+                                <button label="Buscar" image="/imagenes/buscar.png" onClick="@command('buscarEstado')"  tooltiptext="Listar materiales solicitados"/>
+                                <space bar="false"  width="100px" /> 
+                                <button  label="Solicitar" image="/imagenes/add.png" onClick="@command('nuevoSolicitarMaterial')"  tooltiptext="Solicitar material"/>
+                                            
+                            </auxheader>
+                        </auxhead>
+                    
+                        <listhead> 
+                            <listheader width="10%"  label="Fecha" />   
+                            <listheader width="5%"  label="Hora" />   
+                            <listheader width="5%"  label="Cantidad" /> 
+                            <listheader width="40%"  label="Descripcion" /> 
+                            <listheader width="10%"  label="Responsable" /> 
+                            <listheader width="10%"  label="Estado" />   
+                            <listheader width="20%"  label="Opciones"/>
+                            
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>    
+                                    <datebox compact="true" readonly="true"  value="@bind(each.solFecha)" buttonVisible="false" lenient="true"  format="medium" width="98%"  />
+                                    <!--<label value="@bind(each.solFecha)" width="96%" />-->
+                                </listcell>
+                                <listcell>
+                                    <!--<label  value="@bind(each.ordHoraCerre)" width="96%"/>-->
+                                    <timebox  format="short" value="@bind(each.solHora)" style="font-weight:bold" readonly="true" buttonVisible="false"  />
+                                </listcell>
+                                <listcell>
+                                    <decimalbox format="###.##" readonly="true" value="@bind(each.solCantidad)" width="96%"/>
+                                </listcell>
+                                <listcell>
+                                    <textbox multiline="true" rows="2" value="@bind(each.solDescripcion)" width="96%" />
+                                </listcell>
+                          
+                                <listcell>
+                                    <label value="@bind(each.codUsuarioSistema.usuNombre)" width="96%" />       
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.solEstado)" width="96%" />       
+                                </listcell>
+                                <listcell>  
+                                    <button label="Reporte" image="/imagenes/pdf.png" onClick="@command('reporteMaterialSolicitado',valor=each)" tooltiptext="Despachar material "/>
+                                    <button  label="Despachar" image="/imagenes/accept.png" onClick="@command('cambiarEstado',valor=each)" tooltiptext="Despachar material "/>
+                                    <button  label="Eliminar" image="/imagenes/cancel.png" onClick="@command('cambiarEstadoeliminarMaterial',valor=each)" tooltiptext="eliminar material "/>
+                                </listcell>
+                                
+                            </listitem>
+                        </template>
+                    </listbox>
+                
+                </tabpanel>
+                
+
+
+            </tabpanels>
+            
+        </tabbox>
+    </hbox>
+</zk>

@@ -1,0 +1,111 @@
+<?init class="imp.seguridad.Autentificador"?>
+
+<zk >
+    <div style="border:2px;padding-top:10px;padding-left:5px" width="97%" align="center">
+        <image src="/imagenes/organizar.png"  /> 
+        <image src="/imagenes/organiza.png"  /> 
+    </div>
+    <div class="btn-group-vertical sidebar-nav "  style="text-align:lefth;"
+         viewModel="@id('vm')"     apply="com.ec.controlador.MenuOpciones" >
+    
+        <hbox   >
+          
+            <menubar id="menubara" orient="vertical" class=" btn  form-control-sm  dropdown-toggle" >
+                <button id="btnCotizar" label="Cotizacion general"  
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost"  />        
+           
+        <button id="btnCompaginado" label="Cotizacion Compaginado"  
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost" />        
+          
+        <button id="btnGiganto" label="Cotizacion Gigantografia"  
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost"/>        
+           
+        <button id="btnDigital" label="Cotizacion Digital"  
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost"/>        
+           
+        <space bar="true" orient="horizontal" width="100%" /> 
+           
+        <button id="btnListaUsuarios" label="Cotizacion Generadas"  
+                class="btn btn btn btn-success form-control-sm letrasMenuOpcionesBoost"/>        
+            
+        <button id="btnCotizacionCerrada" label="Cotizacion Cerradas" 
+                class="btn btn btn btn-success form-control-sm letrasMenuOpcionesBoost"/>
+           
+        <button id="btnCotizacionFacturadas" label="Cotizacion Facturadas" 
+                class="btn btn btn btn-success form-control-sm letrasMenuOpcionesBoost"/>
+            
+        <button id="btnOrdenFinalizada" label="Orden Cerradas" 
+                class="btn btn btn btn-success form-control-sm letrasMenuOpcionesBoost"/>
+            
+
+        <space bar="true" orient="horizontal" width="100%" /> 
+        <button id="btnOrdenSinCotizar" label="Generar Orden de trabajo" 
+                class="btn btn btn-danger form-control-sm letrasMenuOpcionesBoost"/>
+            
+               
+        <button id="btnListaOrdenSinCotizar" label="Orden de trabajo Generadas"
+                class="btn btn btn-danger form-control-sm letrasMenuOpcionesBoost"/>
+            
+        <button id="btnListaOrdenSinCotizarCerradas" label="Orden de trabajo Cerradas"
+                class="btn btn btn-danger form-control-sm letrasMenuOpcionesBoost"/>
+           
+        <button id="btnListaOrdenSinCotizarFacturadas" label="Orden de trabajo Facturadas" 
+                class="btn btn btn-danger form-control-sm letrasMenuOpcionesBoost"/>
+            
+        <space bar="true" orient="horizontal" width="100%" /> 
+           
+
+
+        <!--<button id="btnAdministrarCatalogo" label="Inicio de inventario"     class="btn btn-primary form-control-sm letrasMenuOpcionesBoost" />-->          
+          
+        <button id="btnIngreso" label="Ingreso de material"    
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost" />          
+           
+        <button id="btnSalida" label="Salida de material"    
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost" />          
+          
+        <button id="btnKardex" label="Reporte movimientos"     
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost" />          
+          
+        <button id="btnReporteInventario" label="Reporte inventario"   
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost" />          
+           
+        <button id="btnMaterialTrabajo" label="Ajuste de material"  
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost" />          
+        
+        <space bar="true" orient="horizontal" width="100%" /> 
+        
+    
+        <button id="btnMaterialSolicitado" label="Material Solicitado" 
+                class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>
+            
+        <button id="btnAdministrar" label="Administrar"   
+                class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>
+        <!--        <button id="btnMailMasivo" label="Mail Masivo" 
+        class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>-->
+        <button id="btnCalculadora" label="Utilidades"   
+                class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>
+        <button  label=""   
+                 class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>
+                <menuitem label="Juegos web" id="itemJuego"
+                          class="btn btn-primary form-control-sm "/>
+                <menuitem label="Orde de pedido"  id="itemOrden" 
+                          class="btn btn-primary form-control-sm "/>
+                <menuitem label="Usuarios"  id="itemUsuario"
+                          class="btn btn-primary form-control-sm "                />
+ 
+
+
+            </menubar>
+        </hbox>
+    </div>
+    <div class="btn-group-vertical  sidebar-nav"  style="text-align:lefth;"
+         viewModel="@id('vm')" id="gridMenu" apply="imp.controladoresview.MenuOpcionesViewModel" >
+       
+        
+ 
+    </div>
+
+
+</zk>
+    

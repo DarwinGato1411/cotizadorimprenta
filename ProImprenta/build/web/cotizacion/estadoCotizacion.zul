@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="idEstCot"  position="center" width="40%" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.CambiarEstadoCotizacion')">
+      <caption label="Modificar estado" style="font-weight:bold"
+    /> 
+        <tabbox  width="100%">
+            <tabs >
+                <tab label="Estado" sclass="menutabs"/>  
+            </tabs>
+            <tabpanels >
+                <tabpanel >
+                   
+                    <grid width="100%" >
+                        
+                        <columns>                               
+                            <column label="Seleccionar" width="40%" align="left"/> 
+                             <column label="Opción" width="50%" align="left"/>                 
+                        </columns>
+                     
+                        <rows >
+                            <row>
+                                <cell colspan="1">
+                                    <label value="(*) " style="color:red;font-weight:bold"/>Estado de cotizacion: 
+                                </cell>
+                                <cell colspan="1">
+                                    <combobox width="98%" model="@load(vm.listaEstados)"
+                                              selectedItem="@bind(vm.cotizacion.codEstCotizacion)" constraint="no empty: Seleccione un estado del documento" readonly="true">
+                                        <template name="model">
+                                            <comboitem value= "@bind(each)" label="@bind(each.estCotNombre)" />
+                                        </template>                                      
+                                    </combobox>  
+                                </cell>
+                            </row>
+                            <row>
+                                <cell align="center" colspan="4">
+                                    <hbox>
+                                        <button label="Guardar"  onClick="@command('guardar')"  tooltiptext="Cambiar estado"/> 
+                                    </hbox>
+                
+                                </cell>  
+                            </row>
+                        </rows>
+                    </grid> 
+                </tabpanel>
+      
+            </tabpanels>
+        </tabbox>
+      
+</window>

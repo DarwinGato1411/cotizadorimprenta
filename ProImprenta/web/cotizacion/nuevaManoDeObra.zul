@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowsManoObra"  position="center" width="600px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.ManoObraViewModel')">
+    
+    <caption label="Registrar Mano de Obra" style="font-weight:bold"
+    /> 
+    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic">Registrar Mano de Obra    
+                <radiogroup Id="tipoManoObra" selectedItem="@bind(vm.manoDeObra.manTipoProducto)" onCheck="@command('visualizarCampos')">
+                    <radio id="preImpresion" label="PRE-IMPRESION" value="PRE-POST"/>
+                    <radio id="impresion" label="IMPRESION" value="IMPRESION"/>
+                    <radio id="postImpresion" label="POST-IMPRESION" value="PRE-POST"/>
+                </radiogroup>
+            </auxheader>
+
+        </auxhead>
+        <columns>                               
+            <column label="Etiquetas" width="40%" align="left"/>
+            <column label="Descripcion" width="60%"/>
+                   
+        </columns>
+                     
+        <rows >
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Descripción:              
+                </cell>
+                <cell colspan="1">
+                    <textbox width="70%" id="txtMaquina" onChange="self.setValue(self.getValue().toUpperCase().trim());" value="@bind(vm.manoDeObra.manNombreProducto)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                </cell>
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Costo por millar: 
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtmillar" format="###.#####" width="20%"  value="@bind(vm.manoDeObra.manCostoMillar)"  constraint="no empty: Campo requerido" sclass="textBoxMedio" /> $
+                </cell>
+            </row>
+             <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Costo minimo por millar:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtHoraCostoMillar" format="###.#####" width="20%" value="@bind(vm.manoDeObra.manCostoMinMillar)"  constraint="no empty: Campo requerido" sclass="textBoxMedio" /> $
+                </cell>
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Costo por hora:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtHora" format="###.#####" width="20%" value="@bind(vm.manoDeObra.manCostoTiempo)"  constraint="no empty: Campo requerido" sclass="textBoxMedio" /> $
+                </cell>
+            </row>
+           
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Costo minimo por hora:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtHoraMinimoCOsto" format="###.#####" width="20%" value="@bind(vm.manoDeObra.manCostoMinHora)"  constraint="no empty: Campo requerido" sclass="textBoxMedio" /> $
+                </cell>
+            </row>
+             <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Número de impresiones por hora:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtNumeroImpHora" format="###" width="20%" value="@bind(vm.manoDeObra.manImpresionHora)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> Unidades
+                </cell>
+            </row>
+          
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Costo por plancha:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtPlancha" format="###.#####" width="20%" value="@bind(vm.manoDeObra.manCostoPlancha)"  constraint="no empty: Campo requerido" sclass="textBoxMedio" /> $
+                </cell>
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Numero de torres de impresión:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtTorres" format="###" width="20%" value="@bind(vm.manoDeObra.manNumeroTorresImpresion)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> Unidades
+                </cell>
+               
+
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Permite volteo: 
+                </cell>
+                <cell colspan="1">
+                   
+                    <radiogroup Id="manoObra" selectedItem="@bind(vm.manoDeObra.manPermiteVolteo)" onCheck="@command('seleccionVolteo')" >
+                        <radio id="volteoSI" label="SI" value="SI"/>
+                        <radio id="volteoNO" label="NO" value="NO"/>
+                    </radiogroup>
+                </cell>
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Largo maximo:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtLargoMax" format="###.##" width="20%" value="@bind(vm.manoDeObra.manAlto)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> cm
+                </cell>
+               
+
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Ancho maximo:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtAnchoMaximo" format="###.##"  width="20%"  value="@bind(vm.manoDeObra.manAncho)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> cm
+                </cell>
+          
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Largo minimo:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtLargoMinino" format="###.##" width="20%" value="@bind(vm.manoDeObra.manAltoMin)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> cm
+                </cell>
+               
+
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Ancho minimo:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox  id="txtAnchoMinimo" format="###.##"  width="20%" value="@bind(vm.manoDeObra.manAnchoMin)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> cm
+                </cell>
+          
+            </row>
+       
+       
+       
+       
+            <row>
+                <cell align="center" colspan="4">
+                    <hbox>
+                        <button label="Guardar" image="/imagenes/save_1.png"  onClick="@command('guardar')"  tooltiptext="Guardar cliente"/> 
+                    </hbox>
+                
+                </cell>  
+            </row>
+        </rows>
+                  
+    </grid> 
+                    
+                  
+</window>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowClienteOrden"  position="center" width="900px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.OrdenSinCotizarViewModel')">
+    
+    <caption label="Buscar cliente" style="font-weight:bold"
+    /> 
+    <div class="row " align="lefth">
+        <div class="col-4 col-sm-4 col-md-4 col-lg-4">
+            
+            <div  class="input-group">
+                <label value="Razon Social: "  class="input-group-addon" />                            
+                <textbox  value="@bind(vm.buscarRazon)" 
+                          class="form-control form-control-sm"   
+                          onChanging="@command('buscarClienteRazon',valor=event.value.toUpperCase())" /> 
+            </div>
+         
+            
+        </div>       
+        <div class="col-6 col-sm-6 col-md-5 col-lg-5">
+            <div  class="input-group">
+                <label value="Nombre Comercial: " class="input-group-addon" />
+                <textbox value="@bind(vm.buscarNombreComercial)" 
+                         class="form-control form-control-sm"
+                         onChanging="@command('buscarNombreComercial',valor=event.value.toUpperCase())" />
+            </div>       
+        </div>       
+    </div>
+    <listbox id="lstlienteASD"  model="@load(vm.listaClientesAll)" 
+             nonselectableTags="*"  mold="paging" pageSize="15"  >
+        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+             
+        
+                    
+        <listhead>     
+            <listheader width="15%"  label="Ruc" /> 
+            <listheader width="20%"  label="Nombre comercial" /> 
+            <listheader width="15%"  label="Razon Social" /> 
+            <listheader width="10%"  label="Convencional" />  
+            <listheader width="15%"  label="Dirección "  /> 
+            <listheader width="20%"  label="Correo "  />        
+            <listheader width="5%"  label="Opciones"/>
+                            
+        </listhead>  
+                    
+        <template name="model">                                                            
+            <listitem>
+                <listcell  onClick="@command('seleccionarClienteLista',cliente=each)">
+                    <label  onClick="@command('seleccionarClienteLista',cliente=each)" value="@bind(each.ruc)" width="96%" />
+                </listcell>
+                <listcell  onClick="@command('seleccionarClienteLista',cliente=each)">
+                    <label  onClick="@command('seleccionarClienteLista',cliente=each)" value="@bind(each.nombreComercial)" width="96%" />
+                </listcell>
+                <listcell  onClick="@command('seleccionarClienteLista',cliente=each)">
+                    <label  onClick="@command('seleccionarClienteLista',cliente=each)" value="@bind(each.razonSocial)" width="96%"/>
+                </listcell >
+                <listcell onClick="@command('seleccionarClienteLista',cliente=each)" >
+                    <label  onClick="@command('seleccionarClienteLista',cliente=each)" value="@bind(each.telefono)" width="96%" />
+                </listcell>
+                <listcell onClick="@command('seleccionarClienteLista',cliente=each)" >
+                    <label onClick="@command('seleccionarClienteLista',cliente=each)"  value="@bind(each.direccion)" width="96%"/>
+                </listcell>
+                <listcell onClick="@command('seleccionarClienteLista',cliente=each)" >
+                    <label  onClick="@command('seleccionarClienteLista',cliente=each)" value="@bind(each.correo)" width="96%"/>
+                </listcell>
+                <listcell>    
+                    <image  src="/iconos/ok24x24.png" 
+                            onClick="@command('seleccionarClienteLista',cliente=each)" 
+                            tooltiptext="Asigar cliente"/>
+                </listcell>
+            </listitem>
+        </template>
+    </listbox>
+                     
+                  
+</window>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<hbox  id="hbCliente"  self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+       viewModel="@id('vm') @init('imp.controladoresview.UtilitarioOpcionesViewModel')">
+    
+    
+    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic">CALCULADORA DE CABIDAS</auxheader>
+        </auxhead>
+        <columns>                               
+            <column label="" width="25%" align="center"/>
+            <column label="" width="25%" align="center"/>                                     
+            <column label="" width="25%" align="center"/>                                     
+            <column label="" width="25%" align="center"/>                                      
+        </columns>
+                     
+        <rows >    
+            <row>
+                <cell align="center" colspan="1">
+                    <hbox>
+                        <button id="btnCalculadora" width="100px" height="100px" 
+                                class="btn btn btn-primary btn-sm "
+                                label="Calculadora"
+                                onClick="@command('abrirCalculadora')"  style="border:0px;width=100%" />        
+                    </hbox>
+                
+                </cell>  
+                <cell align="center" colspan="1">
+                    <hbox>
+                        <button id="btnExcel" width="100px" height="100px" 
+                                label="Rep Genral"
+                                class="btn btn btn-primary btn-sm "
+                                onClick="@command('opcionExcel')"  style="border:0px;width=100%" />        
+                    </hbox>
+                
+                </cell> 
+                <cell align="center" colspan="1">
+                    <hbox>
+                        <button id="btnExcelGiganto" width="150px" height="100px" 
+                                label="Rep. Gigantografia"
+                                class="btn btn btn-primary btn-sm "
+                                onClick="@command('opcionExcelGiganto')"  style="border:0px;width=100%" />        
+                    </hbox>
+                
+                </cell> 
+            </row>
+           
+        </rows>
+                  
+    </grid> 
+</hbox>

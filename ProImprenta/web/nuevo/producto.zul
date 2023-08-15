@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowMaterial"  position="center" width="500px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto" 
+         viewModel="@id('vm') @init('imp.controladoresview.NuevoProducto')">
+    
+    <caption label="PRODUCTO" style="font-weight:bold"
+    /> 
+    
+    <div  class="container" >
+        <div  class="row" >
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4  form-group "  >
+                <label   style="color:red;font-weight:bold" value="(*) "  />Codigo:
+                <textbox  maxlength="13"   id="txtRuc" 
+                          value="@bind(vm.producto.prodSerie)"  
+                          class="form-control" />
+                <!--                <textbox  value="@bind(vm.area.areaCodigo)" class="form-control"
+                onChange="self.setValue(self.getValue().toUpperCase());"                     />-->
+            </div>          
+             
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8  form-group "  ></div>
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8  form-group "  >
+                <label value="(*) " style="color:red;font-weight:bold"/>Nombre del producto 
+                
+                <textbox  
+                    maxlength="100" 
+                    value="@bind(vm.producto.prodNombre)"
+                    onChange="self.setValue(self.getValue().toUpperCase().trim());" 
+                    constraint="no empty: Campo requerido"
+                    class="form-control" />
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4  form-group "  >
+                <label value="(*) " style="color:red;font-weight:bold"/>Unidad de medida
+                
+                <textbox  value="@bind(vm.producto.prodUnidadMedida)" 
+                          onChange="self.setValue(self.getValue().toUpperCase().trim());" 
+                          constraint="no empty: Campo requerido"
+                          class="form-control" />
+            </div>
+       
+       
+           
+            <!--<div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >-->
+                
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group "  >
+                <label value="(*) "  style="color:red;font-weight:bold"/>Categoria
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                    <combobox  model="@load(vm.listaCategorias)"
+                               class="badge badge-default   btn-secondary  textoFechaDateBox" 
+                               selectedItem="@bind(vm.producto.codCategoria)" readonly="true" >
+                                          
+                        <template name="model">
+                            <comboitem  label="@bind(each.catDescripcion)"/>
+                        </template>                                      
+                    </combobox>  
+               
+                </div>    
+            </div>    
+          
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group "  >
+                <label value="(*) "  style="color:red;font-weight:bold"/>Area/Ubicacion
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                   
+                    <combobox  model="@load(vm.listaUbicacions)"
+                               class="badge badge-default   btn-secondary  textoFechaDateBox" 
+                               selectedItem="@bind(vm.producto.codUbicacion)" readonly="true" >
+                                          
+                        <template name="model">
+                            <comboitem  label="@bind(each.ubiNombre)"/>
+                        </template>                                      
+                    </combobox> 
+               
+                </div>    
+            </div>  
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4  form-group "  >
+                <label value="(*) " style="color:transparent;font-weight:bold"/>Cantidad inicial
+              
+                <decimalbox format="###.##"   
+                            value="@bind(vm.producto.prodValorIncial)"
+                            class="form-control" />
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4  form-group "  >
+                <label value="(*) " style="color:red;font-weight:bold"/>Costo de compra:
+                
+                <decimalbox    format="###.#####" 
+                               value="@bind(vm.producto.prodCostoCompra)" 
+                               constraint="no empty: Campo requerido"
+                               class="form-control" />
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4  form-group "  >
+                <label value="(*)" style="color:transparent;font-weight:bold"/>Costo venta
+              
+                <decimalbox    format="###.#####" 
+                               value="@bind(vm.producto.prodCostoVenta)"
+                               class="form-control" />
+            </div>
+            <!--</div>-->
+            
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                <label value="(*) " style="color:transparent;font-weight:bold"/>Cantidad minima de stock (Permite tener un rango de colores)
+            </div>
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3  form-group "  > 
+                <decimalbox format="###.##"   value="@bind(vm.producto.prodCantidadMinima)" 
+                            class="form-control" />
+            </div>
+           
+           
+                       
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                    
+                <image src="/iconos/save48.png"  
+                       onClick="@command('guardar')"
+                       tooltiptext="Guardar Registro"/>
+ 
+
+            </div> 
+        </div>
+   
+    </div>
+    
+     
+                    
+                  
+</window>

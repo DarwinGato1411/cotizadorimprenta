@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk  contentStyle="overflow:auto" with="100%" >
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.ListaOrdenSinCotizarFacturadas')" width="100%">
+        <!--<timer id="timer" delay="60000" repeats="true" onTimer="@command('buscarListaOrdenesAll')" ></timer>-->
+        <tabbox id="tboxPrincipal"  width="100%">
+                       
+            <tabs >
+                <tab label="LISTA DE ORDEN SIN COTIZAR FACTURADA" sclass="menutabs" /> 
+                
+            </tabs>
+            <tabpanels >
+                 
+                <tabpanel id="tabListaCotizacion" height="98%" width="100%"  >
+                                
+                    <listbox id="lstCotizaciones"  model="@load(vm.listaOrdenSinCotizacion)" 
+                             nonselectableTags="*"  mold="paging" pageSize="20" class="table" >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead >
+                            <auxheader colspan="11"  >  
+                                <div class="row fondoCabeceraList" align="lefth" >
+                                    <div class="col-3 col-sm-3 col-md-3 col-lg-3  ">
+                                        <div class="input-group mb-3">
+                                            <textbox id="txtClienteBuscar"   
+                                                     value="@bind(vm.busCliente)"
+                                                     placeholder="Razon Social"
+                                                     onChange="self.setValue(self.getValue().toUpperCase());" 
+                                                     class="form-control form-control-sm" 
+                                                     onOK="@command('buscarListaPorCliente')" />
+                               
+                                            <div class="input-group-append">
+                                                <button   class="btn btn-primary btn-sm "
+                                                          image="/imagenes/buscar1.png"  
+                                                          onClick="@command('buscarListaPorCliente')"  
+                                                          tooltiptext="Buscar cotizaciones por Nombre Comercial"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 col-sm-4 col-md-4 col-lg-4  ">            
+                                        <div class="input-group mb-3">
+                                            <datebox compact="true" value="@bind(vm.fechaInicio)"  
+                                                     readonly="true"   style="font-weight:bold" 
+                                                     buttonVisible="true" lenient="true" 
+                                                     format="dd/MM/yyyy"   tooltiptext="Fecha de inicio de la busqueda"/>
+                                            <datebox compact="true" value="@bind(vm.fechaFin)" 
+                                                     readonly="true"   style="font-weight:bold" 
+                                                     buttonVisible="true" lenient="true"  
+                                                     format="dd/MM/yyyy"   
+                                                     tooltiptext="Fecha de fin de la busqueda"/>
+                                            <div class="input-group mb-3">  
+                                                <button   class="btn btn-primary btn-sm "
+                                                          image="/imagenes/buscar1.png"  
+                                                          onClick="@command('buscarListaPorFechas')"  
+                                                          tooltiptext="Buscar cotizaciones por fecha de facturacion "/> 
+                                            </div>
+                                        </div>
+                                    </div>    
+                                    <div class="col-2 col-sm-2 col-md-2 col-lg-2  "> 
+                                        <button image="/imagenes/buscar1.png" 
+                                                label="Nombre y Fechas"
+                                                class="btn btn-primary btn-sm "
+                                                onClick="@command('buscarListaPorNombreFechas')" 
+                                                tooltiptext="Buscar cotizaciones por varios paametros"/>                                                     
+                                    
+                                    </div>
+                                </div>
+                            </auxheader>
+                        </auxhead>
+   
+                        <listhead> 
+                            <listheader width="7%"   sort="auto(sinNumero)"> 
+                                <decimalbox  value="@bind(vm.busNumero)" 
+                                             onOK="@command('buscarListaPorNumero')" 
+                                             tooltiptext="Ingrese el numero y presione Enter"
+                                             placeholder="0"
+                                             class="form-control form-control-sm"/>                                    
+                            </listheader>   
+                            <listheader width="28%"    sort="auto(codCliente.razonSocial)" >
+                                <textbox value="@bind(vm.nombreComercial)" 
+                                         onOK="@command('buscarListaPorNombreComercial')"
+                                         tooltiptext="Ingrese el Nombre Comercial y presione Enter"
+                                         placeholder="Nombre Comercial"
+                                         class="form-control form-control-sm"
+                                         onChange="self.setValue(self.getValue().toUpperCase());" />
+                            </listheader>
+                            <listheader width="9%"  label="Fecha inicio" sort="auto(sinFechaInicio)" /> 
+                            <listheader width="5%"  label="Hora inicio"  sort="auto(sinHoraInicio)" />   
+                            <listheader width="9%"  label="Fecha cierre" sort="auto(sinFechaCierre)" /> 
+                            <!--<listheader width="10%"  label="Descripcion" />-->  
+                            <listheader width="5%"  label="Hora cierre" sort="auto(sinHoraCierre)" />
+                            <listheader width="10%"  label="Estado" sort="auto(sinEstado)" />  
+                            <listheader width="10%"  label="Fecha facturacion" sort="auto(sinFechaFacturacion)" />  
+                            <listheader width="10%"   sort="auto(sinNumeroFactura)"  >
+                                
+                                <textbox  value="@bind(vm.numeroFactura)" 
+                                          onOK="@command('buscarPorNumeroFactura')" 
+                                          tooltiptext="Ingrese el numero de factura y presione Enter"
+                                          placeholder="0"
+                                          class="form-control form-control-sm"/>                            
+                            </listheader>    
+                            <listheader width="5%"  label=""/>
+                            <listheader width="5%"  label=""/>
+                            
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                
+                                <listcell>   
+                                    
+                                    <label  value="@bind(each.sinNumero)" />
+                                    
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codCliente.nombreComercial)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <datebox compact="true" readonly="true"  value="@bind(each.sinFechaInicio)" buttonVisible="false" lenient="true" format="medium" width="98%"  />
+                                               
+                                </listcell>
+                                <listcell>
+                                    <timebox  format="short" value="@bind(each.sinHoraInicio)" style="font-weight:bold" readonly="true" buttonVisible="false"  />
+                                </listcell>
+                                <listcell>
+                                    <datebox compact="true" readonly="true"  value="@bind(each.sinFechaCierre)"
+                                             buttonVisible="false" 
+                                             lenient="true" 
+                                             format="medium" width="98%"  />
+                                               
+                                </listcell>
+                                <listcell>
+                                    <timebox  format="short" value="@bind(each.sinHoraCierre)" style="font-weight:bold" readonly="true" buttonVisible="false"  />
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.sinEstado)" width="96%"/>
+                                </listcell>
+                                <listcell>
+                                    <datebox compact="true" readonly="true"  value="@bind(each.sinFechaFacturacion)" buttonVisible="false" lenient="true" format="medium" width="98%" />
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.sinNumeroFactura)" width="96%"/>
+                                </listcell>
+                                <listcell>  
+                                    <image src="/iconos/pdfrep2.png"   
+                                           class="grow"
+                                           onClick="@command('reporteOrdenSinCotizar',valor=each)" 
+                                           tooltiptext="Generar orden de produccion"/>
+                                    <!--                                    <button  image="/imagenes/orden.png" 
+                                    onClick="@command('reporteOrdenSinCotizar',valor=each)" 
+                                    tooltiptext="Generar PDF Orden de produccion"/>-->
+                                  
+                                </listcell>
+                                <zk if="${each.fotoGeneral!=null}" > 
+                                    <listcell style="background:#4e9c4e">  
+                                        <!--<label value="@bind(each.isSinAdjPdf)" width="96%" />-->
+                                                  
+                                        <image src="/iconos/camara24x24.png"  class="grow"
+                                               onClick="@command('VerImagenSinCotizar',valor=each)" 
+                                               tooltiptext="Ver imagen adjunto"/>          
+                                    </listcell>
+                                </zk>
+                                <zk if="${each.fotoGeneral==null}" > 
+                                    <listcell>  
+                                    </listcell>
+                                </zk>
+                            </listitem>
+                        </template>
+                    </listbox>
+                
+                </tabpanel>
+                
+
+
+            </tabpanels>
+            
+        </tabbox>
+    </hbox>
+</zk>

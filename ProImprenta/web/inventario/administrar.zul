@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk  contentStyle="overflow:auto" with="100%" >
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.Administrar')" width="100%">
+        <tabbox id="tboxPrincipal"  width="100%">
+            <tabs >
+                <tab label="ADMINISTRAR CATEGORIAS" sclass="menutabs" /> 
+                <tab label="ADMINISTRAR UBICACIONES" sclass="menutabs" /> 
+                <tab label="ADMINISTRAR MATERIAL" sclass="menutabs" /> 
+             
+
+               
+            </tabs>
+            <tabpanels >
+
+                <tabpanel  height="98%" width="99%"  >                    
+                    <listbox   model="@load(vm.listaCategorias)" 
+                               nonselectableTags="*"  mold="paging" pageSize="10"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead>
+                            <auxheader colspan="10" >  
+                                <button  label="Nueva" src="/imagenes/add.png" onClick="@command('nuevaCategoria')"  tooltiptext="Registrar una nueva categoria"/>
+                            </auxheader>
+                        </auxhead>
+                    
+                        <listhead>     
+                            <listheader width="100%"  label="CATEGORIA" />  
+                   
+
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>    
+                                    <textbox value="@bind(each.catDescripcion)" width="20%" /> 
+                                    
+                                     <button   label="Actualizar" src="/imagenes/actualizar.png" onClick="@command('modificarCategoria',valor=each)" tooltiptext="Modificar categoria"/>
+                                </listcell>
+                                
+
+                            </listitem>
+                        </template>
+                    </listbox>
+                    
+                </tabpanel>
+
+                
+                <tabpanel  height="98%" width="99%"  >                    
+                    <listbox  model="@load(vm.listaUbicacions)" 
+                              nonselectableTags="*"  mold="paging" pageSize="10"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead>
+                            <auxheader colspan="10" >  
+                                <button  height="20px" label="Nueva" src="/imagenes/add.png" onClick="@command('nuevaUbicacion')"  tooltiptext="Registrar una nueva ubicacion"/>
+                            </auxheader>
+                        </auxhead>
+                    
+                        <listhead>     
+                            <listheader width="100%"  label="UBICACIONES" />  
+                    
+
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>    
+                                    <textbox value="@bind(each.ubiNombre)" width="20%" /> 
+                                     <button  label="Actualizar" src="/imagenes/actualizar.png" onClick="@command('modificarUbicacion',valor=each)" tooltiptext="Modificar ubicacion"/>
+                                </listcell>
+
+                            </listitem>
+                        </template>
+                    </listbox>
+                    
+                </tabpanel>
+
+                
+                
+                                
+                <tabpanel  height="98%" width="99%"  >                    
+                    <listbox   model="@load(vm.listaProducto)" 
+                               nonselectableTags="*"  mold="paging" pageSize="10"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                        <auxhead>
+                            <auxheader colspan="10" >  
+                                <button  height="20px" label="Nuevo" src="/imagenes/add.png" onClick="@command('nuevoProducto')"  tooltiptext="Registrar una nuevo producto"/>
+                                <button  image="/imagenes/page_excel.png"   label="Importar material" onClick="@command('cargarInventarioInicial')"  tooltiptext="Importar inventario desde excel"/>
+                            </auxheader>
+                        </auxhead>
+                    
+                        <listhead>     
+                            <listheader width="10%"  label="CODIGO" /> 
+                            <listheader width="20%"  label="NOMBRE " /> 
+                            <listheader width="10%"  label="COST COMPRA" />  
+                            <listheader width="10%"  label="COST VENTA" />  
+                            <!--<listheader width="10%"  label="CANT INICIAL" />-->  
+                            <listheader width="10%"  label="MEDIDA" />  
+                            <listheader width="10%"  label="FECHA" /> 
+                            <listheader width="10%"  label="CATEGORIA" /> 
+                            <listheader width="10%"  label="UBICACION" />  
+                            <listheader width="10%"  label="OPCIONES" />  
+                            
+                            
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>    
+                                    <label value="@bind(each.prodSerie)" width="96%" /> 
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.prodNombre)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <decimalbox format="###.##" readonly="true" value="@bind(each.prodCostoCompra)" width="96%" />
+                                </listcell>
+                         <listcell>
+                                    <decimalbox format="###.##" readonly="true" value="@bind(each.prodCostoVenta)" width="96%" />
+                                </listcell>
+
+                                <listcell>
+                                    <label value="@bind(each.prodUnidadMedida)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <datebox compact="true" readonly="true"  value="@bind(each.prodFechaRegistro)" buttonVisible="false" lenient="true"  format="medium" width="98%"  />
+                                               
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codCategoria.catDescripcion)" width="96%" />
+                                </listcell>
+                                <listcell>
+                                    <label value="@bind(each.codUbicacion.ubiNombre)" width="96%" />
+                                </listcell>
+                                <listcell>    
+                                    <button   label="Actualizar" src="/imagenes/actualizar.png" onClick="@command('modificarProducto',valor=each)" tooltiptext="Modificar producto"/>
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                    
+                </tabpanel>
+
+  
+                   
+            
+            </tabpanels>
+            
+        </tabbox>
+    </hbox>
+
+
+</zk>

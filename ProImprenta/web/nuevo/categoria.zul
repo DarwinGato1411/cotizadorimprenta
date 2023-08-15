@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowCategoria"  position="center" width="25%" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.NuevaCategoria')" >
+    
+    <caption label="REGISTRAR CATEGORIA" style="font-weight:bold"
+    /> 
+    
+    <div  class="container" >
+        <div  class="row" >
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                <label   class="labelNuevo" value="(*) "  >Categoria de material</label>
+                <textbox value="@bind(vm.categoria.catDescripcion)" class="form-control"
+                         onChange="self.setValue(self.getValue().toUpperCase());"                     />
+            </div>          
+  
+          
+                    
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                <image src="/iconos/save48.png"  
+                class="grow"
+                       onClick="@command('guardarParametro')"
+                       tooltiptext="Guardar Registro"/>
+ 
+
+            </div> 
+        </div> 
+    </div>
+                  
+</window>

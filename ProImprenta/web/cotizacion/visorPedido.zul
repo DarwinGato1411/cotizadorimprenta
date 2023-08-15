@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowAplicantes"  closable="true" position="center" width="1000px"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm')  @init('imp.controladoresview.VisorPedidoViewModel')"
+>
+    <caption label="Detalle del pedido" style="font-weight:bold"
+    /> 
+<!--    <grid width="100%" >
+        <columns>                               
+            <column label="" width="10%" align="left"/>
+            <column label="" width="88%"/>                                      
+        </columns>
+        <rows >                                
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Asunto: 
+                </cell>
+                <cell colspan="1">
+                    <textbox id="txtAsunto" value="@bind(vm.asunto)" sclass="textBoxMedio" />
+                </cell>
+                
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Texto:
+                </cell>
+                <cell colspan="1">
+                    <textbox id="txtMensaje" multiline="true" rows="7" value="@bind(vm.contenido)" sclass="textBoxMedio" />
+                </cell>
+                
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>CC: 
+                </cell>
+                <cell colspan="1">
+                    <textbox id="txtConCopia" value="@bind(vm.conCopiaA)" sclass="textBoxMedio" />
+                </cell>
+                
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="" style="color:red;font-weight:bold"/>Nombre(s) de adjunto(s): 
+                </cell>
+                <cell colspan="1">
+                    <textbox id="txtNombreAjuntos" value="@bind(vm.nombresAdjuntos)" sclass="textBoxMedio" />
+                </cell>
+                
+            </row>
+            <row>
+                <cell colspan="2" align="center">
+                    <button  onClick="@command('enviarMail')" label="Enviar mensaje"  tooltiptext="Enviar notificaciones a los usuarios seleccionados"/>
+                </cell>
+                
+            </row>
+        </rows>
+    </grid>-->
+    
+    <listbox width="100%" model="@load(vm.listaPedido)" height="100%"
+             nonselectableTags="*"  mold="paging" pageSize="9" >
+        <auxhead>
+            <auxheader colspan="3" >  
+                <label value="  Detalle" style="font-size:17px;font-weight:bold;padding-left:10px"/>
+                <!--                <label style="font-size:17px;font-weight:bold;padding-left:10px" value="@bind(vm.totalRegistros)" />      
+                <label style="font-size:15px;font-weight:bold;padding-left:10px" value="Denominación del cargo: " />      
+                <label style="font-size:17px;font-weight:bold;padding-left:10px" value="@bind(vm.nombreOferta)" />      -->
+            </auxheader>        
+        </auxhead> 
+        <listhead> 
+            <!--<listheader width="20%"  label="Detalle del trabajo" align="left" />--> 
+             <listheader width="30%"  label="Material" align="left" />      
+            <listheader width="30%"  label="Corte" align="center" /> 
+            <listheader width="20%"  label="Cabida" align="center" /> 
+            <listheader width="20%"  label="UxF" />  
+            <!--<listheader width="30%"  label="Motivos" />-->  
+
+                            
+        </listhead> 
+        <template name="model" >  
+            <listitem width="100%">                 
+<!--                <listcell>
+                    <label value="@bind(each.tipoTrabajo.tipoDescripcion)" />
+                    <label value="@bind(each.descripcionTrabajo)" />
+                </listcell>   -->
+                 <listcell>
+                    <label value="@bind(each.materiales.matNombre)" />
+                </listcell>              
+                <listcell>    
+                    <panel  title="@bind(each.cortezPosibles.cortDescripcion)"  border="normal">
+                        <panelchildren>
+                            <image content="@bind(each.fotoGeneral)" align="center" width="70px"  height="70px"/>
+                        </panelchildren>
+                    </panel>                 
+                </listcell>    
+                <listcell>
+                    <panel  title="@bind(each.largoCerrado ne null ? 'Cabida: '.concat(each.largoAbierto).concat(' x ').concat(each.anchoAbierto) : ''))"  border="normal">
+                        <panelchildren>
+                            <image content="@bind(each.fotoCabida)" align="center" width="70px"  height="70px"/>       
+                        </panelchildren>
+                    </panel>                     
+                </listcell> 
+                <listcell>
+                    <label value="@bind(each.uxf)" />                 
+                </listcell> 
+<!--                <listcell>
+                    <label value="@bind(each.motivo)" />                 
+                </listcell> -->
+                                            
+                                                                                                    
+            </listitem>
+        </template>
+    
+    </listbox>
+    
+</window>

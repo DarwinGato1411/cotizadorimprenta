@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowRecibido1"  position="center" width="400px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresviewesview.NuevoClienteViewModel')">
+    
+    <caption label="Registrar Cliente" style="font-weight:bold"
+    /> 
+    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic">Registrar Cliente</auxheader>
+        </auxhead>
+        <columns>                               
+            <column label="Etiquetas" width="40%" align="left"/>
+            <column label="Descripcion" width="60%"/>                
+        </columns>
+                     
+        <rows >
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Ruc:                
+                </cell>
+                <cell colspan="1">
+                    <label width="50%" id="txtRuc" value="@bind(vm.cliente.ruc)"  />
+                </cell>
+               </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Telefono Convencional:
+                </cell>
+                <cell colspan="1">
+                    <label  width="50%" id="txtConvencional" value="@bind(vm.cliente.telefono)"/>
+                </cell>
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Nombre Comercial: 
+                </cell>
+                <cell colspan="1">
+                    <label  id="txtNombreComercial" value="@bind(vm.cliente.nombreComercial)" />
+                </cell>
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Telefono Celular:
+                </cell>
+                <cell colspan="1">
+                    <label id="txtCelular" width="50%" value="@bind(vm.cliente.celular)"  />
+                </cell>
+               
+
+            </row>
+            <row>
+               
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Razón Social:
+                </cell>
+                <cell colspan="1">
+                    <label  id="txtRazonSocial" value="@bind(vm.cliente.razonSocial)" />
+                </cell>
+                </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Dirección:
+                </cell>
+                <cell colspan="1">
+                    <label id="txtDireccion" value="@bind(vm.cliente.direccion)"  />
+                </cell>
+                               
+               
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Correo:
+                </cell>
+                <cell colspan="1">
+                    <label id="txtCorreo" value="@bind(vm.cliente.correo)"  />
+                </cell>
+                  </row>
+            <row>              
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Pagina Web:
+                </cell>
+                  
+                <cell colspan="1">
+                    <label id="txtWeb" value="@bind(vm.cliente.direccionWeb)" />
+                </cell>
+            </row>
+             <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Vendedor Asignado 
+                </cell>
+                <cell colspan="1">
+                    <label  id="txtVemdedor" value="@bind(vm.cliente.vendedorAsignado)" />
+                </cell>
+                </row>
+            <row>
+<!--                <cell align="center" colspan="4">
+                    <hbox>
+                        <button label="Guardar"  onClick="@command('guardar')"  tooltiptext="Guardar documento"/> 
+                             <button label="Subir archivo" onClick="@command('subirArchivo1')"/>  
+                        <button label="Abrir archivo"  onClick="@command('visorPDF')"  tooltiptext="Abrir documento"/>
+                    </hbox>
+                
+                </cell>  -->
+            </row>
+        </rows>
+                  
+    </grid> 
+                    
+                  
+</window>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowCliente"  position="center" width="45%" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.VerCliente')">
+    
+    <caption label="Informacion de cliente" style="font-weight:bold"
+    /> 
+    
+    <div  class="container" >
+        <div  class="row" >
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4  form-group "  >
+                <label   style="color:red;font-weight:bold" value="(*) "  />Ruc
+                <textbox readonly="true"  maxlength="13"   id="txtRuc" 
+                          value="@bind(vm.cliente.ruc)" 
+                          class="form-control" />
+                <!--                <textbox readonly="true"  value="@bind(vm.area.areaCodigo)" class="form-control"
+                onChange="self.setValue(self.getValue().toUpperCase());"                     />-->
+            </div>          
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4  form-group "  >
+                <label value="(*) " style="color:red;font-weight:bold"/>Telefono Convencional:
+                
+                <textbox readonly="true"   maxlength="10" 
+                          id="txtConvencional" 
+                          value="@bind(vm.cliente.telefono)" 
+                          constraint="no empty: Campo requerido"
+                          class="form-control" />
+            </div>
+            <div class="col-4 col-sm-4 col-md-4 col-lg-4  form-group "  >
+                <label value="(*)" style="color:transparent;font-weight:bold"/>Telefono Celular:
+              
+                <textbox readonly="true"  maxlength="10"  
+                          value="@bind(vm.cliente.celular)"
+                          class="form-control" />
+            </div> 
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6  form-group "  >
+                <label value="(*) " style="color:red;font-weight:bold"/>Nombre Comercial: 
+                
+                <textbox readonly="true"  id="txtNombreComercial"
+                          maxlength="100" 
+                          value="@bind(vm.cliente.nombreComercial)" 
+                          onChange="self.setValue(self.getValue().toUpperCase().trim());" 
+                          constraint="no empty: Campo requerido"
+                          class="form-control" />
+            </div>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6  form-group "  >
+                <label value="(*) " style="color:red;font-weight:bold"/>Razón Social:
+                
+                <textbox readonly="true"  id="txtRazonSocial" maxlength="100" 
+                          value="@bind(vm.cliente.razonSocial)" 
+                          onChange="self.setValue(self.getValue().toUpperCase().trim());" 
+                          constraint="no empty: Campo requerido"
+                          class="form-control" />
+            </div>
+       
+       
+           
+          
+           
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                <label value="(*) "  style="color:red;font-weight:bold"/>Dirección:
+               
+                <textbox readonly="true" id="txtDireccion" maxlength="100" 
+                         value="@bind(vm.cliente.direccion)" 
+                         onChange="self.setValue(self.getValue().toUpperCase().trim());" 
+                         constraint="no empty: Campo requerido" 
+                         class="form-control" />
+            </div>    
+               
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                <label value="(*) " style="color:transparent;font-weight:bold"/>Correo:
+              
+                <textbox readonly="true" id="txtCorreo"
+                         maxlength="100" 
+                         value="@bind(vm.cliente.correo)"
+                         class="form-control" />
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                <label value="(*) " style="color:transparent;font-weight:bold"/>Pagina Web:
+                
+                <textbox readonly="true" id="txtWeb" 
+                         maxlength="100" 
+                         value="@bind(vm.cliente.direccionWeb)" 
+                         class="form-control" />
+            </div>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-6  form-group "  >
+                <label value="(*) " style="color:red;font-weight:bold"/>Responsable del cliente:  
+             
+                <textbox readonly="true"  id="txtVendedorAsignado"
+                          maxlength="100" 
+                          value="@bind(vm.cliente.vendedorAsignado)" 
+                          onChange="self.setValue(self.getValue().toUpperCase().trim());" 
+                          constraint="no empty: Campo requerido"
+                          class="form-control" />
+            </div>
+           
+                       
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                    
+                <image src="/iconos/save48.png"  
+                       onClick="@command('guardar')"
+                       tooltiptext="Guardar Registro"/>
+ 
+
+            </div> 
+        </div>
+   
+    </div>
+
+                  
+</window>

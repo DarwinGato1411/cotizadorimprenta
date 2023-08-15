@@ -1,0 +1,433 @@
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>   
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?page title="Sistema de cotización" contentType="text/html;charset=UTF-8"?>
+<?script src="/audiojs/audio.js"?>
+
+<zk contentStyle="overflow:auto" >
+
+    <div class="  btn btn-success" id="loginWin"  style="height:auto"  width="100%"
+         apply="imp.controladoresview.LoginController" >
+
+        <div class="row" align="lefth">
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2  ">						
+                <textbox id="account" placeholder="Usuario" 
+                             onCreate="self.focus()"
+                             class="form-control form-control-sm" value="" />	
+
+            </div>
+            <div class="col-12 col-sm-12 col-md-2 col-lg-2  ">		
+                <textbox id="password" value="" type="password" 
+                     
+                             class="form-control form-control-sm " placeholder="Constraseña" constraint="no empty: Ingrese una clave." />
+              					
+            </div>
+            <div class="col-12 col-sm-12 col-md-1 col-lg-1 grow" align="center"  id="buttonEntrar">		
+                <image src="/iconos/ingreso-24.png"
+                               onClick="@command('guardar')"
+                               tooltiptext="Guardar Registro"/>
+                <label value="INGRESAR" />
+          						
+            </div>   
+             
+        </div>
+    </div>
+
+    <div class="row col-12 col-sm-12 col-md-12 col-lg-12" align="lefth" self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+         viewModel="@id('vm') @init('imp.controladoresview.ListaCotizacionesPub')" >
+           <timer id="timer" delay="300000" repeats="true" onTimer="@command('buscarListaOrdenesAll')" ></timer>
+        <tabbox id="tboxPrincipal"  width="100%" height="100%" tabscroll="true">
+            <tabs >
+                <tab label="Ordene con cotizacion" sclass="menutabs" /> 
+                <tab label="Orden sin cotizacion" sclass="menutabs" /> 
+                
+            </tabs>
+            <tabpanels >
+                
+                <tabpanel    >
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12  ">
+                        <listbox id="lstCotizaciones"  model="@load(vm.listaOrdenProduccion)" 
+                                 nonselectableTags="*"  mold="paging"  >
+                            <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                            <auxhead>
+                                <auxheader colspan="14" >  
+                                    <div class="row" align="lefth">
+                                        <div class="col-2 col-sm-2 col-md-2 col-lg-2  ">
+                                
+                                            <div class="input-group mb-3">
+                                                <textbox id="txtClienteBuscar"  placeholder="Nombre comercial... "  
+                                                         class="form-control form-control-sm"  
+                                                         value="@bind(vm.busCliente)"  />
+                                                <div class="input-group-append">
+                                                    <button image="/imagenes/buscar1.png"  
+                                                            class="btn btn-secondary btn-sm"
+                                                            onClick="@command('buscarListaPorCliente')"  
+                                                            tooltiptext="Listar cotizaciones por nombre comercial,
+                                                             si el campo esta vacio lista todo"/>
+                                             
+                                         
+                                                </div>
+                                            </div>
+                                
+                                        </div>
+                                        <div class="col-3 col-sm-3 col-md-3 col-lg-3">                               
+                                                                    
+                               
+                                            <div class="input-group mb-3">
+                                   
+                                                        
+                                                <label value="Inicio:"  />
+                                                <datebox  value="@bind(vm.fechaInicio)" 
+                                                          readonly="true"                                                            
+                                                          buttonVisible="true" lenient="true" format="dd/MM/yyyy"  
+                                                          tooltiptext="Fecha de inicio de la busqueda"
+                                                          onCreate="self.value = new Date()"  /> 
+                                    
+                                                                                         
+                                                <label value="Final:"  />
+                                                <datebox compact="true" value="@bind(vm.fechaFin)"  
+                                                         readonly="true" 
+                                                         buttonVisible="true" lenient="true" 
+                                                         format="dd/MM/yyyy"   
+                                                         tooltiptext="Fecha de fin de la busqueda"/>
+                                      
+                                                <div class="input-group-prepend">
+                                                    <button image="/imagenes/buscar1.png"  
+                                                            class="btn btn-secondary btn-sm"
+                                                            onClick="@command('buscarListaFehas')" 
+                                                            tooltiptext="Buscar cotizaciones"/>                             
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-2 col-sm-2 col-md-2 col-lg-2  ">        
+                                            <button image="/imagenes/buscar1.png" label="Nombre y Fechas"
+                                                    class="btn btn-secondary btn-sm"
+                                                    onClick="@command('buscarListaNombreFehas')" 
+                                                    tooltiptext="Buscar cotizaciones por varios parametros"/>
+                                                   
+                                        </div>
+                                        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+                                            <div class="input-group mb-2">
+                                                <textbox   class="form-control form-control-sm"
+                                                           placeholder="Nùmero" value="@bind(vm.busNumero)" />
+                                                <div class="input-group-prepend">
+                                                    <button image="/imagenes/buscar1.png"    
+                                                            class="btn btn-secondary btn-sm"
+                                            
+                                                            onClick="@command('buscarListaPorNumero')"  
+                                                            tooltiptext="Listar cotizaciones por numero de cotizacion"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                     
+                                        <div class="col-1 col-sm-1 col-md-2 col-lg-2" align="end">
+                                            <button  class="btn btn-secondary btn-sm"
+                                                     label="MATERIAL" 
+                                                     onClick="@command('nuevoSolicitarMaterial')" 
+                                                     tooltiptext="Solicitar material"/>        
+                                        </div>  
+                                    </div>
+                      
+                                </auxheader>
+                            </auxhead>
+             
+                    
+                            <listhead> 
+                                <listheader width="5%"  label="No." sort="auto(ordSecuencial)"  >                            
+                                </listheader>  
+                                <listheader width="15%"  label="Nombre Comercial" sort="auto(codCotizacion.codCliente.nombreComercial)" >
+                                </listheader> 
+                                <listheader width="8%"  label="Fecha Inicio" sort="auto(fechaCreacion)" /> 
+                                <listheader width="5%"  label="Hora Inicio" sort="auto(ordHoraInicio)" /> 
+                                <listheader width="8%"  label="Fecha Despacho" sort="auto(sinFechaInicio)" />   
+                                <listheader width="5%"  label="Hora Despacho" sort="auto(ordHoraDespacho)" />   
+                                <listheader width="10%"  label="Estado Orden" /> 
+                                <listheader width="15%"  label="Descripcion"  />  
+                                <listheader width="8%"  label="Usuario"  />
+                                <listheader width="8%"  label="Contraseña" />  
+                                <listheader width="5%"  label="Tipo" />       
+                                <listheader width="9%"  label="Opciones"/>
+                            
+                            </listhead>  
+                    
+                            <template name="model">                                                            
+                                <listitem>
+                                    <listcell>    
+                                        <label value="@bind(each.ordSecuencial)" width="96%" />
+                                    </listcell>
+                 
+                                            
+                                    <listcell>
+                                        <label value="@bind(each.codCotizacion.codCliente.nombreComercial)" width="96%" />
+                                    </listcell>
+                                    <listcell>
+                                        <datebox compact="true" readonly="true"  value="@bind(each.fechaCreacion)" buttonVisible="false" lenient="true"  format="medium" width="98%"  />
+                                    </listcell>
+                                    <listcell>
+                                        <timebox  format="short" value="@bind(each.ordHoraInicio)" style="font-weight:bold" readonly="true" buttonVisible="false"  />
+                                    </listcell>
+                                    <listcell>
+                                        <datebox compact="true" readonly="true"  value="@bind(each.fechaDespacho)" buttonVisible="false" lenient="true"  format="medium" width="98%"  />
+                                    </listcell>
+                                    <listcell>
+                                        <timebox   format="short" value="@bind(each.ordHoraDespacho)" style="font-weight:bold" readonly="true" buttonVisible="false"  />
+                                    </listcell>
+                                    <listcell>
+                                        <label value="@bind(each.codEstadoOrden.estOrdNombre)" width="96%"/>
+                                    </listcell>
+                                           
+                                    <listcell>
+                                        <label  value="@bind(each.ordDescripcion)" width="96%"/>
+                                    </listcell>
+                                    <listcell>
+                                        <textbox value="@bind(each.usuario)" width="96%"/>
+                                    </listcell>
+                                    <listcell>
+                                        <textbox type="password" value="@bind(each.contrasena)" width="96%"/>
+                                    </listcell>
+                     
+                                    <zk if="${each.codCotizacion.tipoCotizacion=='IMPRESO GENERAL'}" > 
+                                        <listcell style="background: #00a3e9">
+                                            <label value="@bind(each.codCotizacion.tipoCotizacion)" width="96%"/>
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.codCotizacion.tipoCotizacion=='IMPRESO COMPAGINADO'}" > 
+                                        <listcell style="background: orange">
+                                            <label value="@bind(each.codCotizacion.tipoCotizacion)" width="96%"/>
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.codCotizacion.tipoCotizacion=='DIGITAL GENERAL'}" > 
+                                        <listcell style="background: greenyellow">
+                                            <label value="@bind(each.codCotizacion.tipoCotizacion)" width="96%"/>
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.codCotizacion.tipoCotizacion=='DIGITAL COMPAGINADO'}" > 
+                                        <listcell style="background: burlywood ">
+                                            <label value="@bind(each.codCotizacion.tipoCotizacion)" width="96%"/>
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.codCotizacion.tipoCotizacion=='GIGANTOGRAFIA'}" > 
+                                        <listcell style="background:paleturquoise">
+                                            <label value="@bind(each.codCotizacion.tipoCotizacion)" width="96%"/>
+                                        </listcell>
+                                    </zk>
+                                    <listcell>  
+                                                  
+                                        <button   src="/iconos/camara24x24.png" onClick="@command('VerImagen',valor=each)" tooltiptext="Ver imagen adjunto"/>
+                                        <button  src="/iconos/pdf.png"  onClick="@command('verAdjunto',valor=each)" tooltiptext="Ver PDF adjunto"/>
+                                        <button  src="/iconos/pdfrep2.png"   onClick="@command('reporteGeneral',valor=each)" tooltiptext="Generar PDF Orden de produccion"/>
+                                        <button  src="/iconos/ok24x24.png" onClick="@command('finalizarOrden',valor=each)" tooltiptext="Finalizar la orden de produccion"/>
+                                    </listcell>
+                                
+                                </listitem>
+                            </template>
+                        </listbox>
+                    </div>
+                </tabpanel>
+                <tabpanel   >
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12  ">
+                                                 
+                        <listbox id="lstOrdenesSinCotizar"  model="@load(vm.listaOrdenSinCotizacion)" 
+                                 nonselectableTags="*"  mold="paging" pageSize="25"  >
+                            <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                            <auxhead>
+                                <auxheader  colspan="15"   >                                 
+                                    <div class="row" align="lefth">
+                           
+                                        <div class="col-2 col-sm-2 col-md-2 col-lg-2">
+                                            <div class="input-group mb-3">
+                                                <textbox  value="@bind(vm.busClienteSinCotizar)"  
+                                                          onChange="self.setValue(self.getValue().toUpperCase());" 
+                                                          class="form-control form-control-sm" placeholder="Nombre comercial"
+                                                          onOK="@command('buscarListaPorClienteSinCotizar')"  />
+                                                <div class="input-group-append">
+                                                    <button image="/imagenes/buscar1.png"  
+                                                            class="btn  btn-secondary btn-sm"
+                                                            onClick="@command('buscarListaPorClienteSinCotizar')" 
+                                                            tooltiptext="Listar cotizaciones por Nombre Comercial,
+                                                             si el campo esta vacio lista todo"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                          
+                                
+                                        <div class="col-4 col-sm-4 col-md-5 col-lg-5">  
+                                            <div  class="input-group ">
+                                                <label value="Inicio:"  />
+                                                <datebox   value="@bind(vm.fechaInicioSin)" 
+                                                           readonly="true" style="font-weight:bold;" 
+                                                           onCreate="self.value = new Date()"                                                        
+                                                           buttonVisible="true" 
+                                                           lenient="true"  format="dd/MM/yyyy" 
+                                                           constraint="no empty: Ingrese de inicio del trabajo    "/> 
+                             
+                       
+
+                                                <label value="Final:"   />
+                                                <datebox   value="@bind(vm.fechaFinSin)" 
+                                                           readonly="true" style="font-weight:bold;" 
+                                                           onCreate="self.value = new Date()"                                                     
+                                                           buttonVisible="true" 
+                                                           lenient="true"  format="dd/MM/yyyy" 
+                                                           constraint="no empty: Ingrese de inicio del trabajo    "/> 
+                                                <button image="/imagenes/buscar1.png"  
+                                                        class="btn  btn-secondary btn-sm"
+                                                        onClick="@command('buscarListaFehasSin')"  tooltiptext="Buscar cotizaciones"/> 
+                                    
+                                            </div>
+                                        </div>
+
+                                
+                            
+                                        <div class="col-2 col-sm-2 col-md-2 col-lg-2  ">          
+                                            <div  class="input-group ">             
+                                                <button image="/imagenes/buscar1.png" label="Nombre y Fechas"
+                                                        class="btn  btn-secondary btn-sm"
+                                                        onClick="@command('buscarListaNombreFehasSin')" 
+                                                        tooltiptext="Buscar cotizaciones por varios parametros"/> 
+                                
+                                            </div> 
+                                        </div> 
+                            
+                                    </div>
+                                </auxheader>
+                            </auxhead>
+                    
+                            <listhead> 
+                                <listheader width="5%"    sort="auto(sinNumero)" 
+                                            onOK="@command('buscarListaPorNumeroSinCotizar')"  >
+                                    <decimalbox format="####" class="form-control form-control-sm" placeholder="Nº"  value="@bind(vm.busNumeroSinCotizar)"  />
+                                </listheader>   
+                                <listheader width="10%"  label="Nombre Comercial"  sort="auto(codCliente.razonSocial)" >
+                                </listheader> 
+                                <listheader width="8%"  label="Fecha inicio"  sort="auto(sinFechaInicio)" /> 
+                                <listheader width="5%"  label="Hora inicio"  sort="auto(sinHoraInicio)" />   
+                                <listheader width="8%"  label="Fecha cierre"  sort="auto(sinFechaCierre)"  /> 
+                                <listheader width="5%"  label="Hora cierre"  sort="auto(sinHoraCierre)" />
+                                <listheader width="8%"  label="Estado" />
+                                <listheader width="14%"  label="Descripcion" />  
+                                <listheader width="14%"  label="Observacion operador" />  
+                                <listheader width="7%"  label="Usuario" />  
+                                <listheader width="7%"  label="Tipo" />  
+                                <listheader width="3%"  label="IMG"/>
+                                <listheader width="3%"  label="PDF"/>
+                                <listheader width="3%"  label="ORD"/>
+                                <listheader width="3%"  label="OK"/>
+                            
+                            </listhead>  
+                    
+                            <template name="model">                                                            
+                                <listitem>
+                                    <listcell>    
+                                        <label value="@bind(each.sinNumero)" width="96%" />
+                                    </listcell>
+                                    <listcell>
+                                        <label value="@bind(each.codCliente.nombreComercial)" width="96%" />
+                                    </listcell>
+                                    <listcell>
+                                        <datebox compact="true" readonly="true"  
+                                                 value="@bind(each.sinFechaInicio)" buttonVisible="false" lenient="true" format="medium" width="98%"  />
+                                               
+                                    </listcell>
+                                    <listcell>
+                                        <timebox  format="short" 
+                                                  value="@bind(each.sinHoraInicio)" style="font-weight:bold" readonly="true" buttonVisible="false"  />
+                                    </listcell>
+                                    <listcell>
+                                        <datebox compact="true" readonly="true"  value="@bind(each.sinFechaCierre)" buttonVisible="false" lenient="true" format="medium" width="98%"  />
+                                               
+                                    </listcell>
+                                    <listcell>
+                                        <timebox  format="short" value="@bind(each.sinHoraCierre)" style="font-weight:bold" readonly="true" buttonVisible="false"  />
+                                    </listcell>
+                                    <listcell>
+                                        <label value="@bind(each.sinEstado)" width="96%"/>
+                                    </listcell>
+                                    <listcell>    
+                                        <!--                                                <label value="@bind(each.fotoGeneral)" width="96%" />-->
+                                        <label value="@bind(each.sinObservacion)" width="96%" />
+                                    </listcell>
+                                    <listcell>    
+                                                 
+                                        <textbox multiline="true" rows="3" value="@bind(each.sinDescripcion)" width="96%" />
+                                    </listcell>
+                                    <listcell>
+                                        <textbox value="@bind(each.usuario)" width="96%"/>
+                                        <textbox type="password" value="@bind(each.contrasena)" width="96%"/>
+                                    </listcell>
+                                    <zk if="${each.sinTipoCotizacion=='GENERAL'}" > 
+                                        <listcell style="background: #00a3e9">
+                                            <label value="@bind(each.sinTipoCotizacion)" width="96%" />
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.sinTipoCotizacion=='COMPAGINADO'}" > 
+                                        <listcell style="background: orange">
+                                            <label value="@bind(each.sinTipoCotizacion)" width="96%" />
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.sinTipoCotizacion=='DIGITAL'}" > 
+                                        <listcell style="background: greenyellow">
+                                            <label value="@bind(each.sinTipoCotizacion)" width="96%" />
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.sinTipoCotizacion=='GIGANTOGRAFIA'}" > 
+                                        <listcell style="background: paleturquoise">
+                                            <label value="@bind(each.sinTipoCotizacion)" width="96%" />
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.fotoGeneral!=null}" > 
+                                        <listcell style="background:#cff791">  
+                                            <!--<label value="@bind(each.isSinAdjPdf)" width="96%" />-->
+                                                  
+                                            <image  src="/iconos/camara24x24.png" class=" grow"
+                                                    onClick="@command('VerImagenSinCotizar',valor=each)"
+                                                    tooltiptext="Ver imagen adjunto"/>          
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.fotoGeneral==null}" > 
+                                        <listcell>  
+                                            <!--<button  image="/imagenes/cabida.png" onClick="@command('VerImagenSinCotizar',valor=each)" tooltiptext="Ver imagen adjunto"/>-->          
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.fileContent!=null}" > 
+                                        <listcell style="background:coral">  
+                                            <image  src="/iconos/pdf.png"   class=" grow"
+                                                    onClick="@command('verAdjuntoSinCotizar',valor=each)" 
+                                                    tooltiptext="Ver PDF adjunto"/>
+                                        </listcell>
+                                    </zk>
+                                    <zk if="${each.fileContent==null}" > 
+                                        <listcell>  
+                                            <!--<button  image="/imagenes/pdfRep.png" onClick="@command('verAdjuntoSinCotizar',valor=each)" tooltiptext="Ver PDF adjunto"/>-->
+                                        </listcell>
+                                    </zk>
+                                    <listcell>  
+                                        <image src="/iconos/pdfrep2.png"   
+                                               class=" grow"
+                                               onClick="@command('reporteOrdenSinCotizar',valor=each)" 
+                                               tooltiptext="Generar orden de produccion"/>
+                                        <!--<button  image="/imagenes/orden.png" onClick="@command('reporteOrdenSinCotizar',valor=each)" tooltiptext="Generar PDF Orden de produccion"/>-->
+                                    </listcell>
+                                    <listcell>  
+                                        <image  src="/iconos/ok24x24.png"      class=" grow"
+                                                onClick="@command('finalizarOrdenSinCotizar',valor=each)" 
+                                                tooltiptext="Finalizar la orden de produccion"/>
+                                    </listcell>
+                                
+                                </listitem>
+                            </template>
+                        </listbox>
+                    </div>
+                </tabpanel>
+            </tabpanels>
+        </tabbox>
+        
+        
+               
+    
+                                                                                                               
+        
+    </div>
+    
+
+</zk>

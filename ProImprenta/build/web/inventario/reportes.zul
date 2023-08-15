@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk  contentStyle="overflow:auto" with="100%" >
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.Reportes')" width="99%">
+        <tabbox id="tboxPrincipal"  width="100%">
+            <tabs >
+                <tab label="INVENTARIO" sclass="menutabs" /> 
+                <tab label="MOV INGRESO Y EGRESOS" sclass="menutabs" /> 
+                <tab label="MOV PRODUCTO Y FECHAS" sclass="menutabs" /> 
+                <tab label="CATEGORIA Y UBICACION" sclass="menutabs" /> 
+                <tab label="ESTADISTICAS-CATEGORIA" sclass="menutabs" /> 
+                <tab label="ESTADISTICAS-UBICACION" sclass="menutabs" /> 
+                
+            </tabs>
+            <tabpanels >
+                <tabpanel  height="98%" width="99%"  >  
+                    <div class="row " align="lefth">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control  ">
+                            <div class="row " align="lefth">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4  ">
+                                    <div class="input-group mb-3">
+                                        <textbox id="txtClienteBuscar"   
+                                                 value="@bind(vm.nombreProdBuscar)"
+                                                 placeholder="Inngrese el producto"
+                                                 onChange="self.setValue(self.getValue().toUpperCase());" 
+                                                 class="form-control form-control-sm" 
+                                                 onOK="@command('buscarForProducto')" />
+                               
+                                        <div class="input-group-append">
+                                            <button   image="/imagenes/buscar1.png"  
+                                                      onClick="@command('buscarForProducto')"   
+                                                      class="btn btn-primary btn-sm "
+                                                      tooltiptext="Busca por producto"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4" align="start">
+                                    <image  src="/iconos/excel1.png"
+                                            class="btn btn btn-secondary btn-sm "
+                                            onClick="@command('exportarExcelGiganto')"
+                                            tooltiptext="Exportar a excel"/>
+
+                                </div>
+                            </div>
+                           
+                        </div>
+                        
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-control ">
+                        
+                            <listbox   model="@load(vm.listaInventario)" 
+                                       nonselectableTags="*"  mold="paging" pageSize="10"  >
+                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                        
+                              
+                       
+                                <listhead>     
+                                    <listheader width="50%"  label="MATERIAL" /> 
+                                    <!--<listheader width="10%"  label="INICIAL " />--> 
+                                    <listheader width="10%"  label="INGRESO " /> 
+                                    <listheader width="10%"  label="SALIDA" />  
+                                    <listheader width="10%"  label="STOCK" />  
+                                    <listheader width="10%"  label="COSTO COMPRA" /> 
+                                    <listheader width="10%"  label="COSTO FINAL" /> 
+                                    <listheader width="10%"  label="DISPONIBILIDAD" />   
+                                </listhead>  
+                    
+                                <template name="model">                                                            
+                                    <listitem>
+                                        <zk if="${each.estado=='BAJA'}" > 
+                                            <listcell style="background: #f2b4a2;font_weight: bold;"  >    
+                                                <label  value="@bind(each.producto)" width="96%"/> 
+                                            </listcell>
+                                        </zk>
+                                        <zk if="${each.estado=='MEDIA'}" > 
+                                            <listcell style="background: #f3fc8f;font_weight: bold;" >    
+                                                <label  value="@bind(each.producto)" width="96%"/> 
+                                            </listcell>
+                                        </zk>
+                                        <zk if="${each.estado=='ALTA'}" > 
+                                            <listcell style="background: #b0fc8f;font_weight: bold;" >    
+                                                <label  value="@bind(each.producto)" width="96%"/> 
+                                            </listcell>
+                                        </zk>
+                                        <!--                                <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.inicial)" width="96%" />
+                                        </listcell>-->
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.ingreso)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.salida)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.stock)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" style=" color:tomato; font-weight: bold;" readonly="true" value="@bind(each.costoCompra)" width="80%" />$
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" style=" color:green; font-weight: bold;" readonly="true" value="@bind(each.costoFinal)" width="80%" />$
+                                        </listcell>
+                                        <listcell>
+                                            <label  value="@bind(each.estado)" width="80%" />
+                                        </listcell>
+                                    </listitem>
+                                </template>
+                            </listbox>
+                        </div>                  
+                    </div>                  
+                    
+                    
+                </tabpanel>
+           
+            
+                <tabpanel  height="98%" width="99%"  >        
+                    <div class="row " align="lefth">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control ">
+                            <div class="row " align="lefth">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4  ">
+                                    <div class="input-group mb-3">
+                                        <textbox 
+                                            value="@bind(vm.nombreProducto)" 
+                                            onChange="self.setValue(self.getValue().toUpperCase());" 
+                                            placeholder="Inngrese el producto"
+                                            class="form-control form-control-sm" 
+                                            onOK="@command('buscarPorNombre')" />
+                               
+                                        <div class="input-group-append">
+                                            <button   image="/imagenes/buscar1.png"  
+                                                      onClick="@command('buscarPorNombre')"   
+                                                      class="btn btn-primary btn-sm "
+                                                      tooltiptext="Busca por nombre de producto"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4" >
+                                    <div class="input-group mb-3 col-12 col-sm-12 col-md-12 col-lg-12 ">
+                                                
+                                        <datebox   value="@bind(vm.fechaInicio)"
+                                                   readonly="true" style="font-weight:bold;" 
+                                                   class="badge badge-default bg-info  btn-secondary  textoFechaDateBox"  
+                                                   buttonVisible="true" 
+                                                   lenient="true"  format="dd/MM/yyyy" 
+                                                   constraint="no empty: Ingrese de inicio del trabajo    "/> 
+                                        
+                                        <datebox   value="@bind(vm.fechaFin)"
+                                                   readonly="true" style="font-weight:bold;" 
+                                                   class="badge badge-default bg-info  btn-secondary  textoFechaDateBox"  
+                                                   buttonVisible="true" 
+                                                   lenient="true"  format="dd/MM/yyyy" 
+                                                   constraint="no empty: Ingrese de inicio del trabajo    "/> 
+                                        <div class="input-group-append">
+                                            <button image="/imagenes/buscar1.png"  
+                                                    class="btn  btn-secondary btn-sm"
+                                                    onClick="@command('buscarPorRangoFechas')" 
+                                                    tooltiptext="Busca por las fechas seleccionadas"/>
+                                        </div>
+                                    </div>
+                            
+
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4" align="start">
+                                    <image  src="/iconos/excel1.png"
+                                            class="btn btn btn-secondary btn-sm "
+                                            onClick="@command('exportaOperacionIngresoEgreso')"
+                                            tooltiptext="Exportar a excel"/>
+
+                                </div>
+                            </div>
+                           
+                        </div>  
+                     
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control ">  
+                            <listbox   model="@load(vm.listaOperaciones)" 
+                                       nonselectableTags="*"  mold="paging" pageSize="10"  >
+                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                       
+                    
+                                <listhead>     
+                                    <listheader width="10%"  label="FECHA" /> 
+                                    <listheader width="5%"  label="CANT" /> 
+                                    <listheader width="10%"  label="COST REFERENCIAL" />  
+                                    <listheader width="10%"  label="INGRESO/EGRESO" /> 
+                                    <listheader width="10%"  label="NOMBRE" />  
+                                    <listheader width="6%"  label="CANT*COSTO_REF" /> 
+                                    <listheader width="11%"  label="OPERACION" />  
+                                    <listheader width="20%"  label="DESCRIPCION" />  
+                                    <listheader width="10%"  label="REFERENCIA" /> 
+                                    <listheader width="8%"  label="FACTURA" /> 
+                                </listhead>  
+                    
+                                <template name="model">                                                            
+                                    <listitem>
+                                        <listcell>    
+                                            <datebox  readonly="true"  
+                                                      value="@bind(each.opeFecha)"  buttonVisible="false"
+                                                      lenient="true"  format="medium" width="98%"  /> 
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" 
+                                                        readonly="true" value="@bind(each.opeCatidad)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" 
+                                                        readonly="true" 
+                                                        value="@bind(each.codProducto.prodCostoCompra)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##"
+                                                        readonly="true" value="@bind(each.opeCostoUltimaCompra)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <label value="@bind(each.codProducto.prodNombre)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.valorTotal)" width="96%" />
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.codTipoOperacion.tipOperacion)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.opeConcepo)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.opeReferencia)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.opeFactura)" width="96%" /> 
+                                        </listcell>
+                                    </listitem>
+                                </template>
+                            </listbox>
+                        </div>
+                    </div>
+                </tabpanel>
+
+            
+                <tabpanel  height="98%" width="99%"  > 
+                    <div class="row " align="lefth">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-control">
+                            <div class="row " align="lefth">
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4  ">
+                                    <div class="input-group mb-3">
+                                        <label class="labelNuevoNegro"
+                                               value="Material: " />
+                               
+                                        <div class="input-group-append">
+                                            <combobox  model="@load(vm.listaProductos)"
+                                                       class="badge badge-default   btn-secondary  textoFechaDateBox" 
+                                                       selectedItem="@bind(vm.productoSelected)" 
+                                                       readonly="true" >
+                                          
+                                                <template name="model">
+                                                    <comboitem  label="@bind(each.prodNombre)"/>
+                                                </template>                                      
+                                            </combobox> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4" >
+                                    <div class="input-group mb-3 col-12 col-sm-12 col-md-12 col-lg-12 ">
+                                                
+                                        <datebox   value="@bind(vm.fechaInicio)"
+                                                   readonly="true" style="font-weight:bold;" 
+                                                   class="badge badge-default bg-info  btn-secondary  textoFechaDateBox"  
+                                                   buttonVisible="true" 
+                                                   lenient="true"  format="dd/MM/yyyy" 
+                                                   constraint="no empty: Ingrese de inicio del trabajo    "/> 
+                                        
+                                        <datebox   value="@bind(vm.fechaFin)"
+                                                   readonly="true" style="font-weight:bold;" 
+                                                   class="badge badge-default bg-info  btn-secondary  textoFechaDateBox"  
+                                                   buttonVisible="true" 
+                                                   lenient="true"  format="dd/MM/yyyy" 
+                                                   constraint="no empty: Ingrese de inicio del trabajo    "/> 
+                                        <div class="input-group-append">
+                                            <button image="/imagenes/buscar1.png"  
+                                                    class="btn  btn-secondary btn-sm"
+                                                    onClick="@command('buscarProductoFechas')" 
+                                                    tooltiptext="Busca por las fechas seleccionadas"/>
+                                        </div>
+                                    </div>
+                            
+
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4" align="start">
+                                    <image  src="/iconos/excel1.png"
+                                            class="btn btn btn-secondary btn-sm "
+                                            onClick="@command('exportaOperacionPorFechas')"
+                                            tooltiptext="Exportar a excel"/>
+
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control">               
+                            <listbox   model="@load(vm.listaOperacionesProdFechas)" 
+                                       nonselectableTags="*"  mold="paging" pageSize="10"  >
+                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                                <listhead>     
+                                    <listheader width="10%"  label="FECHA" /> 
+                                    <listheader width="5%"  label="CANT" /> 
+                                    <listheader width="5%"  label="COST REFERENCIAL" />  
+                                    <listheader width="5%"  label="COST COMPRA" /> 
+                                    <listheader width="20%"  label="NOMBRE" />  
+                                    <listheader width="5%"  label="COSTO" /> 
+                                    <listheader width="10%"  label="OPERACION" />  
+                                    <listheader width="20%"  label="DESCRIPCION" />  
+                                    <listheader width="10%"  label="REFERENCIA" /> 
+                                    <listheader width="10%"  label="FACTURA" /> 
+                                </listhead>  
+                    
+                                <template name="model">                                                            
+                                    <listitem>
+                                        <listcell>    
+                                            <datebox compact="true" readonly="true"  value="@bind(each.opeFecha)"  buttonVisible="false" lenient="true"  format="medium" width="98%"  /> 
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.opeCatidad)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.codProducto.prodCostoCompra)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.opeCostoUltimaCompra)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <label value="@bind(each.codProducto.prodNombre)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.valorTotal)" width="96%" />
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.codTipoOperacion.tipOperacion)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.opeConcepo)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.opeReferencia)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.opeFactura)" width="96%" /> 
+                                        </listcell>
+                                    </listitem>
+                                </template>
+                            </listbox>
+                       
+                        </div>
+                    </div>
+                    
+                </tabpanel>
+                <tabpanel  height="98%" width="99%"  >  
+                    <div class="row " align="lefth">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-control">
+                            <div class="row " align="lefth">
+                                <div class="col-4 col-sm-4 col-md-3 col-lg-3  ">
+                                    <textbox 
+                                        value="@bind(vm.nombreProducto)" 
+                                        onChange="self.setValue(self.getValue().toUpperCase());" 
+                                        placeholder="Inngrese el producto"
+                                        class="form-control form-control-sm" 
+                                        onOK="@command('buscarPorNombre')" />
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4  ">
+                                    <div class="input-group mb-3 col-12 col-sm-12 col-md-12 col-lg-12 ">
+                                                
+                                        <label class="labelNuevoNegro"
+                                               value="Catregoria: " />
+                                        
+                                        <combobox  model="@load(vm.listaCategorias)"
+                                                   class="badge badge-default   btn-secondary  textoFechaDateBox" 
+                                                   selectedItem="@bind(vm.categosiaSelected)" readonly="true" >
+                                          
+                                            <template name="model">
+                                                <comboitem  label="@bind(each.catDescripcion)"/>
+                                            </template>                                      
+                                        </combobox>  
+                                        <div class="input-group-append">
+                                            <button image="/imagenes/buscar1.png"  
+                                                    class="btn  btn-secondary btn-sm"
+                                                    onClick="@command('buscarPorCategoria')" 
+                                                    tooltiptext="Busca por las fechas seleccionadas"/>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4  ">
+                                    <div class="input-group mb-3 col-12 col-sm-12 col-md-12 col-lg-12 ">
+                                                
+                                        <label class="labelNuevoNegro"
+                                               value="Ubicacion: " />
+                                        
+                                        <combobox  model="@load(vm.listaUbicacion)"
+                                                   class="badge badge-default   btn-secondary  textoFechaDateBox" 
+                                                   selectedItem="@bind(vm.ubicacionSelected)" readonly="true" >
+                                          
+                                            <template name="model">
+                                                <comboitem  label="@bind(each.ubiNombre)"/>
+                                            </template>                                      
+                                        </combobox> 
+                                        <div class="input-group-append">
+                                            <button image="/imagenes/buscar1.png"  
+                                                    class="btn  btn-secondary btn-sm"
+                                                    onClick="@command('buscarPorUbicacion')" 
+                                                    tooltiptext="Busca por las fechas seleccionadas"/>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                                
+                                
+                                
+                                <div class="col-4 col-sm-4 col-md-3 col-lg-3  " align="start">
+                                    <button  label="Buscar por categoria y ubicacion " 
+                                             image="/imagenes/buscar1.png"  
+                                             class="btn btn btn-primary btn-sm "
+                                             onClick="@command('buscarPorCategoriaUbicacion')"  
+                                             tooltiptext="Buscar por categoria y ubicacion seleccionando las listas"/>
+
+                                </div>
+                                <div class="col-2 col-sm-2 col-md-3 col-lg-3" align="start">
+                                    <image  src="/iconos/excel1.png"
+                                            class="btn btn btn-secondary btn-sm "
+                                            onClick="@command('exportaCatUbicacion')"
+                                            tooltiptext="Exportar a excel"/>
+
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control">  
+                                      
+                            <listbox   model="@load(vm.listaOperacionesCatUbicacion)" 
+                                       nonselectableTags="*"  mold="paging" pageSize="10"  >
+                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+                                
+                                <auxhead>
+                                    <auxheader colspan="10" >
+                                       
+                                        <space bar="false" width="10px" />  
+                                       
+                                    </auxheader>
+                                
+                                
+                                </auxhead>
+                        
+                    
+                                <listhead>     
+                                    <listheader width="10%"  label="FECHA" /> 
+                                    <listheader width="5%"  label="CANT" /> 
+                                    <listheader width="10%"  label="COST REFERENCIAL" />  
+                                    <listheader width="10%"  label="COST COMPRA" /> 
+                                    <listheader width="10%"  label="NOMBRE" />  
+                                    <listheader width="6%"  label="COSTO" /> 
+                                    <listheader width="11%"  label="OPERACION" />  
+                                    <listheader width="20%"  label="DESCRIPCION" />  
+                                    <listheader width="10%"  label="REFERENCIA" /> 
+                                    <listheader width="8%"  label="FACTURA" /> 
+                                </listhead>  
+                    
+                                <template name="model">                                                            
+                                    <listitem>
+                                        <listcell>    
+                                            <datebox compact="true" readonly="true"  value="@bind(each.opeFecha)"  buttonVisible="false" lenient="true"  format="medium" width="98%"  /> 
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.opeCatidad)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.codProducto.prodCostoCompra)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.opeCostoUltimaCompra)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <label value="@bind(each.codProducto.prodNombre)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.valorTotal)" width="96%" />
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.codTipoOperacion.tipOperacion)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.opeConcepo)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.opeReferencia)" width="96%" /> 
+                                        </listcell>
+                                        <listcell>    
+                                            <label value="@bind(each.opeFactura)" width="96%" /> 
+                                        </listcell>
+                                    </listitem>
+                                </template>
+                            </listbox>
+                        </div>
+                    </div>
+                    
+                </tabpanel>
+
+                
+                <tabpanel  height="98%" width="99%"  >     
+                    
+                    <div class="row " align="lefth">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-control">
+                            <div class="input-group mb-3 col-7 col-sm-7 col-md-5 col-lg-5 ">
+                                                
+                                <label style="font-weight:bold"
+                                       class="form-control form-control-sm" 
+                                       value="Muetra la categoria que mas dispone en la empresa "  />
+                                       
+                                <div class="input-group-append">
+                                    <image src="/iconos/graficar-24.png"   
+                                           class="btn btn btn-secondary btn-sm "
+                                           onClick="@command('graficarForGenero')"
+                                           tooltiptext="Graficar por categoria"/>
+                                </div>
+                            </div>
+                        </div>              
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-control" align="center">
+                            <image content="@bind(vm.reporteGenero)"   style="margin: 2% 0 0 10%;"   /> 
+                        </div>              
+                    </div>
+                                  
+                  
+                    
+                </tabpanel>
+                <tabpanel  height="98%" width="99%"  >     
+                    
+                    <div class="row " align="lefth">
+                        <div class="input-group mb-3 col-7 col-sm-7 col-md-5 col-lg-5 ">
+                                                
+                                <label style="font-weight:bold"
+                                       class="form-control form-control-sm" 
+                                       value="Muetra el area/ubicacion con la mayor catidad de material"  />
+                                       
+                                <div class="input-group-append">
+                                    <image src="/iconos/graficar-24.png"   
+                                           class="btn btn btn-secondary btn-sm "
+                                           onClick="@command('graficarForUbicacion')"
+                                           tooltiptext="Graficar por ubicacion"/>
+                                </div>
+                            </div>
+                                 
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-control" align="center">
+                            <image content="@bind(vm.reporteUbicacion)"   style="margin: 2% 0 0 10%;"   />
+                        </div>              
+                    </div>                     
+                    
+                    
+                </tabpanel>
+            </tabpanels>
+            
+        </tabbox>
+    </hbox>
+
+
+</zk>

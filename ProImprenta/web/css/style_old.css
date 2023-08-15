@@ -1,0 +1,481 @@
+*{
+    padding: 0px;
+    margin: 0px;
+
+}
+.z-datebox-inp{
+    height:auto;
+}
+.z-timebox-inp{
+    height:auto;
+}
+.z-combobox-inp{
+    height:auto;
+}
+.z-spinner-inp{
+    height:auto;
+}
+
+.banner {
+    background-color:#002551;
+    color: white;
+    padding: 5px 5px;
+}
+.banner-head{
+    font-size: 1.4em;
+}
+.banner .logout{
+    text-decoration: underline;
+    cursor: pointer;
+    padding-right:3px;
+    padding-left: 3px
+} 
+
+.footer {
+    background-color:#00a3e9;
+    color: white;
+    padding-top: 5px;
+}
+
+.footer a,.footer a:VISITED {
+    color: white;	
+}
+
+.sidebar a,.sidebar a:VISITED {
+    color: black;
+    text-decoration: none;
+}
+
+.sidebar-fn{
+    cursor: pointer;
+}
+
+
+.head1{
+    font-size: large;
+}
+.head2{
+    font-size: medium;
+}
+
+.row-title .z-label{
+    font-weight: bold;
+    color:#636363;
+}
+
+.fn-caption .z-caption-l{
+    font-weight: bold;
+    font-size: medium;
+    color: #636363;
+}
+
+.labelTitulo {
+    font_weight: bold;
+    font-family: sans-serif;
+    font-size: 16px;
+    color: black;
+}
+.labelTituloCentral{
+    font_weight: bold;
+    font-family: sans-serif;
+    font-size: 24px;
+    color: black;
+}
+
+.complete-todo .z-label{
+    text-decoration: line-through;
+}
+
+.warn{
+    color:red;
+}
+
+.demo-main a,.demo-main a:VISITED{
+    color:#636363;
+    text-decoration: underline;
+    font-size: smaller;	
+}
+
+.todo-box {
+    padding-right:4px;
+}
+.button{
+    label: center;
+    width: 100%;
+    height: 60px;
+    font-size: 40px;
+    hflex: "1";
+}
+
+.textBoxDisplay{
+    width:100%;
+    readonly: "true";        
+}
+.buttonBusqueda{
+    background-color: firebrick;
+    color:white;
+    font-weight: bold;
+    font-size: 12px;  
+}
+.textBoxRegistrarme{
+    width:430px;
+}
+.labelGrupoRegistrame{
+    font-size: 18px;
+    color:#0B56A4;
+}
+
+.textBoxMedio{
+    width:98%;
+}
+
+.labelColumnGrid{
+    font-weight: bold;
+
+}
+.menutabs.z-tab .z-tab-text 
+{
+    color: blue;
+    cursor: pointer;
+    font-family: arial,sans-serif;
+    font-size: 13px;
+    font-size-adjust: true;
+    font-weight : bold;      
+    white-space: wrap;
+}
+
+.mainmenu.z-tabbox .z-tab .z-tab-hm 
+{
+    background-image:none;
+    background-color: #ff0000;
+    background-position : center;
+    background-repeat : repeat;
+    height:36px;
+}
+
+.mainmenu.z-tabbox .z-tab .z-tab-hm:hover 
+{
+    background-image:none;
+    background-color: #ff0000;
+    background-position : center;
+    background-repeat : repeat-X;
+    height:36px;
+    padding:none;
+    margin:none;
+}
+
+.mainmenu.z-tabbox .z-tab .z-tab-hl 
+{
+    background-image:none;
+    background-color: #ff0000;
+    background-position : left ;
+    background-repeat : repeat;
+    height:36px;
+}
+
+.mainmenu.z-tabbox .z-tab .z-tab-hl:hover 
+{
+    background-image:none;
+    background-color: #ff0000;
+    background-position : left ;
+    background-repeat : repeat;
+    height:36px;
+    padding:none;
+    margin:none;
+}
+
+
+.mainmenu.z-tabbox .z-tab .z-tab-hr 
+{
+    background-image:none;
+    background-color: #ff0000;
+    background-position : right ;
+    background-repeat : repeat;
+    height:36px;
+}
+
+.mainmenu.z-tabbox .z-tab .z-tab-hr:hover 
+{
+    background-image:none;
+    background-color: #ff0000;
+    background-position : right ;
+    background-repeat : repeat;
+    height:36px;
+}
+
+.z-tabs-header 
+{
+    height: 32px;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    height: 32px;
+}
+
+
+
+.z-toolbar .z-toolbarbutton-cnt 
+{
+    color: #000000;
+    font-family: Tahoma,verdana;
+    font-size: 1em;
+    font-weight: normal;
+    padding: 2px 10px 2px 10px;
+    position: relative;
+    border-left: 1px solid #dddddd;
+    border-right: 1px solid #eeeeee;
+    border-top: 1px solid #e0e0e0;
+}
+
+.z-toolbar 
+{
+    background: none;
+    background-color: #cff791;
+    height: 18px;
+}
+
+.z-toolbarbutton-over .z-toolbarbutton-cnt
+{
+    background-image:none;
+    background-color: #cff791;
+
+}
+
+.z-toolbarbutton-select .z-toolbarbutton-cnt
+{
+    background-image:none;
+    background-color: red;
+
+}
+.botonMenuLateral{
+    border:0px;
+    background: #23a865;
+    /*background-color: transparent;*/
+    font-size:12px;
+    font-weight:bold; 
+    width:99%;
+    /*text-align: justify;*/
+    border: none;
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    border-radius: 18px;
+    -webkit-box-shadow: 0px 0px 0px 0;
+    box-shadow: 0px 0px 0px 0;
+    color: #ffffff;
+    padding: 5px 5px 2px 10px;
+    cursor: pointer;
+
+}
+
+.botonGreen{
+    border: none;
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    border-radius: 18px;
+    -webkit-box-shadow: 0px 0px 0px 0;
+    box-shadow: 0px 0px 0px 0;
+    font: normal 11px/normal "Open Sans", Helvetica, sans-serif;
+    text-transform: uppercase;
+    background: #828282;
+    color: #ffffff;
+    padding: 2px 15px 2px 15px;
+    cursor: pointer;
+    font-weight:bold
+
+}
+
+
+.botonMenuLateralSinCot{
+    border:0px;
+    background: #d9534f;
+    /*background-color: transparent;*/
+    font-size:12px;
+    font-weight:bold; 
+    width:99%;
+    /*text-align: justify;*/
+    border: none;
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    border-radius: 18px;
+    -webkit-box-shadow: 0px 0px 0px 0;
+    box-shadow: 0px 0px 0px 0;
+    color: #ffffff;
+    padding: 5px 5px 2px 10px;
+    cursor: pointer;
+
+}
+.botonMenuLateralCotizada{
+    border:0px;
+    background: #0275d8;
+    /*background-color: transparent;*/
+    font-size:12px;
+    font-weight:bold; 
+    width:99%;
+    /*text-align: justify;*/
+    border: none;
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    border-radius: 18px;
+    -webkit-box-shadow: 0px 0px 0px 0;
+    box-shadow: 0px 0px 0px 0;
+    color: #ffffff;
+    padding: 5px 5px 2px 10px;
+    cursor: pointer;
+
+}
+.botonMenuLateralAdministrativo{
+    border:0px;
+    background: #5cb85c;
+    /*background-color: transparent;*/
+    font-size:12px;
+    font-weight:bold; 
+    width:99%;
+    /*text-align: justify;*/
+    border: none;
+    -webkit-border-radius: 18px;
+    -moz-border-radius: 18px;
+    border-radius: 18px;
+    -webkit-box-shadow: 0px 0px 0px 0;
+    box-shadow: 0px 0px 0px 0;
+    color: #ffffff;
+    padding: 5px 5px 2px 10px;
+    cursor: pointer;
+
+}
+
+.centrado-porcentual {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+}
+
+.padre {height: 250px;}
+.flotante {
+    float: left;
+    height: 50%;
+    width: 100%;
+    margin-bottom: -50px;
+}
+.hijo {
+    clear: both;
+    height: 100px;
+}
+.preguntas{
+    text-shadow: 0.05em 0.05em 0.05em #333;
+    font-size: 1em;
+    color: #1c84cd;
+}
+.numeroPregunta{
+    text-shadow: 0.05em 0.05em 0.05em #333;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ffce42;
+}
+
+.puntero{
+    cursor: pointer;
+
+}
+.labelNuevo{
+    font-size: 1em;
+    color: #ffffff;
+    text-align: center;
+    height: auto;
+    font-weight: bold;
+
+}
+.labelLogout{
+    font-size: 1em;
+    color: red;
+    text-align: center;
+    height: auto;
+    font-weight: bold;
+
+}
+.labelNuevoNegro{
+    font-size: 1em;
+    color: #000000;
+    text-align: center;
+    height: auto;
+
+    /*border-color: #f0ad4e;*/
+    /*background-color: white;*/
+
+}
+.fontDiv{
+
+    background-color: #f7f7f8;
+}
+
+.styled-select.slate {
+    background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center;
+    height: 34px;
+    width: 240px;
+}
+.imagenAdmin { padding: 10px; 
+               margin: 10px; 
+               border: 2px solid black; 
+               float: left; 
+               width: 500px; }
+
+.threed:hover
+{
+    box-shadow:
+        1px 1px #53a7ea,
+        2px 2px #53a7ea,
+        3px 3px #53a7ea;
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
+}
+
+.grow:hover
+{
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.separacionRowformeMenu{
+    padding-top: 1%;
+}
+
+.tituloMenuPrincipal {
+    background-color: #6dc6e6;
+}
+
+.tituloLogin{
+    display: block;color: #fff;
+    background-color: #002551;
+    border-color: #5bc0de;
+    padding: 0.75rem 1.5rem;
+    font-size:1em; 
+    text-align: center;
+}
+
+.letrasMenuOpcionesBoost{
+    text-align: left;
+    text-justify: auto;
+    font-size: 12px;
+    /*font-weight: bold;*/
+
+
+}
+.textoFechaDateBox{
+    font-weight:bold;
+    font-size:14px ;
+    background-color: #eceeef;
+    text-align: left;
+}
+.fondoCabeceraList{     
+    height: 30px;
+
+}
+
+.grow:hover
+{
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}

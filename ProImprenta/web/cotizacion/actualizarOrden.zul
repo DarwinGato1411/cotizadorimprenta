@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="idOrdenProduccion"  position="center" width="80%"  height="630px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.ActulizarOrdenViewModel')">
+    <caption label="Orden de Produccion" style="font-weight:bold"
+    /> 
+    <tabbox  width="100%">
+        <tabs >
+            <tab label="Informacion orden de produccion " sclass="menutabs"/>  
+        </tabs>
+        <tabpanels >
+            <tabpanel >
+                   
+                <grid width="100%" >
+                        
+                    <columns>                               
+                        <column label="Seleccionar" width="55%" align="left"/> 
+                        <column label="Opción" width="50%" align="left"/>                 
+                    </columns>
+                     
+                    <rows >
+                        <row>
+                            <cell colspan="1">
+                                <label value="(*) " style="color:red;font-weight:bold"/>Estado de la orden: 
+                                
+                            </cell>
+                            <cell colspan="1">
+                                
+                                <label value="@bind(vm.ordenDeProduccion.codEstadoOrden.estOrdNombre)" style="font-size:20px;font-weight:bold"/> 
+                            </cell>
+                               
+                        </row>
+                        <row>
+                            <cell colspan="1">
+                                <label value="(*) " style="color:red;font-weight:bold"/>Numero de orden: 
+                                
+                            </cell>
+                            <cell colspan="1">
+                                
+                                <label value="@bind(vm.ordenDeProduccion.ordNumero)" style="font-size:20px;font-weight:bold"/> 
+                            </cell>
+                               
+                        </row>
+                        <row>
+                            <cell colspan="1">
+                                <label value="(*) " style="color:red;font-weight:bold"/>Fecha incio: 
+                            </cell>
+                            <cell colspan="1">
+                                <datebox compact="true" value="@bind(vm.ordenDeProduccion.fechaCreacion)"  readonly="true" style="font-weight:bold" buttonVisible="true" lenient="true" format="dd/MM/yyyy"   constraint="no empty: Ingrese la fecha de inicio."/> 
+                            </cell>
+                        </row>
+                        <row>
+                            <cell colspan="1">
+                                <label value="(*) " style="color:red;font-weight:bold"/>Hora incio: 
+                            </cell>
+                            <cell colspan="1">
+                                 <timebox  format="short" value="@bind(vm.ordenDeProduccion.ordHoraInicio)" style="font-weight:bold"  />
+                            </cell>
+                        </row>
+                        <row>
+                            <cell colspan="1">
+                                <label value="(*) " style="color:red;font-weight:bold"/>Fecha finalizacion: 
+                            </cell>
+                            <cell colspan="1">
+                                <datebox compact="true" value="@bind(vm.ordenDeProduccion.fechaDespacho)"  readonly="true" style="font-weight:bold" buttonVisible="true" lenient="true" format="dd/MM/yyyy"   constraint="no empty: Ingrese la fecha de inicio."/> 
+                            </cell>
+                        </row>
+                        <row>
+                            <cell colspan="1">
+                                <label value="(*) " style="color:red;font-weight:bold"/>Hora despacho: 
+                            </cell>
+                            <cell colspan="1">
+                                 <timebox  format="short" value="@bind(vm.ordenDeProduccion.ordHoraDespacho)" style="font-weight:bold"   />
+                            </cell>
+                        </row>
+                        <row>
+                            <cell colspan="1">
+                                <label value="(*) " style="color:red;font-weight:bold"/>Descripcion: 
+                            </cell>
+                            <cell colspan="1">
+                                <textbox  multiline="true" rows="5"  width="100%"  value="@bind(vm.ordenDeProduccion.ordDescripcion)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                            </cell>
+                        </row>
+                        <row>
+                            <cell align="center" colspan="1">
+                                <!--<label value="(*) " style="color:red;font-weight:bold"/>  Archivo adjunto:-->  
+                                  <image content="@bind(vm.ordenDeProduccion.fotoGeneral)" align="center" height="250px" width="90%" />
+                                  <button label="Subir imagen"  onClick="@command('subirFotografia')"  tooltiptext="Subir archivo IMAGEN"/> 
+                            </cell>
+                            <cell align="center" colspan="1">
+                               
+                                <iframe height="250px" width="90%" id="reportframe"
+                                      content="@bind(vm.ordenDeProduccion.fileContent)"/>
+                                  <button label="Subir pdf"  onClick="@command('subirArchivo')"  tooltiptext="Subir archivo PDF"/> 
+                                <!--<image content="@bind(each.fileContent)" align="center" width="70px"  height="70px"/>-->
+                           
+                            </cell>
+                        </row>
+                        
+                         
+                        <row>
+                            <cell align="center" colspan="2">
+                                <hbox>
+                                  
+                                    <button label="Guardar"  onClick="@command('guardar')"  tooltiptext="Actualizar orden"/> 
+                                </hbox>
+                
+                            </cell>  
+                        </row>
+                    </rows>
+                </grid> 
+            </tabpanel>
+      
+        </tabpanels>
+    </tabbox>
+      
+</window>

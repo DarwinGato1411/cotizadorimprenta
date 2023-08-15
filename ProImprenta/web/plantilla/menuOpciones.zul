@@ -1,0 +1,90 @@
+<?init class="imp.seguridad.Autentificador"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+
+<zk >
+    <div style="border:2px;padding-top:10px;padding-left:5px" width="97%" align="center">
+        <image src="/imagenes/organizar.png"  /> 
+        <image src="/imagenes/organiza.png"  /> 
+    </div>
+    <div class="btn-group-vertical sidebar-nav "  style="text-align:lefth;"
+         viewModel="@id('vm')"  apply="imp.controladoresview.MenuOpcionesViewModel" >
+    
+        <hbox   >
+          
+            <menubar id="menubara" orient="vertical" class=" btn  form-control-sm  dropdown-toggle" >
+                <menuitem id="btnCotizar" label="Cotizacion general"  
+                          class="btn btn-primary "  />        
+           
+                <menuitem id="btnCompaginado" label="Cotizacion Compaginado"  
+                          class="btn btn-primary form-control-sm " />        
+          
+                <menuitem id="btnGiganto" label="Cotizacion Gigantografia"  
+                          class="btn btn-primary form-control-sm "/>        
+           
+                <menuitem id="btnDigital" label="Cotizacion Digital"  
+                          class="btn btn-primary form-control-sm "/>        
+           
+   
+           
+                <menuitem id="btnListaUsuarios" label="Cotizacion Generadas"  
+                          class="btn btn btn btn-success form-control-sm "/>        
+            
+                <menuitem id="btnCotizacionCerrada" label="Cotizacion Cerradas" 
+                          class="btn btn btn btn-success form-control-sm "/>
+           
+                <menuitem id="btnCotizacionFacturadas" label="Cotizacion Facturadas" 
+                          class="btn btn btn btn-success form-control-sm "/>
+            
+                <menuitem id="btnOrdenFinalizada" label="Orden Cerradas" 
+                          class="btn btn btn btn-success form-control-sm "/>
+            
+
+   
+                <menuitem id="btnOrdenSinCotizar" label="Generar Orden de trabajo" 
+                          class="btn btn btn-danger form-control-sm "/>
+            
+               
+                <menuitem id="btnListaOrdenSinCotizar" label="Orden de trabajo Generadas"
+                          class="btn btn btn-danger form-control-sm "/>
+            
+                <menuitem id="btnListaOrdenSinCotizarCerradas" label="Orden de trabajo Cerradas"
+                          class="btn btn btn-danger form-control-sm "/>
+           
+                <menuitem id="btnListaOrdenSinCotizarFacturadas" label="Orden de trabajo Facturadas" 
+                          class="btn btn btn-danger form-control-sm "/>
+            
+
+          
+                <menuitem id="btnIngreso" label="Ingreso de material"    
+                          class="btn btn-primary form-control-sm " />          
+           
+                <menuitem id="btnSalida" label="Salida de material"    
+                          class="btn btn-primary form-control-sm " />          
+          
+                <menuitem id="btnKardex" label="Reporte movimientos"     
+                          class="btn btn-primary form-control-sm " />          
+          
+                <menuitem id="btnReporteInventario" label="Reporte inventario"   
+                          class="btn btn-primary form-control-sm " />          
+           
+                <menuitem id="btnMaterialTrabajo" label="Ajuste de material"  
+                          class="btn btn-primary form-control-sm " />          
+                <menuitem id="btnMaterialSolicitado" label="Material Solicitado" 
+                          class="btn  btn-warning form-control-sm "/>
+            
+                <menuitem id="btnAdministrar" label="Administrar"   
+                          class="btn  btn-warning form-control-sm "/>
+                <!--        <menuitem id="btnMailMasivo" label="Mail Masivo" 
+                class="btn  btn-warning form-control-sm "/>-->
+                <menuitem id="btnCalculadora" label="Utilidades"   
+                          class="btn  btn-warning form-control-sm "/>
+
+            </menubar>
+        </hbox>
+    </div>
+ 
+
+
+</zk>
+    

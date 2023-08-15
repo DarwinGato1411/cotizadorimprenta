@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowRecibido1"  position="center" width="600px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.CortezViewModel')">
+    
+    <caption label="Administrar corte" style="font-weight:bold"
+    /> 
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.CortezViewModel')" width="99%">
+        
+        <tabbox id="tboxPrincipal"  width="100%">
+            <tabs >
+                <tab label="Lista de Cortes" sclass="menutabs" image="/imagenes/page.png"/>       
+<!--                <tab label="Nuevo Corte" sclass="menutabs" image="/imagenes/page.png"/>       -->
+            </tabs>
+            <tabpanels >
+                
+                <tabpanel id="tabDocumentos" height="98%" width="99%"  >
+                    <listbox id="documentos"  model="@load(vm.listaCortesPorMaterial)" 
+                             nonselectableTags="*"  mold="paging" pageSize="5"  >
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                     <auxhead>
+                            <auxheader align="center" colspan="2">  
+                                <label value="Imagen: " style="font-weight:bold"/>
+                            </auxheader>  
+                        </auxhead>
+                        <auxhead>
+                            <auxheader align="center" colspan="2">                             
+                                 <image content="@bind(vm.foto)" align="center" width="300px"  height="200px"/>
+                            </auxheader>  
+                        </auxhead>
+                    
+                        <listhead> 
+                            <listheader width="80%"  label="Descripción" /> 
+                            <listheader width="20%"  label="Opciones" /> 
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>
+                                    <label value="@bind(each.cortDescripcion)" width="96%" />
+                                </listcell>
+                              
+                                <listcell>
+                                 <button  image="/imagenes/image.png"  onClick="@command('verFoto',material=each)" tooltiptext="Ver corte"/>
+                                     
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                    
+                </tabpanel>
+<!--                <tabpanel id="tabNuevo" height="98%" width="99%"  >
+                      
+                    <grid width="100%" >
+                        <auxhead>
+                            <auxheader colspan="5" class="topic">Registrar corte </auxheader>
+                        </auxhead>
+                        <columns>                               
+                            <column label="Etiquetas" width="40%" align="left"/>
+                            <column label="Descripcion" width="60%"/>                 
+                        </columns>
+                     
+                        <rows >
+                            <row>
+                                <cell colspan="1">
+                                    <label value="(*) " style="color:red;font-weight:bold"/>Descripción: 
+                                   
+                                </cell>
+                                <cell colspan="1">
+                                    <textbox width="70%" id="txtRuc" onChange="self.setValue(self.getValue().toUpperCase().trim());" value="@bind(vm.cortezPosibles.cortDescripcion)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                                </cell>
+                            </row>
+                            <row>     
+                                <cell colspan="1">
+                                    <label value="(*) " style="color:red;font-weight:bold"/>Fotografía:
+                                </cell>
+                                <cell colspan="1">
+                                     <image content="@bind(vm.foto1)" align="center" width="150px"  height="100px"/>
+                                      <button label="Subir archivo" onClick="@command('subirArchivo')"/>  
+                                </cell>
+                            </row>
+                            
+                            <row>
+                                <cell align="center" colspan="4">
+                                    <hbox>
+                                        <button label="Guardar"  onClick="@command('guardar')"  tooltiptext="Guardar documento"/> 
+                                    </hbox>
+                
+                                </cell>  
+                            </row>
+                        </rows>
+                  
+                    </grid>
+                </tabpanel>-->
+  
+            </tabpanels>
+            
+        </tabbox>
+        
+    </hbox>
+
+
+    
+  
+                    
+                  
+</window>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+<zk  contentStyle="overflow:auto" with="100%" >
+    <hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+          viewModel="@id('vm') @init('imp.controladoresview.ReporteInventario')" width="100%">
+        <tabbox id="tboxPrincipal"  width="100%">
+            <tabs >
+                <tab label="INVENTARIO POR UBICACION Y CATEGORIA" sclass="menutabs" /> 
+               
+                
+            </tabs>
+            <tabpanels >
+                <tabpanel  height="98%" width="99%"  >       
+                    <div class="row " align="lefth">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-control">
+                            <div class="row " align="lefth">
+                                
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4  ">
+                                    <div class="input-group mb-3 col-12 col-sm-12 col-md-12 col-lg-12 ">
+                                                
+                                        <label class="labelNuevoNegro"
+                                               value="Catregoria: " />
+                                        <combobox  model="@load(vm.listaCategorias)"
+                                                   class="badge badge-default   btn-secondary  textoFechaDateBox" 
+                                                   selectedItem="@bind(vm.categosiaSelected)" readonly="true" >
+                                          
+                                            <template name="model">
+                                                <comboitem  label="@bind(each.catDescripcion)"/>
+                                            </template>                                      
+                                        </combobox> 
+                                        
+                                        <div class="input-group-append">
+                                            <button image="/imagenes/buscar1.png"  
+                                                    class="btn  btn-secondary btn-sm"
+                                                    onClick="@command('buscarForCategoria')" 
+                                                    tooltiptext="Busca por las fechas seleccionadas"/>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4  ">
+                                    <div class="input-group mb-3 col-12 col-sm-12 col-md-12 col-lg-12 ">
+                                                
+                                        <label class="labelNuevoNegro"
+                                               value="Ubicacion: " />
+                                        
+                                        <combobox  model="@load(vm.listaUbicacion)"
+                                                   class="badge badge-default   btn-secondary  textoFechaDateBox" 
+                                                   selectedItem="@bind(vm.ubicacionSelected)" readonly="true" >
+                                          
+                                            <template name="model">
+                                                <comboitem  label="@bind(each.ubiNombre)"/>
+                                            </template>                                      
+                                        </combobox> 
+                                        <div class="input-group-append">
+                                            <button image="/imagenes/buscar1.png"  
+                                                    class="btn  btn-secondary btn-sm"
+                                                    onClick="@command('buscarForUbicacion')" 
+                                                    tooltiptext="Busca por las fechas seleccionadas"/>
+                                        </div>
+                                    </div>
+                                  
+                                </div>
+                                
+                                
+                                
+                                <div class="col-4 col-sm-4 col-md-4 col-lg-4  " align="start">
+                                    <button  label="Buscar por categoria y ubicacion " 
+                                             image="/imagenes/buscar1.png"  
+                                             class="btn btn btn-primary btn-sm "
+                                             onClick="@command('buscarForCategoriaUbicacion')"  
+                                             tooltiptext="Buscar por categoria y ubicacion seleccionando las listas"/>
+
+                                    <image  src="/iconos/excel1.png"
+                                            class="btn btn btn-secondary btn-sm "
+                                            onClick="@command('exportarExcelGiganto')"
+                                            tooltiptext="Exportar a excel"/>
+                                </div>
+                                <div class="col-2 col-sm-2 col-md-3 col-lg-3" align="start">
+                                    
+
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 form-control">  
+                            
+                                         
+                            <listbox   model="@load(vm.listaInventario)" 
+                                       nonselectableTags="*"  mold="paging" pageSize="10"  >
+                                <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                                <listhead>     
+                                    <listheader width="30%"  label="MATERIAL" /> 
+                                    <!--<listheader width="10%"  label="INICIAL " />--> 
+                                    <listheader width="10%"  label="INGRESO " /> 
+                                    <listheader width="10%"  label="SALIDA" />  
+                                    <listheader width="10%"  label="STOCK" />  
+                                    <listheader width="10%"  label="COSTO COMPRA" /> 
+                                    <listheader width="10%"  label="COSTO FINAL" /> 
+                                    <listheader width="10%"  label="DISPONIBILIDAD" />   
+                                    <listheader width="10%"  label="CATEGORIA" />   
+                                    <listheader width="10%"  label="UBICACION" />   
+                                </listhead>  
+                    
+                                <template name="model">                                                            
+                                    <listitem>
+                                        <zk if="${each.estado=='BAJA'}" > 
+                                            <listcell style="background: #f2b4a2;font_weight: bold;"  >    
+                                                <label  value="@bind(each.producto)" width="96%"/> 
+                                            </listcell>
+                                        </zk>
+                                        <zk if="${each.estado=='MEDIA'}" > 
+                                            <listcell style="background: #f3fc8f;font_weight: bold;" >    
+                                                <label  value="@bind(each.producto)" width="96%"/> 
+                                            </listcell>
+                                        </zk>
+                                        <zk if="${each.estado=='ALTA'}" > 
+                                            <listcell style="background: #b0fc8f;font_weight: bold;" >    
+                                                <label  value="@bind(each.producto)" width="96%"/> 
+                                            </listcell>
+                                        </zk>
+                                        <!--                                <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.inicial)" width="96%" />
+                                        </listcell>-->
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.ingreso)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.salida)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" readonly="true" value="@bind(each.stock)" width="96%" />
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" style=" color:tomato; font-weight: bold;" readonly="true" value="@bind(each.costoCompra)" width="80%" />$
+                                        </listcell>
+                                        <listcell>
+                                            <decimalbox format="###.##" style=" color:green; font-weight: bold;" readonly="true" value="@bind(each.costoFinal)" width="80%" />$
+                                        </listcell>
+                                        <listcell>
+                                            <label  value="@bind(each.estado)" width="80%" />
+                                        </listcell>
+                                        <listcell>
+                                            <label  value="@bind(each.categoria)" width="80%" />
+                                        </listcell>
+                                        <listcell>
+                                            <label  value="@bind(each.ubicacion)" width="80%" />
+                                        </listcell>
+                                    </listitem>
+                                </template>
+                            </listbox>
+                        </div>
+                    </div>
+                </tabpanel>
+     
+            </tabpanels>
+            
+        </tabbox>
+    </hbox>
+
+
+</zk>

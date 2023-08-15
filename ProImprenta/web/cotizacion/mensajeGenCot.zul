@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowMensajeNumero"   position="center" width="300px"  height="auto" closable="true"  
+         apply="org.zkoss.bind.BindComposer" 
+         viewModel="@id('vm') @init('imp.controladoresview.MensajeCotGenViewModel')">
+    
+    <caption label="Cotizacion Generada" style="font-weight:bold"/> 
+    <div class="row " align="center">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12" align="center">
+            <textbox  value="@bind(vm.mensaje)" 
+                      class="form-control form-control-sm" 
+                      style="text-align:center;font-weight:bold;color:blue;font-size:40px" 
+                      readonly="true"  width="100%"  sclass="textBoxMedio" />
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12" align="center">
+            <button label="Aceptar" onCreate="self.focus()"
+                    class="btn  btn-primary"
+                    onClick="@command('cerrarVentana')"  
+                    tooltiptext="Aceptar"/> 
+                        
+        </div>
+    </div>
+
+<!--    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic">Información</auxheader>
+        </auxhead>
+        <columns>                               
+            <column label="USTED GENERO LA COTIZACIÓN #:" width="100%" align="center"/>    
+        </columns>
+                     
+        <rows >
+           
+            <row>
+                <cell colspan="1" align="center">
+                 
+                    
+                </cell>
+            </row>
+        </rows>
+                  
+    </grid> -->
+                    
+                  
+</window>

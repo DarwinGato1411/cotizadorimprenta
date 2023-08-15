@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?init class="imp.seguridad.Autentificador"?>
+<?link rel="stylesheet" type="text/css" href="/css/boostrap/bootstrap.css"?>  
+<?link rel="stylesheet" type="text/css" href="/css/style.css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla/plantilla.zul"?>
+
+<hbox self="@define(content)" apply="org.zkoss.bind.BindComposer" 
+      viewModel="@id('vm') @init('imp.controladoresview.AdministrarReportesViewModel')" width="100%">
+        
+    <tabbox id="tboxReportesEst"  width="99%">
+        <tabs >
+            <tab label="ESTADISTICAS" sclass="menutabs" /> 
+<!--            <tab label="ORDEN DE PRODUCCION" sclass="menutabs" /> -->
+           
+                        
+
+               
+        </tabs>
+        <tabpanels >
+             
+            <tabpanel id="tabEstArea"  width="99%"  >
+                                
+                <grid width="100%" >
+                    <auxhead>
+                        <auxheader colspan="1" class="topic">ESTADISTICA</auxheader>
+                    </auxhead>
+                    <auxhead>
+                        <auxheader colspan="1" class="topic">
+                            DESDE: <datebox compact="true" value="@bind(vm.fechaInicio)"  readonly="true"   style="font-weight:bold" buttonVisible="true" lenient="true" format="dd/MM/yyyy H:mm "   constraint="no empty: Fecha de inicio"/>
+                            HASTA: <datebox compact="true" value="@bind(vm.fechaFin)"  readonly="true"   style="font-weight:bold" buttonVisible="true" lenient="true" format="dd/MM/yyyy H:mm "   constraint="no empty: Fecha de fin"/>
+                            <button  image="/imagenes/buscar1.png" sclass="botonGreen"  onClick="@command('greficarPorVendedor')"  tooltiptext="Graficar por vendedor"/>
+                            <space bar="false"  width="20px" />
+                            <button id="btnDesArea" label="DESCARGAR"  sclass="botonGreen"  onClick="@command('descargarArea')"  tooltiptext="Descargar grafica"/>
+                        </auxheader>
+                    </auxhead>
+                                    
+                    <columns>                               
+                        <column label="" align="center" />
+                                       
+                    </columns>
+                     
+                    <rows >
+                        <row >
+                            <!--                                            <charts id="chart" type="bar" 
+                            title="Estadísticas de visita por Area"/>-->
+                            <image content="@bind(vm.reporteVendedor)" align="center" width="900px"/>
+                        </row>
+          
+                    </rows>
+                  
+                </grid> 
+            </tabpanel>
+                
+            <tabpanel id="tabEstEdad" height="98%" width="99%"  >
+<!--                <grid width="100%" >
+                    <auxhead>
+                        <auxheader colspan="1" class="topic">Estadisticas por edad</auxheader>
+                    </auxhead>
+                    <auxhead>
+                        <auxheader colspan="1" class="topic">
+                            DESDE: <datebox compact="true" value="@bind(vm.fechaInicioEdad)"  readonly="true"   style="font-weight:bold" buttonVisible="true" lenient="true" format="dd/MM/yyyy H:mm "   constraint="no empty: Fecha de inicio"/>
+                            HASTA: <datebox compact="true" value="@bind(vm.fechaFinEdad)"  readonly="true"   style="font-weight:bold" buttonVisible="true" lenient="true" format="dd/MM/yyyy H:mm "   constraint="no empty: Fecha de fin"/>
+                            <button sclass="botonGreen"  image="/imagenes/magnifier.png"  onClick="@command('graficarForEdad')"  tooltiptext="Graficar por areas"/>
+                            <space bar="false"  width="20px" />
+                            <button id="btnDesEdad" label="DESCARGAR"  sclass="botonGreen"  onClick="@command('descargarEdad')"  tooltiptext="Descargar grafica"/>
+                        </auxheader>
+                    </auxhead>
+                    <columns>                               
+                        <column label="" align="center"/>
+                                       
+                    </columns>
+                     
+                    <rows >
+                        <row>
+                                                                        <charts id="chartEdad" type="pie" 
+                            title="Estadísticas de visita por Area"/>
+                            <image content="@bind(vm.reporteEdad)" align="center"  style="margin: 2% 0 0 10%;"   />
+                        </row>
+          
+                        
+                    </rows>
+                  
+                </grid> 
+                   -->
+                    
+            </tabpanel>
+    
+        </tabpanels>
+            
+    </tabbox>
+        
+</hbox>
+

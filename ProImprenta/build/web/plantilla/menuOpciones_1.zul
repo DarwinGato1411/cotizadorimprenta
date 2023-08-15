@@ -1,0 +1,77 @@
+<?init class="imp.seguridad.Autentificador"?>
+
+<zk >
+    <div style="border:2px;padding-top:10px;padding-left:5px" width="97%" align="center">
+        <image src="/imagenes/imgDigitalx100.png"  /> 
+    </div>
+  
+    <div class="btn-group-vertical  sidebar-nav"  style="text-align:lefth;"
+         viewModel="@id('vm')" id="gridMenu" apply="imp.controladoresviewesview.MenuOpcionesViewModel" >
+       
+        <button id="btnCotizar" label="Cotizacion general"  
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost"  />        
+           
+        <button id="btnCompaginado" label="Cotizacion Compaginado"  
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost" />        
+          
+        <button id="btnGiganto" label="Cotizacion Gigantografia"  
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost"/>        
+           
+        <button id="btnDigital" label="Cotizacion Digital"  
+                class="btn btn-primary form-control-sm letrasMenuOpcionesBoost"/>        
+           
+        <space bar="true" orient="horizontal" width="100%" /> 
+           
+        <button id="btnListaUsuarios" label="Cotizacion Generadas"  
+                class="btn btn btn btn-success form-control-sm letrasMenuOpcionesBoost"/>        
+            
+        <button id="btnCotizacionCerrada" label="Cotizacion Cerradas" 
+                class="btn btn btn btn-success form-control-sm letrasMenuOpcionesBoost"/>
+           
+        <button id="btnCotizacionFacturadas" label="Cotizacion Facturadas" 
+                class="btn btn btn btn-success form-control-sm letrasMenuOpcionesBoost"/>
+            
+        <button id="btnOrdenFinalizada" label="Orden Cerradas" 
+                class="btn btn btn btn-success form-control-sm letrasMenuOpcionesBoost"/>
+            
+        <space bar="true" orient="horizontal" width="100%" /> 
+           
+        <button id="btnOrdenSinCotizar" label="Generar Orden de trabajo" 
+                class="btn btn btn-danger form-control-sm letrasMenuOpcionesBoost"/>
+            
+               
+        <button id="btnListaOrdenSinCotizar" label="Orden de trabajo Generadas"
+                class="btn btn btn-danger form-control-sm letrasMenuOpcionesBoost"/>
+            
+        <button id="btnListaOrdenSinCotizarCerradas" label="Orden de trabajo Cerradas"
+                class="btn btn btn-danger form-control-sm letrasMenuOpcionesBoost"/>
+           
+        <button id="btnListaOrdenSinCotizarFacturadas" label="Orden de trabajo Facturadas" 
+                class="btn btn btn-danger form-control-sm letrasMenuOpcionesBoost"/>
+            
+        <space bar="true" orient="horizontal" width="100%" /> 
+           
+        <button id="btnMaterialSolicitado" label="Material Solicitado" 
+                class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>
+            
+        <button id="btnUsuarios" label="Usuarios" 
+                class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>
+           
+        <button  id="btnCalculadora" label="Calculadora"   
+                 class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>        
+            
+        <button  id="btnMailMasivo" label="Publicidad masiva"   
+                 class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>        
+            
+        <button id="btnManual" label="Manual de usuario"  
+                class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>
+            
+        <button id="btnAdministrar" label="Administrar"   
+                class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>
+        <button  label=""   
+                 class="btn  btn-warning form-control-sm letrasMenuOpcionesBoost"/>
+ 
+    </div>
+
+
+</zk>

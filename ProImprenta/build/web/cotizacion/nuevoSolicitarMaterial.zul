@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowSolMaterial"  position="center" width="25%" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto" 
+         viewModel="@id('vm') @init('imp.controladoresview.NuevoSolicitarMaterial')">
+    
+    <caption label="Registrar Material" style="font-weight:bold"
+    /> 
+    
+    <div  class="container" >
+        <div  class="row" >
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                <label   class="labelNuevoNegro" value="(*) "  >Fecha de solicitud</label>
+           
+                <datebox   value="@bind(vm.solicitarMaterial.solFecha)"
+                           readonly="true" style="font-weight:bold;" 
+                           class="badge badge-default bg-info  btn-secondary  textoFechaDateBox"  
+                           buttonVisible="true" 
+                           lenient="true"  format="dd/MM/yyyy" 
+                           constraint="no empty: Ingrese su fecha de solicitud"/> 
+            </div>          
+            <div class="col-12 col-sm-12 col-md-6 col-6 lg-6  form-group "  >
+                <label   class="labelNuevoNegro" value="(*) "  >Cantidad</label>
+                <decimalbox format="###.#####" 
+                            value="@bind(vm.solicitarMaterial.solCantidad)" 
+                            class="form-control"/>
+            </div>          
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group "  >
+              
+            </div>          
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                <label  class="labelNuevoNegro" value="(*) "  >Descripción de la solicitud</label>
+                <textbox value="@bind(vm.solicitarMaterial.solDescripcion)" 
+                         multiline="true"  
+                         rows="8"
+                         class="form-control"
+                         onChange="self.setValue(self.getValue().toUpperCase());"                     />
+            </div>          
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group "  >
+                <label   class="labelNuevoNegro" value="(*) "  >Usuario </label>
+                <textbox value="@bind(vm.usuario)"   
+                         constraint="no empty: Campo requerido"
+                         class="form-control"/>
+            </div>          
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group "  >
+                <label   class="labelNuevoNegro" value="(*) "  >Contraseña </label>
+                <textbox value="@bind(vm.contrasena)" type="password"  
+                         constraint="no empty: Campo requerido" 
+                         class="form-control" />
+            </div>          
+  
+          
+                    
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                <image src="/iconos/save48.png"  
+                       class="grow"
+                       onClick="@command('guardar')"
+                       tooltiptext="Guardar Registro"/>
+ 
+
+            </div> 
+        </div> 
+    </div>
+    
+                    
+                  
+</window>

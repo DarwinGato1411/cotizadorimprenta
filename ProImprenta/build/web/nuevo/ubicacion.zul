@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowUbicacion"  position="center" width="25%" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.NuevaUbicacion')" >
+    
+    <caption label="REGISTRAR UBICACION" style="font-weight:bold"
+    /> 
+    <div  class="container" >
+        <div  class="row" >
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group "  >
+                <label   class="labelNuevo" value="(*) "  >Ubicacion/Area</label>
+                <textbox value="@bind(vm.ubicacion.ubiNombre)"  class="form-control"
+                         onChange="self.setValue(self.getValue().toUpperCase());"                     />
+            </div>          
+  
+             
+                    
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12  form-group" align="center" >
+                <image src="/iconos/save48.png"  
+                       class="grow"
+                       onClick="@command('guardarParametro')"
+                       tooltiptext="Guardar Registro"/>
+ 
+
+            </div> 
+        </div> 
+    </div>
+    
+    
+    
+                    
+                  
+</window>

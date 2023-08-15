@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowsManoObra2"  position="center" width="600px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.ManoObraViewModel')">
+    
+    <caption label="Registrar Mano de Obra" style="font-weight:bold"
+    /> 
+    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic"> Mano de Obra gigantografia   
+                <radiogroup Id="tipoManoObra" selectedItem="@bind(vm.manoDeObra.manTipoProducto)" onCheck="@command('visualizarCamposGiganto')">
+                    <radio id="preImpresion2" label="PRE-IMPRESION" value="PRE-POST-GIGANTO"/>
+                    <radio id="impresion2" label="GIGANTOGRAFIA" value="GIGANTOGRAFIA"/>                 
+                </radiogroup>
+            </auxheader>
+
+        </auxhead>
+        <columns>                               
+            <column label="Etiquetas" width="40%" align="left"/>
+            <column label="Descripcion" width="60%"/>
+                   
+        </columns>
+                     
+        <rows >
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Descripción:              
+                </cell>
+                <cell colspan="1">
+                    <textbox width="70%" id="txtMaquinaGigan" onChange="self.setValue(self.getValue().toUpperCase().trim());" value="@bind(vm.manoDeObra.manNombreProducto)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                </cell>
+            </row>
+        
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Costo por hora:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtHoraGigan" format="###.#####" width="20%" value="@bind(vm.manoDeObra.manCostoTiempo)"  constraint="no empty: Campo requerido" sclass="textBoxMedio" /> $
+                </cell>
+            </row>
+           
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Costo tinta:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox  id="txtCosto" format="#####.#####" width="20%" value="@bind(vm.manoDeObra.manCostoOpcional)"  constraint="no empty: Campo requerido" sclass="textBoxMedio" /> $
+                </cell>
+            </row>
+             <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Cantidad por hora:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtCantHora" format="###.#####" width="20%" value="@bind(vm.manoDeObra.manImpresionHora)"  constraint="no empty: Campo requerido" sclass="textBoxMedio" /> Unid
+                </cell>
+            </row>
+             
+       
+            <row>
+                <cell align="center" colspan="4">
+                    <hbox>
+                        <button label="Guardar" image="/imagenes/save_1.png"  onClick="@command('guardarGiganto')"  tooltiptext="Guardar cliente"/> 
+                    </hbox>
+                
+                </cell>  
+            </row>
+        </rows>
+                  
+    </grid> 
+                    
+                  
+</window>

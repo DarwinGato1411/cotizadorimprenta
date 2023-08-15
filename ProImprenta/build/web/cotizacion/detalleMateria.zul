@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowCliente"  position="center" width="500px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.DetalleMateriaViewModel')">
+    
+    <caption label="Registrar Cliente" style="font-weight:bold"
+    /> 
+    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic">Detalle</auxheader>
+        </auxhead>
+        <columns>                               
+            <column label="Etiquetas" width="40%" align="left"/>
+            <column label="Descripcion" width="60%"/>
+                   
+        </columns>
+                     
+        <rows >
+           
+            <row>
+                 
+                <cell colspan="1">
+                    <label value="@bind(vm.detalleMateria.etiquetaPlacas)" />
+                                   
+                </cell>   
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.detalleMateria.costoPlacas)" style="font-weight:bold;font-size:30px" maxlength="13" readonly="true"  width="50%" id="txtCostPlacas" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> $
+                </cell>
+            </row>
+             
+            <row>
+                
+                <cell colspan="1">
+                    <label value="@bind(vm.detalleMateria.etiquetaPliegos)" />
+                </cell>
+                
+                <cell colspan="1">
+                    <decimalbox format="#########.####" value="@bind(vm.detalleMateria.costoPliegos)" style="font-weight:bold;font-size:30px" maxlength="13"  width="50%" id="txtRuc"  constraint="no empty: Campo requerido" sclass="textBoxMedio" /> $
+                </cell>
+            </row>
+            
+        </rows>
+                  
+    </grid> 
+                    
+                  
+</window>

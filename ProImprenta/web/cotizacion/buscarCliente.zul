@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowClienteBuscar"  position="center" width="900px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto"
+         viewModel="@id('vm') @init('imp.controladoresview.CotizacionViewModel')">
+    
+    <caption label="Registrar Cliente" style="font-weight:bold"
+    /> 
+   
+    <listbox id="lstlienteASD"  model="@load(vm.listaClientesAll)" 
+             nonselectableTags="*"  mold="paging" pageSize="15"  >
+        <custom-attributes org.zkoss.zul.listbox.rod="true"/>
+                    
+        <auxhead>
+            <auxheader colspan="9" >  
+                <label value="Razon Social: "/>
+                <textbox width="10%" value="@bind(vm.buscarRazon)" onChanging="@command('buscarClienteRazon',valor=event.value.toUpperCase())" />
+                <space bar="false" /> 
+                <label value="Nombre Comercial: "/>
+                <textbox width="10%" value="@bind(vm.buscarNombreComercial)" onChanging="@command('buscarNombreComercial',valor=event.value.toUpperCase())" />
+                <label value="Nuevo cliente: " style="font-weight:bold"/>
+            </auxheader>
+        </auxhead>
+                    
+        <listhead>     
+            <listheader width="15%"  label="Ruc" /> 
+            <listheader width="20%"  label="Nombre comercial" /> 
+            <listheader width="15%"  label="Razon Social" /> 
+            <listheader width="10%"  label="Convencional" />  
+            <listheader width="15%"  label="Dirección "  /> 
+            <listheader width="20%"  label="Correo "  />        
+            <listheader width="5%"  label="Opciones"/>
+                            
+        </listhead>  
+                    
+        <template name="model">                                                            
+            <listitem>
+                <listcell onClick="@command('seleccionarClienteLista',cliente=each)"  >
+                    <label  onClick="@command('seleccionarClienteLista',cliente=each)"  value="@bind(each.ruc)" width="96%" />
+                </listcell>
+                <listcell onClick="@command('seleccionarClienteLista',cliente=each)"  >
+                    <label onClick="@command('seleccionarClienteLista',cliente=each)"   value="@bind(each.nombreComercial)" width="96%" />
+                </listcell>
+                <listcell onClick="@command('seleccionarClienteLista',cliente=each)"  >
+                    <label onClick="@command('seleccionarClienteLista',cliente=each)"   value="@bind(each.razonSocial)" width="96%"/>
+                </listcell>
+                <listcell onClick="@command('seleccionarClienteLista',cliente=each)"  >
+                    <label  onClick="@command('seleccionarClienteLista',cliente=each)"  value="@bind(each.telefono)" width="96%" />
+                </listcell>
+                <listcell onClick="@command('seleccionarClienteLista',cliente=each)"  >
+                    <label onClick="@command('seleccionarClienteLista',cliente=each)"   value="@bind(each.direccion)" width="96%"/>
+                </listcell>
+                <listcell onClick="@command('seleccionarClienteLista',cliente=each)" >
+                    <label  onClick="@command('seleccionarClienteLista',cliente=each)"  value="@bind(each.correo)" width="96%"/>
+                </listcell>
+                <listcell>    
+                    <image  src="/iconos/ok24x24.png" 
+                            onClick="@command('seleccionarClienteLista',cliente=each)" 
+                            tooltiptext="Asigar cliente"/>
+                </listcell>
+            </listitem>
+        </template>
+    </listbox>
+                     
+                  
+</window>

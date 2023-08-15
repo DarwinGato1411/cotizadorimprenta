@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="winOpcionesImpresion"  width="800px"  closable="true"
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto" 
+         viewModel="@id('vm') @init('imp.controladoresview.CotizacionViewModel')">
+    
+    <caption label="SELECCIONE UNA OPCION DE IMPRESIÓN" style="font-weight:bold;font-size:50px"  /> 
+    <grid width="100%" >
+      
+        <columns>                               
+            <column label="" width="25%" align="left"/>
+            <column label="" width="25%"/>
+            <column label="" width="25%"/>
+             <column label="" width="25%"/>
+                   
+        </columns>
+                     
+        <rows >
+            
+            
+            <row>
+                <cell align="center" colspan="1">
+                    <hbox>
+                      <button  image="/imagenes/impCotizacion.png"  onClick="@command('RegistrarCotizacion')"  tooltiptext="Guardar Cotización"/>
+                    </hbox>
+                
+                </cell>  
+                <cell align="center" colspan="2">
+                    <hbox>
+                      <button  image="/imagenes/impOrden.png"    tooltiptext="Guardar Cotización"/>
+                    </hbox>
+                
+                </cell> 
+                <cell align="center" colspan="1">
+                    <hbox>
+                      <button  image="/imagenes/impCancelar.png"   onClick="@command('cerrar')"  tooltiptext="Cancelar"/>
+                    </hbox>
+                
+                </cell> 
+            </row>
+        </rows>
+                  
+    </grid> 
+                    
+                  
+</window>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowMaterialGig"  position="center" width="80%" height="90%" closable="true"  sizable="true"
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto" maximizable="true" 
+         viewModel="@id('vm') @init('imp.controladoresview.CalculadoraViewModel1')">
+    
+    <caption label="Lista de materiales Gigantografía" style="font-weight:bold"
+    /> 
+    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic">
+                <iframe id="ifrreportp1" width="100%" height="15px" style="border: 1px solid gray"/>
+            </auxheader>    
+        </auxhead>
+        
+        <auxhead>
+            <auxheader colspan="5" class="topic">
+                
+                                            
+                <datebox compact="true" buttonVisible="true" lenient="true" format="dd/MM/yyyy" id="dtRecep111" width="100px" value="@bind(vm.fechaInicioGiganto)" constraint="no empty: Ingrese su fecha de nacimiento."/>
+               
+                <datebox compact="true" buttonVisible="true" lenient="true" format="dd/MM/yyyy" id="dtRecep222" width="100px" value="@bind(vm.fechaFinGiganto)" constraint="no empty: Ingrese su fecha de nacimiento."/>
+           
+                <button  image="/imagenes/buscar1.png" onClick="@command('obternerMaterialesGiganto')"  tooltiptext="Busqueda de materiales"/>
+                <separator bar="true"/>
+                <button  image="/imagenes/file_xls.png" onClick="@command('exportarExcelGiganto')"  tooltiptext="Informe excel de materiales"/>
+            </auxheader>    
+        </auxhead>
+        <columns>                               
+            <column label="" width="40%" align="left"/>
+            <column label="" width="60%"/>
+                   
+        </columns>
+                     
+        <rows >
+
+            <row>
+                <cell colspan="2">
+                    <listbox id="ExcelExp" model="@load(vm.listaDetalleCotizacionFechasGiganto)"
+                             nonselectableTags="*" width="100%">
+                        <custom-attributes org.zkoss.zul.listbox.rod="true"/>                      
+                        <listhead>
+                            <listheader width="10%"  label="# COTIZACION" align="left"  /> 
+                            <listheader width="40%"  label="MATERIAL" align="left"  /> 
+                            <listheader width="10%"  label="ANCHO REAL" align="left"  /> 
+                            <listheader width="10%"  label="LARGO REAL" align="left" />
+                            <listheader width="10%"  label="ANCHO SOLICITADO" align="left" />
+                            <listheader width="10%"  label="LARGO SOLICITADO" align="left" />
+                            <listheader width="10%"  label="M2" align="left" />
+                                                                                              
+                        </listhead>  
+                    
+                        <template name="model">                                                            
+                            <listitem>
+                                <listcell>
+                                    <textbox value="@bind(each.codCotizacion.cotNumero)" width="80%" />
+                                </listcell>
+                               
+                                <listcell>
+                                    <textbox value="@bind(each.recorteMaterial.materiales.matNombre)" width="80%" />
+                                </listcell>
+                                <listcell>
+                                    <textbox value="@bind(each.recorteMaterial.materiales.matAncho)" width="80%" />
+                                </listcell>
+                                <listcell>
+                                    <textbox value="@bind(each.detAltoSolicitado)" width="80%" />
+                                </listcell>
+                                 <listcell>
+                                    <textbox value="@bind(each.detAnchoSolicitado)" width="80%" />
+                                </listcell>
+                                 <listcell>
+                                    <textbox value="@bind(each.detAltoSolicitado)" width="80%" />
+                                </listcell>
+                                  <listcell>
+                                    <textbox value="@bind(each.detUnidadCantidad)" width="80%" />
+                                </listcell>
+                            </listitem>
+                        </template>
+
+                    </listbox>
+                                                       
+                </cell>                 
+            </row>
+            
+        </rows>
+                  
+    </grid> 
+                    
+                  
+</window>

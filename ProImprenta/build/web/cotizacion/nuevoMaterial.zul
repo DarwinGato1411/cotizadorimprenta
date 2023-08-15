@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window  id="windowMaterial"  position="center" width="800px" closable="true"  
+         apply="org.zkoss.bind.BindComposer" contentStyle="overflow:auto" 
+         viewModel="@id('vm') @init('imp.controladoresview.NuevoMaterialViewModel')">
+    
+    <caption label="Registrar Material" style="font-weight:bold"
+    /> 
+    <grid width="100%" >
+        <auxhead>
+            <auxheader colspan="5" class="topic">Registrar Material</auxheader>
+        </auxhead>
+        <columns>                               
+            <column label="Etiquetas" width="40%" align="left"/>
+            <column label="Descripcion" width="60%"/>
+                   
+        </columns>
+                     
+        <rows >
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Nombre:
+                                   
+                </cell>
+                <cell colspan="1">
+                    <textbox width="98%" id="txtRuc" value="@bind(vm.materiales.matNombre)" onChange="self.setValue(self.getValue().toUpperCase().trim());"  constraint="no empty: Campo requerido" sclass="textBoxMedio" />
+                </cell>
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Tipo: 
+                </cell>
+                <cell colspan="1">
+                   
+                    <radiogroup Id="tipoMaterial" selectedItem="@bind(vm.materiales.matTipo)" onCheck="@command('visualizarDimension')" >
+                        <radio id="impresion" label="OFFSET " value="IMPRESION"/>
+                        <radio id="giganto" label="GIGANTOGRAFIA  " value="GIGANTOGRAFIA"/>
+                        <radio id="digital" label="DIGITAL  " value="DIGITAL"/>
+                        <radio id="otro" label="OTROS" value="OTROS"/>
+                    </radiogroup>
+                   
+                    <!--                    <textbox  id="txtNombreComercial" value="@bind(vm.materiales.matTipo)" constraint="no empty: Campo requerido" sclass="textBoxMedio" />-->
+                </cell>
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) "  style="color:red;font-weight:bold"/>Alto:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtAlto" width="20%"  format="###.#####" value="@bind(vm.materiales.matAlto)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> cm
+                </cell>
+            </row>
+       
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Ancho:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox id="txtAncho" width="20%"  format="###.#####" value="@bind(vm.materiales.matAncho)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> cm
+                </cell>
+               
+
+            </row>
+            <row>
+                <cell colspan="1">
+                    <label value="(*) " style="color:red;font-weight:bold"/>Costo:
+                </cell>
+                <cell colspan="1">
+                    <decimalbox format="###.#######"  width="20%" id="txtConvencional" value="@bind(vm.materiales.matCosto)" constraint="no empty: Campo requerido" sclass="textBoxMedio" /> $
+                </cell>
+          
+            </row>
+           
+            <row>
+                <cell align="center" colspan="4">
+                    <hbox>
+                        <button label="Guardar" image="/imagenes/save_1.png"  onClick="@command('guardar')"  tooltiptext="Guardar material"/> 
+                    </hbox>
+                
+                </cell>  
+            </row>
+        </rows>
+                  
+    </grid> 
+                    
+                  
+</window>
